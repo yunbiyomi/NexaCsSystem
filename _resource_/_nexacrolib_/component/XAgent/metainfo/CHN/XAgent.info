@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaInfo version="2.0">
+  <Object id="nexacro.XAgent">
+    <ObjectInfo finalclass="false" inheritance="" classname="nexacro.XAgent" shorttypename="XAgent" csstypename="" csscontrolname="" group="Object" subgroup="Object" csspseudo="" container="false" composite="false" tabstop="false" cssstyle="false" contents="false" formats="false" contentseditor="" defaultwidth="" defaultheight="" registration="allow" edittype="" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" a11yprop="" />
+    <PropertyInfo>
+      <Property name="addport" group="" subgroup="" refreshinfo="" displayinfo="" edittype="Number" defaultvalue="5" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="addport" stringrc="false" defaultstringrc="false" />
+      <Property name="adminapiurl" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="adminapiurl" stringrc="false" defaultstringrc="false" />
+      <Property name="license" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="license" stringrc="false" defaultstringrc="false" />
+      <Property name="name" group="Information" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="用于设定XAgent的名称的属性。" csspropertyname="" normalpropertyname="name" stringrc="false" defaultstringrc="false" />
+      <Property name="port" group="" subgroup="" refreshinfo="" displayinfo="" edittype="Number" defaultvalue="49020" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="port" stringrc="false" defaultstringrc="false" />
+      <Property name="project" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="project" stringrc="false" defaultstringrc="false" />
+      <Property name="protocol" group="" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" defaultvalue="ws" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="XAgentProtocol" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="protocol" stringrc="false" defaultstringrc="false" />
+      <Property name="updateurl" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="" csspropertyname="" normalpropertyname="updateurl" stringrc="false" defaultstringrc="false" />
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo />
+    </CSSInfo>
+    <StatusInfo />
+    <ControlInfo />
+    <MethodInfo>
+      <Method name="callMethod" group="" async="false" usecontextmenu="false" deprecated="false" unused="true" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.callMethod(srvId, moduleName, funcName, paramObj)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="funcName" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="moduleName" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="paramObj" type="Object" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="srvId" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="configure" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.configure(strProject, strLicense, strUpdateUrl, strAdminApiUrl)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strAdminApiUrl" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strLicense" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strUpdateUrl" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="connect" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.connect([strProject [,strLicense [,strUpdateUrl [,strAdminApiUrl]]]]">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strAdminApiUrl" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strLicense" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strUpdateUrl" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="disconnect" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.disconnect()">
+          <Return type="" description="" />
+          <Arguments />
+        </Syntax>
+      </Method>
+      <Method name="execute" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.execute(strModule, strFunc, objParam [,objExtraData])">
+          <Return type="Object" description="" />
+          <Arguments>
+            <Argument name="objExtraData" type="Object" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="objParam" type="Object" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strFunc" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strModule" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="installed" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.installed(strRegistryPath, strRegistryKey)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strRegistryKey" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strRegistryPath" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="status" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.status(strType);">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strType" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="updateModule" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.updateModule(strName, strVersion, strFile, strProject[, bForceInstall])">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="bForceInstall" type="Boolean" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strFile" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strName" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="" />
+            <Argument name="strVersion" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="updateModuleCheck" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.updateModuleCheck()">
+          <Return type="" description="" />
+          <Arguments />
+        </Syntax>
+      </Method>
+      <Method name="updateModules" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.updateModules(strProject)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="version" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.version([strType])">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strType" type="String" in="false" out="false" option="false" variable="false" description="" />
+          </Arguments>
+        </Syntax>
+      </Method>
+    </MethodInfo>
+    <EventHandlerInfo>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.onerror(obj:nexacro.XAgent,e:nexacro.XAgentErrorEventInfo);">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="obj" type="nexacro.XAgent" in="false" out="false" option="false" variable="false" description="事件发生的对象。" />
+            <Argument name="e" type="nexacro.XAgentErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object." />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="XAgent.onsuccess(obj:nexacro.XAgent,e:nexacro.XAgentEventInfo);">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="obj" type="nexacro.XAgent" in="false" out="false" option="false" variable="false" description="事件发生的对象。" />
+            <Argument name="e" type="nexacro.XAgentEventInfo" in="false" out="false" option="false" variable="false" description="Event Object." />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

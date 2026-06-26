@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="ExcelExport">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.ExcelExport" shorttypename="ExcelExport" csstypename="ExcelExport" csscontrolname="ExcelExportControl" group="Action" subgroup="Excel" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="그리드 데이터를 엑셀로 다운로드하는 Action" finalclass="true"/>
+    <PropertyInfo>
+      <Property name="targetview" displaytext="View" group="" subgroup="" refreshinfo="" displayinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Export할 Grid가 있는 View 오브젝트를 설정합니다." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="targetgrid" displaytext="Target grid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="ViewChildObjList" description="Export할 Grid 오브젝트를 설정합니다."/>
+      <Property name="filename" displaytext="File name" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" description="Export될 파일명을 설정합니다.&#13;&#10;&#13;&#10;파일명으로 사용할 수 없는 &quot;\&quot;, &quot;/&quot;, &quot;*&quot;, &quot;&quot;&quot;, &quot;'&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, &quot;|&quot; 등의 문자는 설정할 수 없습니다." edittype="String"/>
+      <Property name="sheetname" displaytext="Sheet name" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" description="엑셀 Export될 Sheet명을 설정하는 속성입니다." edittype="String" defaultvalue="Sheet1"/>
+      <Property name="exporttype" displaytext="Export type" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="ExportType" description="Export 하여 생성할 파일의 형식을 설정합니다.&#13;&#10;&#13;&#10; - excel : Worksheet 97 - 2003 Files (*.xls)&#13;&#10; - excel2007 : Worksheet Files (*.xlsx)&#13;&#10; - hancell2010 : Hancell 2010 Files (*.cell)&#13;&#10; - hancell2014 : Hancell Files (*.cell)&#13;&#10; - csv : CSV (*.csv)" defaultvalue="excel2007"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE" description="Action이 실행되기 전 발생하는 이벤트 입니다.">
+        <Syntax text="canrun(obj:nexacro.ExcelExport, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.ExcelExport"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

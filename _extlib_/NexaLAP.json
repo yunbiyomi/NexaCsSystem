@@ -1,0 +1,14 @@
+﻿{
+    "name": "NexaLAP",
+    "version": "1.0.0",
+    "minnexacroversion": "",
+    "description": "",
+    "license": "",
+    "objInfo": [],
+    "scripts": [
+        "NexaLAP/NexaLAP.js"
+    ],
+    "scriptsfilter": [],
+    "designscripts": [],
+    "userfolder": []
+}

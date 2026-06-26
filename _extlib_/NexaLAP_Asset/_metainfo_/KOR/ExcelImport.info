@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="ExcelImport">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.ExcelImport" shorttypename="ExcelImport" csstypename="ExcelImport" csscontrolname="ExcelImportControl" group="Action" subgroup="Excel" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,Android Default Web Browser" description="엑셀 데이터를 데이터셋에 Import하는 Action" finalclass="true"/>
+    <PropertyInfo>
+      <Property name="targetview" displaytext="View" group="" subgroup="" refreshinfo="" displayinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Import할 Dataset이 있는 View 오브젝트를 설정합니다." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="targetdataset" displaytext="Target dataset" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="DatasetID" description="Import할 Dataset 오브젝트를 설정합니다."/>
+      <Property name="sheetname" displaytext="Sheet name" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="Sheet1" description="엑셀에서 Import 할 Sheet명을 설정하는 속성입니다."/>
+      <Property name="startcell" displaytext="Start cell" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="A2" description="엑셀 Sheet에서 데이터가 시작하는 cell을 설정하는 속성입니다."/>
+      <Property name="importtype" displaytext="Import type" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="ImportType" defaultvalue="excel2007" description="Import할 파일의 형식을 설정합니다.&#13;&#10;&#13;&#10; - excel : Worksheet 97 - 2003 Files (*.xls)&#13;&#10; - excel2007 : Worksheet Files (*.xlsx)&#13;&#10; - hancell2014 : Hancell Files (*.cell)&#13;&#10; - csv : CSV (*.csv)"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE" description="Action이 실행되기 전 발생하는 이벤트 입니다.">
+        <Syntax text="canrun(obj:nexacro.ExcelImport, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.ExcelImport"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

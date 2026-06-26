@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TypeDefinition version="3.0">
+  <Modules>
+    <Module url="CompBase.json"/>
+    <Module url="ComComp.json"/>
+    <Module url="Grid.json"/>
+    <Module url="Graphics.json"/>
+    <Module url="ListView.json"/>
+    <Module url="DeviceAPI.json"/>
+    <Module url="MobileComp.json"/>
+    <Module url="extlib::NexaLAP.json"/>
+    <Module url="extlib::DXChart.json"/>
+    <Module url="extlib::NexaLAP_Asset.json"/>
+  </Modules>
+  <Components>
+    <Component type="JavaScript" id="Button" classname="nexacro.Button"/>
+    <Component type="JavaScript" id="Combo" classname="nexacro.Combo"/>
+    <Component type="JavaScript" id="Edit" classname="nexacro.Edit"/>
+    <Component type="JavaScript" id="MaskEdit" classname="nexacro.MaskEdit"/>
+    <Component type="JavaScript" id="TextArea" classname="nexacro.TextArea"/>
+    <Component type="JavaScript" id="Static" classname="nexacro.Static"/>
+    <Component type="JavaScript" id="Div" classname="nexacro.Div"/>
+    <Component type="JavaScript" id="PopupDiv" classname="nexacro.PopupDiv"/>
+    <Component type="JavaScript" id="Radio" classname="nexacro.Radio"/>
+    <Component type="JavaScript" id="CheckBox" classname="nexacro.CheckBox"/>
+    <Component type="JavaScript" id="ListBox" classname="nexacro.ListBox"/>
+    <Component type="JavaScript" id="Grid" classname="nexacro.Grid"/>
+    <Component type="JavaScript" id="Spin" classname="nexacro.Spin"/>
+    <Component type="JavaScript" id="Menu" classname="nexacro.Menu"/>
+    <Component type="JavaScript" id="PopupMenu" classname="nexacro.PopupMenu"/>
+    <Component type="JavaScript" id="Tab" classname="nexacro.Tab"/>
+    <Component type="JavaScript" id="GroupBox" classname="nexacro.GroupBox"/>
+    <Component type="JavaScript" id="Calendar" classname="nexacro.Calendar"/>
+    <Component type="JavaScript" id="ImageViewer" classname="nexacro.ImageViewer"/>
+    <Component type="JavaScript" id="ProgressBar" classname="nexacro.ProgressBar"/>
+    <Component type="JavaScript" id="Plugin" classname="nexacro.Plugin"/>
+    <Component type="JavaScript" id="Dataset" classname="nexacro.NormalDataset"/>
+    <Component type="JavaScript" id="ListView" classname="nexacro.ListView"/>
+    <Component type="JavaScript" id="DataObject" classname="nexacro.DataObject"/>
+    <Component type="JavaScript" id="CheckBoxSet" classname="nexacro.CheckBoxSet"/>
+    <Component type="JavaScript" id="WebBrowser" classname="nexacro.WebBrowser"/>
+    <Component type="JavaScript" id="MultiCombo" classname="nexacro.MultiCombo"/>
+    <Component type="JavaScript" id="TextField" classname="nexacro.TextField"/>
+    <Component type="JavaScript" id="MultiLineTextField" classname="nexacro.MultiLineTextField"/>
+    <Component type="JavaScript" id="DateField" classname="nexacro.DateField"/>
+    <Component type="JavaScript" id="DateRangePicker" classname="nexacro.DateRangePicker"/>
+    <Component type="JavaScript" id="PopupDateRangePicker" classname="nexacro.PopupDateRangePicker"/>
+    <Component type="JavaScript" id="Panel" classname="nexacro.Panel"/>
+    <Component type="JavaScript" id="View" classname="nexacro.View"/>
+    <Component type="JavaScript" id="Transaction" classname="nexacro.Transaction"/>
+    <Component type="JavaScript" id="RunScript" classname="nexacro.RunScript"/>
+    <Component type="JavaScript" id="Message" classname="nexacro.Message"/>
+    <Component type="JavaScript" id="Popup" classname="nexacro.Popup"/>
+    <Component type="JavaScript" id="PopupClose" classname="nexacro.PopupClose"/>
+    <Component type="JavaScript" id="Validation" classname="nexacro.Validation"/>
+    <Component type="JavaScript" id="AddRow" classname="nexacro.AddRow"/>
+    <Component type="JavaScript" id="InsertRow" classname="nexacro.InsertRow"/>
+    <Component type="JavaScript" id="CopyRow" classname="nexacro.CopyRow"/>
+    <Component type="JavaScript" id="CopyData" classname="nexacro.CopyData"/>
+    <Component type="JavaScript" id="DeleteRow" classname="nexacro.DeleteRow"/>
+    <Component type="JavaScript" id="DeleteAllData" classname="nexacro.DeleteAllData"/>
+    <Component type="JavaScript" id="ExcelExport" classname="nexacro.ExcelExport"/>
+    <Component type="JavaScript" id="ExcelImport" classname="nexacro.ExcelImport"/>
+    <Component type="JavaScript" id="BulkExcelExport" classname="nexacro.BulkExcelExport"/>
+    <Component type="JavaScript" id="BulkExcelImport" classname="nexacro.BulkExcelImport"/>
+    <Component type="JavaScript" id="OpenBrowser" classname="nexacro.OpenBrowser"/>
+    <Component type="JavaScript" id="Graphics" classname="nexacro.Graphics"/>
+    <Component type="JavaScript" id="DXChart" classname="nexacro.DXChart" iconindex="400" iconextra="true" defaultwidth="120" defaultheight="60"/>
+    <Component type="JavaScript" id="SpinField" classname="nexacro.SpinField"/>
+    <Component type="JavaScript" id="FileDialog" classname="nexacro.FileDialog"/>
+    <Component type="JavaScript" id="FileDownload" classname="nexacro.FileDownload"/>
+    <Component type="JavaScript" id="FileDownTransfer" classname="nexacro.FileDownTransfer"/>
+    <Component type="JavaScript" id="FileUpload" classname="nexacro.FileUpload"/>
+    <Component type="JavaScript" id="FileUpTransfer" classname="nexacro.FileUpTransfer"/>
+    <Component type="JavaScript" id="Sketch" classname="nexacro.Sketch"/>
+    <Component type="JavaScript" id="WebView" classname="nexacro.WebView"/>
+    <Component type="JavaScript" id="GoogleMap" classname="nexacro.GoogleMap"/>
+    <Component type="JavaScript" id="ExcelExportObject" classname="nexacro.ExcelExportObject"/>
+    <Component type="JavaScript" id="ExcelImportObject" classname="nexacro.ExcelImportObject"/>
+    <Component type="JavaScript" id="VideoPlayer" classname="nexacro.VideoPlayer"/>
+    <Component type="JavaScript" id="VirtualFile" classname="nexacro.VirtualFile"/>
+    <Component type="JavaScript" id="Acceleration" classname="nexacro.Acceleration"/>
+    <Component type="JavaScript" id="AudioPlayer" classname="nexacro.AudioPlayer"/>
+    <Component type="JavaScript" id="AudioRecorder" classname="nexacro.AudioRecorder"/>
+    <Component type="JavaScript" id="Camera" classname="nexacro.Camera"/>
+    <Component type="JavaScript" id="Contact" classname="nexacro.Contact"/>
+    <Component type="JavaScript" id="ContactAddress" classname="nexacro.ContactAddress"/>
+    <Component type="JavaScript" id="ContactField" classname="nexacro.ContactField"/>
+    <Component type="JavaScript" id="ContactOrganization" classname="nexacro.ContactOrganization"/>
+    <Component type="JavaScript" id="ContactPhoto" classname="nexacro.ContactPhoto"/>
+    <Component type="JavaScript" id="ContactSet" classname="nexacro.ContactSet"/>
+    <Component type="JavaScript" id="ExternalAPI" classname="nexacro.ExternalAPI"/>
+    <Component type="JavaScript" id="NexaGeolocation" classname="nexacro.Geolocation"/>
+    <Component type="JavaScript" id="ImagePicker" classname="nexacro.ImagePicker"/>
+    <Component type="JavaScript" id="LiteDBConnection" classname="nexacro.LiteDBConnection"/>
+    <Component type="JavaScript" id="LiteDBStatement" classname="nexacro.LiteDBStatement"/>
+    <Component type="JavaScript" id="Network" classname="nexacro.Network"/>
+    <Component type="JavaScript" id="Sms" classname="nexacro.Sms"/>
+    <Component type="JavaScript" id="Phone" classname="nexacro.Phone"/>
+    <Component type="JavaScript" id="Vibrator" classname="nexacro.Vibrator"/>
+    <Component type="JavaScript" id="TCPClientSocket" classname="nexacro.TCPClientSocket"/>
+    <Component type="JavaScript" id="BluetoothLE" classname="nexacro.BluetoothLE"/>
+  </Components>
+  <Services>
+    <Service prefixid="theme" type="resource" url="./_resource_/_theme_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="initvalue" type="resource" url="./_resource_/_initvalue_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="xcssrc" type="resource" url="./_resource_/_xcss_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="imagerc" type="resource" url="./_resource_/_images_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="font" type="resource" url="./_resource_/_font_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="stringrc" type="resource" url="./_resource_/_stringrc_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="extlib" type="resource" url="./_extlib_/" version="0" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="Base" type="form" url="./Base/" version="0" cachelevel="session" communicationversion="0" include_subdir="true"/>
+    <Service prefixid="NexaFrame" type="form" url="./NexaFrame/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
+  </Services>
+  <Protocols/>
+  <DeviceAdaptors/>
+</TypeDefinition>

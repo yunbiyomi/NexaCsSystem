@@ -1,0 +1,5 @@
+# studio ignore files
+.DS_Store
+*.geninfo
+settings.json
+viewtemplate-status.json

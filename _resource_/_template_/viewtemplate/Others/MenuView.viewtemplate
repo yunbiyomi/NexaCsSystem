@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewTemplateInfo version="2.0">
+  <ViewTemplate id="MenuView" viewtype="Others" description_en="description of the view template"/>
+  <Script version="1.0" type="xscript5.1"><![CDATA[/************************************************************************************************
+*  @FileName 	MenuView
+*  @Creator 	Tobesoft
+*  @CreateDate 	2026.01.02
+*  @Desction    Generates input components for setting Menu conditions
+*  @Version		1.0.0.0
+*************************************************************************************************
+*  Revision History
+*************************************************************************************************
+*  Date          		Modifier                Description
+*************************************************************************************************
+*  2026.01.02     		Tobesoft       	        Initial creation
+************************************************************************************************/
+/************************************************************************************************
+ * Include Declarations
+ ************************************************************************************************/
+	include "../_lib_/util.xjs";
+	include "../_lib_/common.xjs";
+/************************************************************************************************
+ * Variable Definitions
+ ************************************************************************************************/
+	//-------------------------------------------------------------------------------------------
+	// View-related constants
+	//-------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------------------------------------------------------
+	// View-related variables
+	//-------------------------------------------------------------------------------------------
+	var oContents;		
+	
+/*============================================================================================*
+* Parameter Structure Example
+
+1. 'fieldarray' structure example
+{
+    "modelinfo":
+    {
+        "serviceid":"model_sample",                                // model service id
+        "serviceurl":"http://127.0.0.1:8983/app/addSearchApi.do?"  // model service url
+    },
+    "fieldcount" : "2",                                            // number of fields in model
+    "fields" :
+    [
+        {                                                          // About the first field
+            "id": "company",
+            "label": "Company Name",
+            "fieldtype": "SelectOne",
+            "datatype": "STRING",
+            "datasize": "80",
+            "editable": "true",
+            "uselabel": "true"
+        },
+        {                                                          // About the second field
+            "id": "department",
+            "label": "Department Name",
+            "fieldtype": "SelectOne",
+            "datatype": "STRING",
+            "datasize": "80",
+            "editable": "true",
+            "uselabel": "true"
+        } 
+    ]
+}
+
+2. 'viewproperties' structure example
+{                                                                  // user-entered attributes for 'view' generation
+  "attributes": {
+    "use_triggerbutton": "true"
+    "triggerbuttontext": "Search"
+  }
+}
+
+3. 'contents' structure example
+// --- design source of xfdl --- //
+//   <View id="View00" viewtype="FreeForm" taborder="2" ... >
+//     <Layouts>
+//       <Layout>
+//         <Static id="Static00" text="Company Name" left="0" .../>
+//         <Combo id="Combo00" left="85" top="0" .../>
+//         <Button id="btn_Trigger" left="617" top="5" .../>
+//         ...
+//       </Layout>
+//     </Layouts>
+//     <InitValue>
+//       <Combo id="Combo00" enable="true"/>
+//     </InitValue>
+//     <Objects>
+//       <Dataset id="Viewdataset">      
+//         <ColumnInfo>      
+//           <Column id="company" type="BLOB" size="80"/>      
+//           <Column id="department" type="BLOB" size="80"/>      
+//         </ColumnInfo>      
+//         <Rows>      
+//           <Row/>      
+//         </Rows>      
+//       </Dataset>      
+//     </Objects>  
+//     <Bind>
+//       <BindItem id="item0" compid="Combo00" propid="value" datasetid="viewdataset" columnid="company"/>
+//     </Bind>
+//     <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
+//   </View>
+    
+// --- design source converted to json format --- //
+{
+    "View": {                                                     // <View id="View00" viewtype="FreeForm" taborder="2" ... />
+        "tag": "View",
+        "referenceinfo": {
+            "realwidth": "500",                                   // Real width of view component
+            "realheight": "250"                                   // Real height of view component
+        },
+        "attribute": {
+            "id": "View00",                                       // 'ID' of view component
+            "viewtype": "FreeForm",                               // 'viewtype' property value of view component
+            "taborder": "2",                                      // 'taborder' property value of view component
+            "text": "search view",                                // 'text' property value of view component
+            "left": "0",                                          // 'left' property value of view component
+            "top": "0",                                           // 'top' property value of view component
+            "width": "100%",                                      // 'width' property value of view component
+            "height": "50%"                                       // 'height' property value of view component
+        },
+        "Model": [                                                // Information of components generated by each model field information.
+            {                                                     // "fieldid" : "value" => The component generated by the field of Model
+                "fieldid": "company",                             // "fieldid" : ""      => The component generated without the field of Model
+                "Components": [                                   // The component information generated by the 'company' field.
+                    {                                             //   <Static id="Static00" text="Company Name" left="0" .../>
+                        "tag": "Static",
+                        "attribute": {
+                            "id": "Static00",
+                            "text": "Company Name",
+                            "left": "0",
+                            "top": "0",
+                            "width": "80",
+                            "height": "20",
+                        }
+                    },
+                    {                                             //   <Combo id="Combo00" left="85" top="0" .../>
+                        "tag": "Combo",
+                        "attribute": {
+                            "id": "Combo00",
+                            "left": "85",
+                            "top": "0",
+                            "width": "100",
+                            "height": "24",
+                        }
+                    }
+                ]
+            },
+            {   // with field
+                "fieldid": "department",                          // "fieldid" : "value" => The component generated by the field of Model
+                "Components": [
+                ...
+                ]
+            },
+            {
+                "fieldid": "",                                    // "fieldid" : ""      => The component generated without the field of Model
+                "Components": [
+                    {                                             //   <Button id="btn_Trigger" left="617" top="5" .../>
+                        "tag": "Button",
+                        "attribute": {
+                          "id": "btn_Trigger",
+                          "left": "617",
+                          "top": "5",
+                          "width": "70",
+                          "height": "50",
+                          "text": "Search"
+                        }
+                    }
+                ]
+            }
+        ],
+        "InitValue": [
+          {                                                       //   <InitValue>
+            "tag": "InitValue",
+            "InitValue": [
+              {                                                   //     <Combo id="Combo00" enable="true"/>
+                "tag": "Combo",
+                "attribute": {
+                  "id": "Combo00",
+                  "enable": "true"
+                }
+              }
+            ]
+          }                                                       //   </InitValue>
+        ],
+        "Objects": [
+          {                                                       //   <Objects>
+            "tag": "Objects",
+            "Objects": [
+              {                                                   //     <Dataset id="Viewdataset">
+                "tag": "Dataset",
+                "attribute": {
+                  "id": "viewdataset"
+                },
+                "Dataset": [
+                  {                                               //       <ColumnInfo>
+                    "tag": "ColumnInfo",
+                    "ColumnInfo": [
+                      {                                           //         <Column id="company" type="BLOB" size="80"/>
+                        "tag": "Column",
+                        "attribute": {
+                          "id": "company",
+                          "type": "BLOB",
+                          "size": "80"
+                        }
+                      },
+                      {                                           //         <Column id="department" type="BLOB" size="80"/>
+                        "tag": "Column",
+                        "attribute": {
+                          "id": "department",
+                          "type": "BLOB",
+                          "size": "80"
+                        }
+                      }
+                    ]
+                  },                                              //       </ColumnInfo>
+                  {                                               //       <Rows>
+                    "tag": "Rows",
+                    "Rows": [
+                      {                                           //         <Row/>
+                        "tag": "Row"
+                      }                                           //       </Rows>
+                    ]
+                  }
+                ]
+              }                                                   //     </Dataset>
+            ]
+          }
+        ],                                                        //   </Objects>
+        "Bind": [
+        {                                                         //   <Bind>
+          "tag": "Bind",
+          "Bind": [
+              {                                                   //     <BindItem id="item0" compid="Combo00" propid="value" datasetid="viewdataset" columnid="company"/>
+                "tag": "BindItem",
+                "attribute": {
+                  "id": "item0",
+                  "compid": "Combo00",
+                  "propid": "value",
+                  "datasetid": "viewdataset",
+                  "columnid": "company"
+                }
+              }
+            ]
+          }                                                       //   </Bind>
+        ],
+        "Script": {                                               // <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
+            "tag": "Script",
+            "attribute": {
+                "type": "xscript5.1"
+            },
+            "value": "this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}"
+        }
+    }
+}
+*============================================================================================*/
+
+/************************************************************************************************
+ * Required Function Area for NexaLAP Studio
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     	: set_viewProperties
+	* Return        : View generation attribute list (JSON format)
+				ex) {
+						"attributecount": "2",
+						"attributes": [
+						   {
+								"id": "use_triggerbutton",
+								"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+								"defaultvalue": "true",
+								"description": "Specifies whether trigger button is auto-created or not"
+							},
+							{
+								"id": "grid_type",
+								"edittype": "Enum",                 // edittype : Boolean/String/Number/Enum/ViewObjList
+								"enumlist" : ["singleline","multiline"],
+								"defaultvalue": "singleline",
+								"description": "Select display type"
+							}
+						]
+					}
+	* Description : Obtain a list of custom attributes required for view generation
+	*---------------------------------------------------------------------------------------------*/
+	this.set_viewProperties = function() {
+
+		var oViewAttr = {
+				"attributes": [
+				]
+		};
+		oViewAttr["attributecount"] = oViewAttr["attributes"].length;
+		sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+		return sViewAttr;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : set_fieldProperties
+	* Return       : user attribute list from model field(JSON format)
+				ex) {
+						"attributecount": "2",
+						"attributes": [
+						   {
+								"id": "use_triggerbutton",
+								"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum
+								"defaultvalue": "true",
+								"description": "Specifies whether trigger button is auto-created or not"
+							},
+							{
+								"id": "triggerbuttontext",
+								"edittype": "String",               // edittype : Boolean/String/Number/Enum
+								"defaultvalue": "Search",
+								"description": "Enter text for trigger button"
+							}
+						]
+					}
+	* Description  : Obtain a list of user attributes to register in model field
+	*---------------------------------------------------------------------------------------------*/
+	this.set_fieldProperties = function ()
+	{
+		var sFieldAttr = "";
+		/*var oFieldAttr = {
+							"attributes": [
+								{
+									"id": "fieldwidth",
+									"edittype": "String",
+									"defaultvalue": this.FIELD_WIDTH,
+									"description": "Field Width(px or %)"
+								},
+								{
+									"id": "fieldheight",
+									"edittype": "String",
+									"defaultvalue": this.FIELD_HEIGHT,
+									"description": "Field Height(px or %)"
+								},
+								{
+									"id": "cssclass",
+									"edittype": "String",
+									"defaultvalue": this.COMP_CSSCLASS,
+									"description": "Component CSS Class"
+								}
+							]
+					  };
+
+		oFieldAttr["attributecount"] = oFieldAttr["attributes"].length;
+
+		sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");*/
+	  return sFieldAttr;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function    : main
+	* Parameter   : 
+	*               - fieldarray     : model field list
+	*               - contents       : old contents (include <View>)
+	*               - viewproperties : attributes for view generation
+	* Return      : View contents (source + script) (JSON format)
+				ex) {
+						"View": {
+							"tag": "View",
+							"attribute": {
+								"id": "View00",
+								"viewtype": "FreeForm",
+								"taborder": "2",
+								"text": "search view",
+								"left": "0",
+								...
+							},
+							"Model": [
+								{   // with field
+									"fieldid": "department",
+									"Components": [
+									...
+									]
+								},
+								{   // without field
+									"fieldid": "",
+									"Components": [
+									...
+									]
+								}
+							],
+							"InitValue": [
+							],
+							"Objects": [
+							],
+							"Bind": [
+							],
+							"Script": {
+								"tag": "Script",
+								"attribute": {
+								},
+								"value": ""
+							}
+						}
+					}
+	* Description : Generate the view based on the model field and return the results.
+	*---------------------------------------------------------------------------------------------*
+	*                        !!! This function is required by NexaLAP Studio. !!!                 *
+	*                        !!! Do not remove or rename this function. !!!                       *
+	*---------------------------------------------------------------------------------------------*/
+	this.main = function(fieldarray, contents, viewproperties) {
+
+	  var vResult = "";
+
+		// TODO : Based on model information, generate the view and write the code that returns it.
+		/*  // Example code
+		var json_contents = JSON.parse(contents);			
+		var json_fieldarray = JSON.parse(fieldarray);			
+					
+		var nViewWidth = json_contents.View.referenceinfo.realwidth;			
+		var nViewHeight = json_contents.View.referenceinfo.realheight;				
+					
+		var View = new Object(); // JSON Object			
+		var tempInfo;			
+		var ModelArray = new Array();			
+		var ModelInfo;			
+					
+		for (var i in json_fieldarray.fields) 			
+		{			
+			ModelInfo = new Object();		
+			ComponentArray = new Array();		
+			ModelInfo.fieldid = json_fieldarray.fields[i].id;		
+					
+			var sFieldType = json_fieldarray.fields[i].fieldtype;		
+					
+		var bNotUselabel = json_fieldarray.fields[i].uselabel == "false";		
+			if(!bNotUselabel) {		
+		  tempInfo = new Object();	
+			  tempInfo.tag = "Static";	
+			  tempInfo.attribute = new Object();	
+			  tempInfo.attribute.id = "Static"+json_fieldarray.fields[i].id;	
+			  tempInfo.attribute.text = json_fieldarray.fields[i].label;	
+			  tempInfo.attribute.left = 0;	
+			  tempInfo.attribute.top = i*30;	
+			  tempInfo.attribute.width = 70;	
+			  tempInfo.attribute.height = 20;	
+			  ComponentArray.push(tempInfo);	
+	  }
+					
+			tempInfo = new Object();		
+			tempInfo.tag = "Edit";		
+			tempInfo.attribute = new Object();		
+			tempInfo.attribute.id = "Edit"+json_fieldarray.fields[i].id;	
+	  
+			if(!bNotUselabel) {		
+				tempInfo.attribute.left = 70 + 10;	
+				tempInfo.attribute.top = i * 30;	
+				tempInfo.attribute.width = nViewWidth - 70 - 10;	
+				tempInfo.attribute.height = 20;	
+			}		
+			else		
+			{		
+				tempInfo.attribute.left = 0;	
+				tempInfo.attribute.top = i * 30;	
+				tempInfo.attribute.width = nViewWidth;	
+				tempInfo.attribute.height = 20;	
+			}		
+			tempInfo.attribute.text =  json_fieldarray.fields[i].text;;		
+					
+			ComponentArray.push(tempInfo);		
+					
+			ModelInfo.Components = ComponentArray;		
+			ModelArray.push(ModelInfo);		
+		}			
+					
+		tempInfo = new Object();			
+		tempInfo.tag = "View";			
+		tempInfo.attribute = json_contents.View.attribute;			
+		tempInfo.Model = ModelArray;			
+					
+		View.View = tempInfo;			
+		vResult = JSON.stringify(View);			
+	*/
+
+	  
+		//Set View Component Information as JSON Object 										
+		if(contents){
+		  oContents = JSON.parse(contents);	
+		}
+		
+		oContents.View.attribute.viewdataset = "${VIEW_DATASET}";
+
+		if (!oContents.View.Model) {
+		  oContents.View.Model = [];
+		}
+		if (!oContents.View.InitValue) {
+		  oContents.View.InitValue = [];
+		}
+		if (!oContents.View.Objects) {
+		  oContents.View.Objects = [];
+		}
+		if (!oContents.View.Bind) {
+		  oContents.View.Bind = [];
+		}    
+
+
+		//Load Script Information Generation Function										
+		oContents.View.Script = this.fn_GetScript();	
+
+		//sScript = "this.fn_create= function(){	}"
+		vResult = JSON.stringify(oContents, null, "\t");
+
+	//trace("vResult====>"+vResult);	
+	//    nexacro.__onNexacroStudioError(">>> __onNexacroStudioError function"+ vResult);
+		return vResult;
+	};
+
+/************************************************************************************************
+ * Functions Related to the main() Execution Flow
+ ************************************************************************************************/	
+	/*---------------------------------------------------------------------------------------------*											
+	 * Function     : fn_GetScript											
+	 * Parameter    : 											
+	 * Return       : script contents (JSON format)											
+	 * Description  : Function to generate <Script> source											
+	 *---------------------------------------------------------------------------------------------*/											
+	this.fn_GetScript = function(){		
+	  var oScript = {};											
+	  var sValue 	="";
+	//  외부 호출 함수	
+		var sValue = "this._cfn_menuCreate = " 
+				   + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._cfn_menuCreate.toString(),"\r",""),"\n",""),"\t","")
+				   + ";";
+
+	//      top Menu 생성 함수	
+			sValue = sValue + "this._cfn_TopMenuCreate = "
+				   + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._cfn_TopMenuCreate.toString(),"\r",""),"\n",""),"\t","")
+				   + ";"
+
+	//      top Menu click 이벤트 함수
+			sValue = sValue + "this._cfn_topMenu_onclick = "
+				   + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._cfn_topMenu_onclick.toString(),"\r",""),"\n",""),"\t","")
+				   + ";"		
+
+	//      sub menu 생성 함수
+			sValue = sValue + "this._cfn_createSubMenu = "
+				   + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._cfn_createSubMenu.toString(),"\r",""),"\n",""),"\t","")
+				   + ";"		
+
+			sValue = sValue + "this._cfn_createMenu = "
+				   + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._cfn_createMenu.toString(),"\r",""),"\n",""),"\t","")
+				   + ";"
+				   
+			sValue = sValue + "this._cfn_menu_onclick = "
+				   + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._cfn_menu_onclick.toString(),"\r",""),"\n",""),"\t","")
+				   + ";"			   
+
+		oScript = 											
+		{											
+			"tag": "Script",											
+			"attribute": { "type" : "xscript5.1" },											
+			"value": sValue											
+		}											
+													
+													
+		return oScript;											
+	};	
+	
+/*===============================================================================================*/
+/* Model Generation Related Functions                                                            */	
+/*===============================================================================================*/	
+	
+
+/*===============================================================================================*/
+/* List of functions defined inside the script generated by fn_GetScript
+/*-----------------------------------------------------------------------------------------------*/
+/* Notes: 1. Do not include comments inside these functions.                                      */
+/*        2. Escape characters such as '\r, \n, \t' must not be used.                          */
+/*===============================================================================================*/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _fnViewOnLoad
+	* Description  : Handles the onload event processing for the view component
+	*---------------------------------------------------------------------------------------------*/
+	this._fnViewOnLoad = function(objForm){
+		/* Sets the view form reference so that functions declared in the view can access it */
+		// this._ownerForm = objForm;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _cfn_menuCreate
+	* Description  : 외부 호출 함수
+	*---------------------------------------------------------------------------------------------*/
+	this._cfn_menuCreate = function(){
+	trace('_cfn_menuCreate');  
+		var oTopMenuDs = this.parent.getViewDataset();
+		this._cfn_TopMenuCreate(oTopMenuDs);
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _cfn_TopMenuCreate
+	* Description  : top Menu 생성 함수
+	*---------------------------------------------------------------------------------------------*/
+	this._cfn_TopMenuCreate = function(oTopMenuDs){
+		var oMenuBtn = null;
+		var sMenuId = '';
+		var sMenuNm = '';
+		var nLeft = 0;
+		var nTop = 0;
+		
+		var aComponents = this.components;
+		for(var i = aComponents.length -1 ; i >= 0 ; i--){
+			this.removeChild(aComponents[i].id);
+		};
+		oTopMenuDs.filter('MENU_LVL==1');
+		for(var i = 0 ; i < oTopMenuDs.getRowCount() ; i++){
+			sMenuId = 'btn_' + oTopMenuDs.getColumn(i, 'MENU_ID');
+			sMenuNm = oTopMenuDs.getColumn(i, 'MENU_NM');
+			oMenuBtn = new Button();
+			oMenuBtn.init(sMenuId,nLeft,nTop,120,30);
+			oMenuBtn.set_text(sMenuNm);
+			this.addChild(sMenuId,oMenuBtn);
+			oMenuBtn.show();
+
+			oMenuBtn.addEventHandler('onclick',this._cfn_topMenu_onclick, this);
+			nLeft = nLeft + 121;
+		};
+		oTopMenuDs.filter('');    
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _cfn_topMenu_onclick
+	* Description  : top Menu click 이벤트 함수
+	*---------------------------------------------------------------------------------------------*/
+	this._cfn_topMenu_onclick = function(obj, e){ 
+		var oTopMenuDs = this.parent.getViewDataset();
+		var sMenuId = nexacro.replaceAll(obj.name, 'btn_', '');
+		var nFindRow = oTopMenuDs.findRow('MENU_ID', sMenuId);
+		if(oTopMenuDs.getColumn(nFindRow,'MENU_TYPE')=='F'){
+			this._cfn_createSubMenu(sMenuId);
+		} else {
+			alert('페이지 오픈');
+		};
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _cfn_createSubMenu
+	* Description  : sub menu poupDiv/2레벨 dataset 생성 함수
+	*---------------------------------------------------------------------------------------------*/
+	this._cfn_createSubMenu = function(sMenuId){
+	trace('_cfn_createSubMenu')  ;
+		var oForm = this.getOwnerFrame().form;
+		var oTopMenuDs = this.parent.getViewDataset();
+		var oPdvMenu = oForm['pdvMenu'];
+
+		if( oPdvMenu == null || oPdvMenu == undefined || oPdvMenu == ''){
+			oPdvMenu = new PopupDiv();
+			oPdvMenu.init('pdvMenu',0,0,0,0);
+			oForm.addChild('pdvMenu', oPdvMenu);
+			oPdvMenu.show();
+			
+			oPdvMenu.set_background('white');
+			oPdvMenu.set_border('1px solid black');
+		};
+		
+		var oSubMenuDs = oForm['ds_subMenu'];
+		if( oSubMenuDs == null || oSubMenuDs == undefined || oSubMenuDs == ''){
+			oSubMenuDs = new Dataset();	   
+			oSubMenuDs.name='ds_subMenu';
+			oForm.addChild('ds_subMenu', oSubMenuDs);
+		};
+		var sFilter = 'TOP_MENU_ID=="' + sMenuId+'"';
+		oTopMenuDs.filter(sFilter);
+		oSubMenuDs.copyData(oTopMenuDs, true);
+		oTopMenuDs.filter('');
+		
+		var oMenuDiv = null;
+		var sMenuDivId = '';
+		var nLeft = 5;
+		var nTop = 5;
+		var nWidth = 160;
+		var nHeight = 10;
+		var nRowCnt = 0;
+		var nMaxRowCnt = 0;
+		var sFilter = '';
+
+		var aComponent = oPdvMenu.form.components;
+		for(var i = aComponent.length -1 ; i >= 0 ; i--){
+			oPdvMenu.removeChild(aComponent[i].id);
+		};
+
+		var oMiddleMenuDs = oForm['ds_middleMenu'];
+		if( oMiddleMenuDs == null || oMiddleMenuDs == undefined || oMiddleMenuDs == ''){
+			oMiddleMenuDs = new Dataset();	   
+			oMiddleMenuDs.name='ds_middleMenu';
+			oForm.addChild('ds_middleMenu', oMiddleMenuDs);
+		};
+	trace(oSubMenuDs.saveXML())  ;
+		sFilter = 'MENU_LVL=="2"';
+		oSubMenuDs.filter(sFilter);
+		oMiddleMenuDs.copyData(oSubMenuDs, true);
+		oSubMenuDs.filter('');
+		for(var i = 0 ; i < oMiddleMenuDs.getRowCount() ; i++){
+			sMenuDivId = oMiddleMenuDs.getColumn(i, 'MENU_ID');
+	trace('sMenuDivId====>'+sMenuDivId)    ;
+			sFilter = 'MENU_ID=="' + sMenuDivId + '" || UP_MENU_ID=="' + sMenuDivId + '"';
+			oSubMenuDs.filter(sFilter);
+			nRowCnt = oSubMenuDs.getRowCount();
+			oSubMenuDs.filter('');
+			nHeight = nRowCnt * 30 + nRowCnt * 2 + 10;
+			oMenuDiv = new Div();
+			oMenuDiv.init('div_'+ sMenuDivId, nLeft, nTop, nWidth, nHeight);
+			oPdvMenu.addChild('div_'+ sMenuDivId, oMenuDiv);
+			oMenuDiv.show();
+			nLeft = nLeft + nWidth;
+			if(nRowCnt > nMaxRowCnt){
+				nMaxRowCnt = nRowCnt;
+			};
+			
+			this._cfn_createMenu(sMenuDivId, oMenuDiv);
+		};
+		nDivWidth = oMiddleMenuDs.getRowCount() * nWidth + 10;
+		nDivHeight = nMaxRowCnt * 30 + nMaxRowCnt * 2 + 20;
+		oPdvMenu.trackPopupByComponent(this['btn_'+sMenuId], 0, 33, nDivWidth, nDivHeight, '', false);
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _cfn_createMenu
+	* Description  : 
+	*---------------------------------------------------------------------------------------------*/
+	this._cfn_createMenu = function(sMenuDivId, oMenuDiv){
+		var oForm = this.getOwnerFrame().form;
+		var sMenuType = '';
+		var oCompo = null;
+		var sCompoId = '';
+		var sCompoNm = '';
+		var nLeft = 5;
+		var nTop = 7;
+		var oMenuDs= oForm['ds_subMenu'];
+		var sFilter = 'MENU_ID=="' + sMenuDivId + '" || UP_MENU_ID=="' + sMenuDivId + '"';
+		oMenuDs.filter(sFilter);	
+		for(var i = 0 ; i < oMenuDs.getRowCount() ; i++){
+			sMenuType = oMenuDs.getColumn(i, 'MENU_TYPE');
+			sCompoId = 'menu_'+ oMenuDs.getColumn(i, 'MENU_ID');
+			sCompoNm = oMenuDs.getColumn(i, 'MENU_NM');
+
+			if(sMenuType == 'F'){
+				oCompo = new Static();
+				nLeft = 5;
+			} else { 
+				oCompo = new Button();
+				nLeft = 8;
+			};
+			oCompo.init(sCompoId, nLeft, nTop, 150, 30);
+			oMenuDiv.addChild(sCompoId, oCompo);
+			oCompo.set_text(sCompoNm);
+			oCompo.show();
+			
+			if(sMenuType == 'P'){
+			oCompo.addEventHandler('onclick',this._cfn_menu_onclick, this);
+			};
+			
+			nTop = nTop + 31;
+		};
+		oMenuDs.filter('');	  
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _cfn_menu_onclick
+	* Description  : 
+	*---------------------------------------------------------------------------------------------*/
+	this._cfn_menu_onclick = function(obj, e){
+		var sMenuId = nexacro.replaceAll(obj.name, 'menu_', '');
+		var oForm = this.getOwnerFrame().form;
+		var oMenuDs= oForm['ds_subMenu'];
+		
+		var nRow = oMenuDs.findRow('MENU_ID', sMenuId);
+		var sUrl = oMenuDs.getColumn(nRow, 'PRIFIX') + '::' + oMenuDs.getColumn(nRow, 'PGM_URL');
+	trace('sUrl ===> ' + sUrl)  ;
+	  if(sUrl != null && sUrl !=undefined && sUrl !=''){
+		  oForm.div_work.set_url(sUrl);    
+	  } else {
+		alert('연결 Url이 존재 하지 않습니다.');
+	  };
+
+		oForm['pdvMenu'].closePopup();
+	};]]>
+  </Script>
+  <TestData>
+    <TestFields><![CDATA[{
+    "fields": [
+        {
+            "id": "field1",
+            "label": "Field1",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Boolean",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "truevalue": "Y",
+                "falsevalue": "N"
+            }
+        },
+        {
+            "id": "field2",
+            "label": "Field2",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Date",
+            "datatype": "DATE",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "dataformat": "yyyy-MM-dd"
+            }
+        },
+        {
+            "id": "field3",
+            "label": "Field3",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Time",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field4",
+            "label": "Field4",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "DateTime",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field5",
+            "label": "Field5",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "FromToDate",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field6",
+            "label": "Field6",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Email",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field7",
+            "label": "Field7",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Image",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field8",
+            "label": "Field8",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Label",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field9",
+            "label": "Field9",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Text",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field10",
+            "label": "Field10",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "LongText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field11",
+            "label": "Field11",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiLineText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field12",
+            "label": "Field12",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Password",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field13",
+            "label": "Field13",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Number",
+            "datatype": "INT",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field14",
+            "label": "Field14",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Phone",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field15",
+            "label": "Field15",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Price",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field16",
+            "label": "Field16",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Select",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "innerdataset_list": [
+                    {
+                        "label": "TOBESOFT",
+                        "value": "01"
+                    },
+                    {
+                        "label": "A Company",
+                        "value": "02"
+                    },
+                    {
+                        "label": "B Company",
+                        "value": "03"
+                    },
+                    {
+                        "label": "C Company",
+                        "value": "04"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "field17",
+            "label": "Field17",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiSelect",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field18",
+            "label": "Field18",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "ProgressBar",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        }
+    ]
+}]]>
+    </TestFields>
+    <TestViewProperties><![CDATA[{
+    "attributes": {
+        "titletext": "This is title",
+        "fieldwidth": 250,
+        "labelwidth": 100
+    }
+}]]>
+    </TestViewProperties>
+  </TestData>
+</ViewTemplateInfo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENV version="2.1">
+  <Environment themeid="theme::NexaLAP" datatyperule="2.0" onload="Environment_onload">
+    <ScreenDefinition>
+      <Screen id="Desktop_screen" type="desktop"/>
+    </ScreenDefinition>
+    <Variables/>
+    <Cookies/>
+  </Environment>
+  <Script type="xscript5.1"><![CDATA[
+  this.Environment_onload = function(obj:nexacro.Environment,e:nexacro.LoadEventInfo)
+  {
+      if (nexacro.NexaLAP && nexacro.NexaLAP.init) {
+          nexacro.NexaLAP.init();
+      }
+  };
+ ]]>
+  </Script>
+</ENV>

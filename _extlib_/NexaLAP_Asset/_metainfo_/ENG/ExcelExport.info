@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="ExcelExport">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.ExcelExport" shorttypename="ExcelExport" csstypename="ExcelExport" csscontrolname="ExcelExportControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" finalclass="true"/>
+    <PropertyInfo>
+      <Property name="targetview" displaytext="View" group="" subgroup="" refreshinfo="" displayinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="targetgrid" displaytext="Target grid" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="ViewChildObjList"/>
+      <Property name="filename" displaytext="File name" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String"/>
+      <Property name="sheetname" displaytext="Sheet name" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="Sheet1"/>
+      <Property name="exporttype" displaytext="Export type" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="ExportType" defaultvalue="excel2007"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE">
+        <Syntax text="canrun(obj:nexacro.ExcelExport, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.ExcelExport"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description=""/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description=""/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

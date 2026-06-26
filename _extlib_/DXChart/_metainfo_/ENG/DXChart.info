@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="DXChart">
+    <ObjectInfo inheritance="nexacro.Static" classname="nexacro.DXChart" shorttypename="DXChart" csstypename="DXChart" csscontrolname="DXChartControl" group="Component" subgroup="Component ( default )" csspseudo="true" container="false" tabstop="false" cssstyle="true" defaultwidth="120" defaultheight="60" registration="allow" edittype="" useinitvalue="true" popup="false" edittypecomponent="" dblclickevent="onclick" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="accessibilityaction" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets the action information to be included as the audio output target of the screen reader according to the accessibilitydescreadtype property when moving the selection box to the DXChart." csspropertyname="" normalpropertyname="accessibilityaction" stringrc="true" defaultstringrc="false"/>
+      <Property name="accessibilitydesclevel" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" defaultvalue="all" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="DescLevel" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to determine whether to print accessibility features of the children when a selection box moves to a DXChart." csspropertyname="" normalpropertyname="accessibilitydesclevel" stringrc="false" defaultstringrc="false"/>
+      <Property name="accessibilitydescription" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets the description information to be included as the audio output target of the screen reader according to the accessibilitydescreadtype property when moving the select" csspropertyname="" normalpropertyname="accessibilitydescription" stringrc="true" defaultstringrc="false"/>
+      <Property name="accessibilityenable" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets whether to display accessibility-related property values when moving the selection box to DXChart." csspropertyname="" normalpropertyname="accessibilityenable" stringrc="false" defaultstringrc="false"/>
+      <Property name="accessibilitylabel" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets the label information to be included as the audio output target of the screen reader according to the accessibilitydescreadtype property when moving the selection box to the DXChart." csspropertyname="" normalpropertyname="accessibilitylabel" stringrc="true" defaultstringrc="false"/>
+      <Property name="accessibilityrole" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="Role" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property sets the role information read by the screen reader when the selection box is moved to the DXChart." csspropertyname="" normalpropertyname="accessibilityrole" stringrc="false" defaultstringrc="false"/>
+      <Property name="background" group="Style" subgroup="background" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="The attribute to set the background area of the DXChart." csspropertyname="background" normalpropertyname="background" stringrc="false" defaultstringrc="false"/>
+      <Property name="borderRadius" group="Style" subgroup="border-radius" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the shape of the corners of a DXChart." csspropertyname="border-radius" normalpropertyname="borderRadius" stringrc="false" defaultstringrc="false"/>
+      <Property name="bottom" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the bottom coordinate value for displaying the DXChart." csspropertyname="" normalpropertyname="bottom" stringrc="false" defaultstringrc="false"/>
+      <Property name="boxShadow" group="Style" subgroup="box-shadow" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="The attribute to set the shadow effect on the DXChart." csspropertyname="box-shadow" normalpropertyname="boxShadow" stringrc="false" defaultstringrc="false"/>
+      <Property name="cursor" group="Style" subgroup="cursor" refreshinfo="" displayinfo="" edittype="Enum" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="CursorType" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the type of a mouse pointer that appears when the mouse cursor is located in a DXChart." csspropertyname="cursor" normalpropertyname="cursor" stringrc="false" defaultstringrc="false"/>
+      <Property name="enable" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to determine whether to enable a DXChart." csspropertyname="" normalpropertyname="enable" stringrc="false" defaultstringrc="false"/>
+      <Property name="enableevent" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to determine whether to trigger events in a DXChart." csspropertyname="" normalpropertyname="enableevent" stringrc="false" defaultstringrc="false"/>
+      <Property name="height" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the height for displaying the DXChart." csspropertyname="" normalpropertyname="height" stringrc="false" defaultstringrc="false"/>
+      <Property name="hotkey" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="HotKey" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="HotKeyKey" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="The attribute to set the hotkey to execute the basic actions of the DXChart." csspropertyname="" normalpropertyname="hotkey" stringrc="false" defaultstringrc="false"/>
+      <Property name="id" group="Information" subgroup="" refreshinfo="" displayinfo="" edittype="ID" readonly="true" initonly="true" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="true" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the identification of a DXChart." csspropertyname="" normalpropertyname="id" stringrc="false" defaultstringrc="false"/>
+      <Property name="left" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the left coordinate value for displaying the DXChart." csspropertyname="" normalpropertyname="left" stringrc="false" defaultstringrc="false"/>
+      <Property name="maxheight" group="Position" subgroup="" refreshinfo="boundheight" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the maximum height of a DXChart for the component to be displayed on the screen." csspropertyname="" normalpropertyname="maxheight" stringrc="false" defaultstringrc="false"/>
+      <Property name="maxwidth" group="Position" subgroup="" refreshinfo="boundwidth" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the maximum width of a DXChart for the component to be displayed on the screen." csspropertyname="" normalpropertyname="maxwidth" stringrc="false" defaultstringrc="false"/>
+      <Property name="minheight" group="Position" subgroup="" refreshinfo="boundheight" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the minimum height of a DXChart for the component to be displayed on the screen." csspropertyname="" normalpropertyname="minheight" stringrc="false" defaultstringrc="false"/>
+      <Property name="minwidth" group="Position" subgroup="" refreshinfo="boundwidth" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the minimum width of a DXChart for the component to be displayed on the screen." csspropertyname="" normalpropertyname="minwidth" stringrc="false" defaultstringrc="false"/>
+      <Property name="name" group="Information" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to specify the name of a DXChart." csspropertyname="" normalpropertyname="name" stringrc="false" defaultstringrc="false"/>
+      <Property name="border" group="Style" subgroup="border" refreshinfo="" displayinfo="" edittype="Border" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the border of a DXChart." csspropertyname="-nexa-border" normalpropertyname="border" stringrc="false" defaultstringrc="false"/>
+      <Property name="padding" group="Style" subgroup="padding" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the padding, an inner margin, of a DXChart." csspropertyname="-nexa-padding" normalpropertyname="padding" stringrc="false" defaultstringrc="false"/>
+      <Property name="opacity" group="Style" subgroup="opacity" refreshinfo="" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the opacity of a DXChart." csspropertyname="opacity" normalpropertyname="opacity" stringrc="false" defaultstringrc="false"/>
+      <Property name="parent" group="Hidden" subgroup="" refreshinfo="" displayinfo="" edittype="Object" readonly="true" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This read-only property holds the parent object of a DXChart." csspropertyname="" normalpropertyname="parent" stringrc="false" defaultstringrc="false"/>
+      <Property name="right" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the right coordinate value for displaying the DXChart." csspropertyname="" normalpropertyname="right" stringrc="false" defaultstringrc="false"/>
+      <Property name="rtl" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" readonly="false" initonly="true" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to define the direction of printing internal contents or components in a DXChart." csspropertyname="" normalpropertyname="rtl" stringrc="false" defaultstringrc="false"/>
+      <Property name="taborder" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to define the tab order number of a DXChart component. Tab order means the order of moving focus among components when the focus is moved by entering the tab key. This property is used only when the accessibility features are activated." csspropertyname="" normalpropertyname="taborder" stringrc="false" defaultstringrc="false"/>
+      <Property name="tabstop" group="" subgroup="" refreshinfo="" displayinfo="" edittype="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" csspropertyname="" normalpropertyname="tabstop" stringrc="false" defaultstringrc="false"/>
+      <Property name="text" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="MultilineString" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="true" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to specify the text to display on a DXChart component." csspropertyname="" normalpropertyname="text" stringrc="true" defaultstringrc="true"/>
+      <Property name="tooltiptext" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="MultilineString" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE" description="This property is used to specify the text of a tooltip that appears when a mouse pointer hovers over a DXChart." csspropertyname="" normalpropertyname="tooltiptext" stringrc="true" defaultstringrc="false"/>
+      <Property name="tooltiptype" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" defaultvalue="default" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="TooltipType" enuminfo2="" unitinfo="" delimiter="" requirement="Windows NRE" description="This property is used to specify the position and type of a tooltip that appears in a DXChart." csspropertyname="" normalpropertyname="tooltiptype" stringrc="false" defaultstringrc="false"/>
+      <Property name="top" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the top coordinate value for displaying the DXChart." csspropertyname="" normalpropertyname="top" stringrc="false" defaultstringrc="false"/>
+      <Property name="visible" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to determine whether to make a DXChart visible or not." csspropertyname="" normalpropertyname="visible" stringrc="false" defaultstringrc="false"/>
+      <Property name="width" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property is used to set the width for displaying the DXChart." csspropertyname="" normalpropertyname="width" stringrc="false" defaultstringrc="false"/>
+      <Property name="visible" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" csspropertyname="" normalpropertyname="visible" stringrc="false" defaultstringrc="false"/>
+      <Property name="width" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" csspropertyname="" normalpropertyname="width" stringrc="false" defaultstringrc="false"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="onadjust" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs (repeatedly) while adjusting (adjust).">
+        <Syntax text="DXChart.onadjust(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onadjustbegin" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when adjusting (adjust) begins.">
+        <Syntax text="DXChart.onadjustbegin(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onadjustend" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when adjusting (adjust) ends.">
+        <Syntax text="DXChart.onadjustend(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onafterinteractivekey" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="When using an interactive key, this event occurs right after the key and chart are highlighted.">
+        <Syntax text="DXChart.onafterinteractivekey(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotate" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs (repeatedly) while adding annotations (annotate).">
+        <Syntax text="DXChart.onannotate(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotatebegin" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when annotation (annotate) begins.">
+        <Syntax text="DXChart.onannotatebegin(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotateclear" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when DxChart.clearAnnotations() has completed.">
+        <Syntax text="DXChart.onannotateclear(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotateend" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when annotation (annotate) ends.">
+        <Syntax text="DXChart.onannotateend(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforeclear" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when DxChart.clear() starts.">
+        <Syntax text="DXChart.onbeforeclear(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforecontextmenu" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when the context menu is enabled and is about to be shown.">
+        <Syntax text="DXChart.onbeforecontextmenu(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforedraw" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when draw() starts.">
+        <Syntax text="DXChart.onbeforedraw(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforeinteractivekey" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="When using an interactive key, this event occurs right before the key and chart are highlighted.">
+        <Syntax text="DXChart.onbeforeinteractivekey(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforetooltip" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when the tooltip display process starts.">
+        <Syntax text="DXChart.onbeforetooltip(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onclick" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when a shape is clicked.">
+        <Syntax text="DXChart.onclick(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onchange" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when a change occurs.">
+        <Syntax text="DXChart.onchange(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onchangebegin" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when a change begins.">
+        <Syntax text="DXChart.onchangebegin(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onclear" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when DxChart.clear() has completed.">
+        <Syntax text="DXChart.onclear(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="oncontextmenu" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when the context menu is enabled and shown.">
+        <Syntax text="DXChart.oncontextmenu(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onenddraw" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when the function processing ends.">
+        <Syntax text="DXChart.onenddraw(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onfirstdraw" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when draw() completes, but only the first time the function is called.">
+        <Syntax text="DXChart.onfirstdraw(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onkeyclick" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs when a key is clicked. However, interactive keys do not need to be used.">
+        <Syntax text="DXChart.onkeyclick(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onmouseout" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event is triggered only when the mouse moves away from the previously hovered bar in the chart.">
+        <Syntax text="DXChart.onmouseout(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="ontooltip" group="Event" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This event occurs after the tooltip is displayed.">
+        <Syntax text="DXChart.ontooltip(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="The DXChart object where the event occurred."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart event information."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+    <ContentsInfo contentsformat="json" contentseditor="auto" contentstype="contents" showpreview="false" showobjtree="true" showproperties="true"/>
+  </Object>
+</MetaInfo>

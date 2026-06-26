@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="TransactionSuccessEventInfo">
+    <ObjectInfo inheritance="nexacro.ActionEventInfo" classname="nexacro.TransactionSuccessEventInfo" shorttypename="TransactionSuccessEventInfo" csstypename="TransactionSuccessEventInfo" csscontrolname="TransactionSuccessEventInfoControl" group="Object" subgroup="EventInfo" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="" edittype="" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="" description="" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="serviceid" group="" subgroup="" refreshinfo="" edittype="" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="" description="" csspropertyname="" normalpropertyname=""/>
+      <Property name="errorcode" group="" subgroup="" refreshinfo="" edittype="" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="" description="" csspropertyname="" normalpropertyname=""/>
+      <Property name="errormsg" group="" subgroup="" refreshinfo="" edittype="" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="" description="" csspropertyname="" normalpropertyname=""/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo/>
+  </Object>
+</MetaInfo>

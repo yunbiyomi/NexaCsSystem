@@ -1,0 +1,15 @@
+{
+	"name": "DesktopMDILib",
+	"version": "1.0.0.0",
+	"description": "Library for nexacro platform",
+	"license": "",
+	"scripts": [
+		"DesktopMDILib/Frame.js",
+        "DesktopMDILib/Util.js",
+        "DesktopMDILib/Comp.js",
+        "DesktopMDILib/Transaction.js",  
+        "DesktopMDILib/Popup.js",
+        "DesktopMDILib/Message.js",
+        "DesktopMDILib/Grid.js"
+	]
+}

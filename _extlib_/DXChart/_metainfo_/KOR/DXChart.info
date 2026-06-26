@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="DXChart">
+    <ObjectInfo finalclass="false" inheritance="" classname="nexacro.DXChart" shorttypename="DXChart" csstypename="DXChart" csscontrolname="DXChartControl" group="Component" subgroup="" csspseudo="true" container="false" composite="false" tabstop="false" cssstyle="true" contents="true" formats="true" contentseditor="auto" defaultwidth="120" defaultheight="60" registration="allow" edittype="" useinitvalue="true" popup="false" edittypecomponent="" dblclickevent="onclick" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart는 Dataset의 내용을 차트 형태로 시각화하여 표현하는 컴포넌트입니다."/>
+    <PropertyInfo>
+      <Property name="accessibilityaction" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart에 선택상자 이동 시 accessibilitydescreadtype 속성에 따라 스크린 리더의 음성 출력 대상으로 포함할 action 정보를 설정하는 속성입니다." csspropertyname="" normalpropertyname="accessibilityaction" stringrc="true" defaultstringrc="false"/>
+      <Property name="accessibilitydesclevel" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" defaultvalue="all" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="DescLevel" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 에 선택상자 이동 시 하위 컴포넌트의 접근성 출력여부를 설정하는 속성입니다." csspropertyname="" normalpropertyname="accessibilitydesclevel" stringrc="false" defaultstringrc="false"/>
+      <Property name="accessibilitydescription" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart에 선택상자 이동 시 accessibilitydescreadtype 속성에 따라 스크린 리더의 음성 출력 대상으로 포함할 description 정보를 설정하는 속성입니다." csspropertyname="" normalpropertyname="accessibilitydescription" stringrc="true" defaultstringrc="false"/>
+      <Property name="accessibilityenable" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 에 선택상자 이동 시 접근성 관련 속성값 출력여부를 설정하는 속성입니다." csspropertyname="" normalpropertyname="accessibilityenable" stringrc="false" defaultstringrc="false"/>
+      <Property name="accessibilitylabel" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart에 선택상자 이동 시 accessibilitydescreadtype 속성에 따라 스크린 리더의 음성 출력 대상으로 포함할 label 정보를 설정하는 속성입니다." csspropertyname="" normalpropertyname="accessibilitylabel" stringrc="true" defaultstringrc="false"/>
+      <Property name="accessibilityrole" group="Accessibility" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="Role" enuminfo2="" unitinfo="" delimiter="" requirement="Chrome,Windows NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart에 선택상자 이동 시 스크린 리더가 읽어주는 Role 정보를 설정하는 속성입니다." csspropertyname="" normalpropertyname="accessibilityrole" stringrc="false" defaultstringrc="false"/>
+      <Property name="background" group="Style" subgroup="background" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 배경 영역을 설정하는 속성입니다." csspropertyname="background" normalpropertyname="background" stringrc="false" defaultstringrc="false"/>
+      <Property name="binddataset" group="Binding" subgroup="" refreshinfo="" displayinfo="" edittype="DatasetID" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 바인드 되는 DataSet 의 ID 를 설정하는 속성입니다." csspropertyname="" normalpropertyname="binddataset" stringrc="false" defaultstringrc="false"/>
+      <Property name="border" group="Style" subgroup="border" refreshinfo="" displayinfo="" edittype="Border" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 테두리를 설정하는 속성입니다." csspropertyname="-nexa-border" normalpropertyname="border" stringrc="false" defaultstringrc="false"/>
+      <Property name="borderRadius" group="Style" subgroup="border-radius" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 모서리 모양을 설정하는 속성입니다." csspropertyname="border-radius" normalpropertyname="borderRadius" stringrc="false" defaultstringrc="false"/>
+      <Property name="bottom" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 을(를) 표시하기 위한 하단 좌표값을 설정하는 속성입니다." csspropertyname="" normalpropertyname="bottom" stringrc="false" defaultstringrc="false"/>
+      <Property name="boxShadow" group="Style" subgroup="box-shadow" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 에 그림자 효과를 설정하는 속성입니다." csspropertyname="box-shadow" normalpropertyname="boxShadow" stringrc="false" defaultstringrc="false"/>
+      <Property name="contents" edittype="Contents" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="true" unused="false" mandatory="false" group="Binding"/>
+      <Property name="cursor" group="Style" subgroup="cursor" refreshinfo="" displayinfo="" edittype="Enum" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="CursorType" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 영역에서 표시될 마우스 포인터의 종류를 설정하는 속성입니다." csspropertyname="cursor" normalpropertyname="cursor" stringrc="false" defaultstringrc="false"/>
+      <Property name="enable" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 사용가능 여부를 설정하는 속성입니다." csspropertyname="" normalpropertyname="enable" stringrc="false" defaultstringrc="false"/>
+      <Property name="enableevent" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 에서 이벤트를 발생시킬지 여부를 설정하는 속성입니다." csspropertyname="" normalpropertyname="enableevent" stringrc="false" defaultstringrc="false"/>
+      <Property name="height" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 을(를) 표시하기 위한 높이를 설정하는 속성입니다." csspropertyname="" normalpropertyname="height" stringrc="false" defaultstringrc="false"/>
+      <Property name="hotkey" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="HotKey" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="HotKeyKey" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 기본 액션을 수행하기 위한 단축키를 설정하는 속성입니다." csspropertyname="" normalpropertyname="hotkey" stringrc="false" defaultstringrc="false"/>
+      <Property name="id" group="Information" subgroup="" refreshinfo="" displayinfo="" edittype="ID" readonly="true" initonly="true" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="true" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart의 고유 식별자를 설정하는 속성입니다." csspropertyname="" normalpropertyname="id" stringrc="false" defaultstringrc="false"/>
+      <Property name="left" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 을(를) 표시하기 위한 좌측 좌표값을 설정하는 속성입니다." csspropertyname="" normalpropertyname="left" stringrc="false" defaultstringrc="false"/>
+      <Property name="maxheight" group="Position" subgroup="" refreshinfo="boundheight" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 이(가) 화면에 표시되는 최대 높이를 설정하는 속성입니다." csspropertyname="" normalpropertyname="maxheight" stringrc="false" defaultstringrc="false"/>
+      <Property name="maxwidth" group="Position" subgroup="" refreshinfo="boundwidth" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 이(가) 화면에 표시되는 최대 너비를 설정하는 속성입니다." csspropertyname="" normalpropertyname="maxwidth" stringrc="false" defaultstringrc="false"/>
+      <Property name="minheight" group="Position" subgroup="" refreshinfo="boundheight" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 이(가) 화면에 표시되는 최소 높이를 설정하는 속성입니다." csspropertyname="" normalpropertyname="minheight" stringrc="false" defaultstringrc="false"/>
+      <Property name="minwidth" group="Position" subgroup="" refreshinfo="boundwidth" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="Pixel" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 이(가) 화면에 표시되는 최소 너비를 설정하는 속성입니다." csspropertyname="" normalpropertyname="minwidth" stringrc="false" defaultstringrc="false"/>
+      <Property name="name" group="Information" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 이름을 설정하는 속성입니다." csspropertyname="" normalpropertyname="name" stringrc="false" defaultstringrc="false"/>
+      <Property name="opacity" group="Style" subgroup="opacity" refreshinfo="" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 영역의 투명도를 설정하는 속성입니다." csspropertyname="opacity" normalpropertyname="opacity" stringrc="false" defaultstringrc="false"/>
+      <Property name="padding" group="Style" subgroup="padding" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 영역의 안쪽 여백을 설정하는 속성입니다." csspropertyname="-nexa-padding" normalpropertyname="padding" stringrc="false" defaultstringrc="false"/>
+      <Property name="parent" group="Hidden" subgroup="" refreshinfo="" displayinfo="" edittype="Object" readonly="true" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 의 부모 오브젝트를 갖는 읽기전용 속성입니다." csspropertyname="" normalpropertyname="parent" stringrc="false" defaultstringrc="false"/>
+      <Property name="right" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 를 표시하기 위한 우측 좌표값을 설정하는 속성입니다." csspropertyname="" normalpropertyname="right" stringrc="false" defaultstringrc="false"/>
+      <Property name="rtl" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" readonly="false" initonly="true" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 에서 내부 컨텐츠 또는 컴포넌트의 표시 기준을 설정하는 속성입니다." csspropertyname="" normalpropertyname="rtl" stringrc="false" defaultstringrc="false"/>
+      <Property name="taborder" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Number" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="접근성 기능이 활성화 되어 있을 때 DXChart 의 포커스 이동 순서를 설정하는 속성입니다." csspropertyname="" normalpropertyname="taborder" stringrc="false" defaultstringrc="false"/>
+      <Property name="tabstop" group="" subgroup="" refreshinfo="" displayinfo="" edittype="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" csspropertyname="" normalpropertyname="tabstop" stringrc="false" defaultstringrc="false"/>
+      <Property name="text" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="MultilineString" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="true" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 에 표시될 텍스트를 설정하는 속성입니다." csspropertyname="" normalpropertyname="text" stringrc="true" defaultstringrc="true"/>
+      <Property name="tooltiptext" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="MultilineString" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE" description="DXChart 에 마우스 포인터를 올려 놓았을 때 표시되는 풍선도움말을 설정하는 속성입니다." csspropertyname="" normalpropertyname="tooltiptext" stringrc="true" defaultstringrc="false"/>
+      <Property name="tooltiptype" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" defaultvalue="default" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="TooltipType" enuminfo2="" unitinfo="" delimiter="" requirement="Windows NRE" description="DXChart 에서 풍선도움말이 표시될 위치와 방식을 설정하는 속성입니다." csspropertyname="" normalpropertyname="tooltiptype" stringrc="false" defaultstringrc="false"/>
+      <Property name="top" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 을(를) 표시하기 위한 상단 좌표값을 설정하는 속성입니다." csspropertyname="" normalpropertyname="top" stringrc="false" defaultstringrc="false"/>
+      <Property name="visible" group="Action" subgroup="" refreshinfo="" displayinfo="" edittype="Boolean" defaultvalue="true" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 이(가) 화면에 표시될지 여부를 설정하는 속성입니다." csspropertyname="" normalpropertyname="visible" stringrc="false" defaultstringrc="false"/>
+      <Property name="width" group="Position" subgroup="position" refreshinfo="" displayinfo="" edittype="PositionBase" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="PixelPercent" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="DXChart 을(를) 표시하기 위한 너비를 설정하는 속성입니다." csspropertyname="" normalpropertyname="width" stringrc="false" defaultstringrc="false"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="onadjust" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 조정(adjust) 중에 (반복적으로) 발생합니다.">
+        <Syntax text="DXChart.onadjust(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onadjustbegin" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 조정(adjust)이 시작될 때 발생합니다.">
+        <Syntax text="DXChart.onadjustbegin(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onadjustend" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 조정(adjust)이 끝나면 시작됩니다">
+        <Syntax text="DXChart.onadjustend(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onafterinteractivekey" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 대화형 키를 사용하는 경우 키와 차트가 강조표시된 직후에 발생합니다.">
+        <Syntax text="DXChart.onafterinteractivekey(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotate" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 주석을 추가하는 동안 (반복적으로) 발생합니다.">
+        <Syntax text="DXChart.onannotate(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotatebegin" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 주석이 시작될 때 발생합니다">
+        <Syntax text="DXChart.onannotatebegin(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotateclear" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 DxChart.clearAnnotations()함수가 끝날 때 발생합니다">
+        <Syntax text="DXChart.onannotateclear(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onannotateend" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 주석이 끝나면 시작됩니다">
+        <Syntax text="DXChart.onannotateend(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforeclear" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 DxChart.clear()함수 시작 시 발생합니다.">
+        <Syntax text="DXChart.onbeforeclear(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforecontextmenu" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 컨텍스트 메뉴가 활성화되어 있어 나타나려고 할 때 발생합니다.">
+        <Syntax text="DXChart.onbeforecontextmenu(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforedraw" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 draw()함수가 시작될 때 발생합니다.">
+        <Syntax text="DXChart.onbeforedraw(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforeinteractivekey" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 대화형 키를 사용하는 경우 키와 차트가 강조표시되기 직전에 발생합니다.">
+        <Syntax text="DXChart.onbeforeinteractivekey(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onbeforetooltip" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 tooltip 표시 프로세스가 시작될 때 발생합니다.">
+        <Syntax text="DXChart.onbeforetooltip(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onclick" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 shape가 클릭될 때 발생합니다.">
+        <Syntax text="DXChart.onclick(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onchange" group="Event" deprecated="false" unused="false" requirement="" description="">
+        <Syntax text="DXChart.onchange(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onchangebegin" group="Event" deprecated="false" unused="false" requirement="" description="">
+        <Syntax text="DXChart.onchangebegin(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onclear" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 DxChart.clear()함수가 끝날 때 발생합니다">
+        <Syntax text="DXChart.onclear(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="oncontextmenu" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 컨텍스트 메뉴가 활성화되어 표시될 때 발생합니다.">
+        <Syntax text="DXChart.oncontextmenu(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onenddraw" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 함수가 끝날 때 발생합니다">
+        <Syntax text="DXChart.onenddraw(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onfirstdraw" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 draw()함수가 끝날 때 발생하지만, 함수가 처음 호출될 때만 발생합니다">
+        <Syntax text="DXChart.onfirstdraw(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onkeyclick" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 키를 클릭할 때 발생합니다. 그러나 대화형 키를 사용할 필요는 없습니다.">
+        <Syntax text="DXChart.onkeyclick(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onmouseout" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 이전에 마우스를 올려놓은 차트의 막대에서 마우스를 멀리 이동할 때만 실행됩니다.">
+        <Syntax text="DXChart.onmouseout(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="ontooltip" group="Event" deprecated="false" unused="false" requirement="" description="이 이벤트는 tooltip이 표시된 후에 시작됩니다.">
+        <Syntax text="DXChart.ontooltip(obj:nexacro.DXChart,e:nexacro.DXChartEventInfo);">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.DXChart" description="Event가 발생한 DXChart Object."/>
+            <Argument name="e" type="nexacro.DXChartEventInfo" description="DXChart Event Info."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+    <ContentsInfo contentsformat="json" contentseditor="external" contentstype="contents" showpreview="false" showobjtree="true" showproperties="false"/>
+  </Object>
+</MetaInfo>

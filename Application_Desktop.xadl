@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ADL version="2.0">
+  <Application id="NexaCsSystem" screenid="Desktop_screen" licenseurl="NexaLAPServer::license/NexacroN_client_license.xml">
+    <Layout>
+      <MainFrame id="mainframe" showtitlebar="false" showstatusbar="false" titletext="TopFrame" left="0" top="0" width="1280" height="720">
+        <VFrameSet id="vfrs" separatesize="50,*">
+          <Frames>
+            <ChildFrame id="frmTop" showtitlebar="false" showstatusbar="false" formurl="NexaFrame::frmTop.xfdl"/>
+            <ChildFrame id="frmWork" showtitlebar="false" showstatusbar="false" formurl="NexaFrame::frmWork.xfdl"/>
+          </Frames>
+        </VFrameSet>
+      </MainFrame>
+    </Layout>
+  </Application>
+</ADL>

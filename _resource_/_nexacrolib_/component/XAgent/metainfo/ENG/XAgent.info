@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaInfo version="2.0">
+  <Object id="nexacro.XAgent">
+    <ObjectInfo finalclass="false" inheritance="" classname="nexacro.XAgent" shorttypename="XAgent" csstypename="" csscontrolname="" group="Object" subgroup="Object" csspseudo="" container="false" composite="false" tabstop="false" cssstyle="false" contents="false" formats="false" contentseditor="" defaultwidth="" defaultheight="" registration="allow" edittype="" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This is a client component that can communicate with the X-AGENT server." a11yprop="" />
+    <PropertyInfo>
+      <Property name="addport" group="" subgroup="" refreshinfo="" displayinfo="" edittype="Number" defaultvalue="5" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the range of other ports to retry the connection when communication with the X-AGENT server fails." csspropertyname="" normalpropertyname="addport" stringrc="false" defaultstringrc="false" />
+      <Property name="adminapiurl" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the information of the X-AGENT Admin API URL." csspropertyname="" normalpropertyname="adminapiurl" stringrc="false" defaultstringrc="false" />
+      <Property name="license" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the license of the X-AGENT server." csspropertyname="" normalpropertyname="license" stringrc="false" defaultstringrc="false" />
+      <Property name="name" group="Information" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This property is used to specify the name of a XAgent." csspropertyname="" normalpropertyname="name" stringrc="false" defaultstringrc="false" />
+      <Property name="port" group="" subgroup="" refreshinfo="" displayinfo="" edittype="Number" defaultvalue="49020" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the port to communicate with the X-AGENT server." csspropertyname="" normalpropertyname="port" stringrc="false" defaultstringrc="false" />
+      <Property name="project" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the project name of the X-AGENT server." csspropertyname="" normalpropertyname="project" stringrc="false" defaultstringrc="false" />
+      <Property name="protocol" group="" subgroup="" refreshinfo="" displayinfo="" edittype="Enum" defaultvalue="ws" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="XAgentProtocol" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the websocket communication protocol to communicate with the X-AGENT server." csspropertyname="" normalpropertyname="protocol" stringrc="false" defaultstringrc="false" />
+      <Property name="updateurl" group="Misc." subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="Set the X-AGENT module update URL information." csspropertyname="" normalpropertyname="updateurl" stringrc="false" defaultstringrc="false" />
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo />
+    </CSSInfo>
+    <StatusInfo />
+    <ControlInfo />
+    <MethodInfo>
+      <Method name="callMethod" group="" async="false" usecontextmenu="false" deprecated="false" unused="true" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method checks the X-AGENT status or installs a module and runs the module through the X-AGENT server.">
+        <Syntax text="XAgent.callMethod(srvId, moduleName, funcName, paramObj)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="funcName" type="String" in="false" out="false" option="false" variable="false" description="&quot;Function name&#xD;&#xA;&#xD;&#xA;If funcName is not specified, it is set to the same value as srvId. &#xD;&#xA;For the execute service that loads a DLL module and executes a function, the corresponding function name is set.&quot;" />
+            <Argument name="moduleName" type="String" in="false" out="false" option="false" variable="false" description="Module name" />
+            <Argument name="paramObj" type="Object" in="false" out="false" option="false" variable="false" description="&quot;Parameter&#xD;&#xA;&#xD;&#xA;Refer to the table below for the parameters that can be set for each X-AGENT service&quot;" />
+            <Argument name="srvId" type="String" in="false" out="false" option="false" variable="false" description="&quot;X-AGENT service name&#xD;&#xA;&#xD;&#xA;The service names that can be used are as follows.&#xD;&#xA;- project: Project initialization&#xD;&#xA;- version: Check version information&#xD;&#xA;- update-module: Update 1 module&#xD;&#xA;- update-modules: Update more than 1 module&#xD;&#xA;- update-module-check: Check whether download is completed during module update&#xD;&#xA;- status: Check server execution status&#xD;&#xA;- installed: Check for third-party app installations&#xD;&#xA;- execute: Module execution&quot;" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="configure" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests the X-AGENT project settings.">
+        <Syntax text="XAgent.configure(strProject, strLicense, strUpdateUrl, strAdminApiUrl)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strAdminApiUrl" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT Admin API URL information" />
+            <Argument name="strLicense" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT server license" />
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT server project name" />
+            <Argument name="strUpdateUrl" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT module update URL information" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="connect" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests connection to the X-AGENT server.">
+        <Syntax text="XAgent.connect([strProject [,strLicense [,strUpdateUrl [,strAdminApiUrl]]]]">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strAdminApiUrl" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT Admin API URL information" />
+            <Argument name="strLicense" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT server license" />
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT server project name" />
+            <Argument name="strUpdateUrl" type="String" in="false" out="false" option="false" variable="false" description="X-AGENT module update URL information" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="disconnect" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests disconnection with the X-AGENT server.">
+        <Syntax text="XAgent.disconnect()">
+          <Return type="" description="" />
+          <Arguments />
+        </Syntax>
+      </Method>
+      <Method name="execute" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests the execution of a module installed on the X-AGENT server.">
+        <Syntax text="XAgent.execute(strModule, strFunc, objParam [,objExtraData])">
+          <Return type="Object" description="&quot;An object is returned, including a unique identifier (uid) and objExtraData generated internally by XAgent.&#xD;&#xA;&#xD;&#xA;A unique identifier (UID) value is stored in the 'uid' property of the returned object.&#xD;&#xA;The objExtraData data value is stored in the 'extra' property of the returned object.&#xD;&#xA;&#xD;&#xA;This is a value that is returned immediately when the execute method is executed, regardless of whether the execute method execution succeeds.&quot;" />
+          <Arguments>
+            <Argument name="objExtraData" type="Object" in="false" out="false" option="false" variable="false" description="Additional data to be included in the method execution return value" />
+            <Argument name="objParam" type="Object" in="false" out="false" option="false" variable="false" description="&quot;Factors to pass to module functions&#xD;&#xA;Set to JSON object format.&quot;" />
+            <Argument name="strFunc" type="String" in="false" out="false" option="false" variable="false" description="Module function name" />
+            <Argument name="strModule" type="String" in="false" out="false" option="false" variable="false" description="Module name" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="installed" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method checks the installation of third party apps using the registry information.">
+        <Syntax text="XAgent.installed(strRegistryPath, strRegistryKey)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strRegistryKey" type="String" in="false" out="false" option="false" variable="false" description="Registry key" />
+            <Argument name="strRegistryPath" type="String" in="false" out="false" option="false" variable="false" description="Registry CLSID (GUID) in the path below&#xD;&#xA;Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{registryPath}" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="status" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests the information on X-AGENT server execution status.">
+        <Syntax text="XAgent.status(strType);">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strType" type="String" in="false" out="false" option="false" variable="false" description="Set the target for checking the status.&#xD;&#xA;&#xD;&#xA;- &quot;all&quot;:  X-AGENT server, module status information&#xD;&#xA;  If no parameter value is set, it operates as &quot;all&quot;.&#xD;&#xA;- &quot;server&quot;: X-AGENT server status information&#xD;&#xA;- &quot;process&quot;:  X-AGENT module status information" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="updateModule" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests the module update from the X-AGENT server.">
+        <Syntax text="XAgent.updateModule(strName, strVersion, strFile, strProject[, bForceInstall])">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="bForceInstall" type="Boolean" in="false" out="false" option="false" variable="false" description="Set whether to force the update regardless of the version.&#xD;&#xA;If no value is set, it is applied as false.&#xD;&#xA;If false, the update will only be performed for a higher version." />
+            <Argument name="strFile" type="String" in="false" out="false" option="false" variable="false" description="Update module file name" />
+            <Argument name="strName" type="String" in="false" out="false" option="false" variable="false" description="Module name" />
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="Project name" />
+            <Argument name="strVersion" type="String" in="false" out="false" option="false" variable="false" description="Update module version&#xD;&#xA;Set the same value as the version value in the module.json file located in the META-INF folder within the module file." />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="updateModuleCheck" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests the download status information for X-AGENT module updates.">
+        <Syntax text="XAgent.updateModuleCheck()">
+          <Return type="" description="" />
+          <Arguments />
+        </Syntax>
+      </Method>
+      <Method name="updateModules" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests multiple module updates to the X-AGENT server.">
+        <Syntax text="XAgent.updateModules(strProject)">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strProject" type="String" in="false" out="false" option="false" variable="false" description="Project name" />
+          </Arguments>
+        </Syntax>
+      </Method>
+      <Method name="version" group="" async="false" usecontextmenu="false" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This method requests the X-AGENT server version and module version information.">
+        <Syntax text="XAgent.version([strType])">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="strType" type="String" in="false" out="false" option="false" variable="false" description="Sets the target fort version information request.&#xD;&#xA;&#xD;&#xA;- &quot;all&quot;:  X-AGENT server, module version information&#xD;&#xA;  If no parameter value is set, it operates as &quot;all&quot;.&#xD;&#xA;- &quot;server&quot;: X-AGENT Server Version Information&#xD;&#xA;- &quot;modules&quot;:  X-AGENT module version information" />
+          </Arguments>
+        </Syntax>
+      </Method>
+    </MethodInfo>
+    <EventHandlerInfo>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This event occurs when method execution fails.">
+        <Syntax text="XAgent.onerror(obj:nexacro.XAgent,e:nexacro.XAgentErrorEventInfo);">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="obj" type="nexacro.XAgent" in="false" out="false" option="false" variable="false" description="Event generated Object." />
+            <Argument name="e" type="nexacro.XAgentErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object." />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="Edge,Chrome,Firefox,Opera,Windows NRE" description="This event occurs when method execution is successful.">
+        <Syntax text="XAgent.onsuccess(obj:nexacro.XAgent,e:nexacro.XAgentEventInfo);">
+          <Return type="" description="" />
+          <Arguments>
+            <Argument name="obj" type="nexacro.XAgent" in="false" out="false" option="false" variable="false" description="Event generated Object." />
+            <Argument name="e" type="nexacro.XAgentEventInfo" in="false" out="false" option="false" variable="false" description="Event Object." />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

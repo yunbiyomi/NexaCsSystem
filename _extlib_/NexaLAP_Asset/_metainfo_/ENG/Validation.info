@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="Validation">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.Validation" shorttypename="Validation" csstypename="Validation" csscontrolname="ValidationControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Action for data validation" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="targetview" displaytext="View" readonly="false" edittype="String" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property defines the View object where the Action will be performed." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="targetds" displaytext="Target dataset" readonly="false" edittype="DatasetID" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" refreshinfo="targetds"/>
+      <Property name="targetrules" displaytext="Rules" readonly="false" edittype="ValidationRule" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo/>
+  </Object>
+</MetaInfo>

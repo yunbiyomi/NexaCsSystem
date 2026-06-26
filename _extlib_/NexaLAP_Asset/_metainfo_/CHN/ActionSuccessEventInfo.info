@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="ActionSuccessEventInfo">
+    <ObjectInfo inheritance="nexacro.ActionEventInfo" classname="nexacro.ActionSuccessEventInfo" shorttypename="ActionSuccessEventInfo" csstypename="ActionSuccessEventInfo" csscontrolname="ActionSuccessEventInfoControl" group="Object" subgroup="EventInfo" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="" edittype="" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="" description="Action이 성공할 때 발생하는 이벤트" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="userdata" group="" subgroup="" refreshinfo="" edittype="" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="" description="" csspropertyname="" normalpropertyname=""/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo/>
+  </Object>
+</MetaInfo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmWork" width="1280" height="670" titletext="frmWork">
+    <Layouts>
+      <Layout width="1280" height="670">
+        <View id="View" left="10" right="10" top="10" bottom="10" text="View">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </View>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

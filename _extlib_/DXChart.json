@@ -1,0 +1,38 @@
+﻿{
+	"name": "DXChart",
+	"moduletype": "component",
+	"version": "0",
+	"minnexacroversion": "",
+	"description": "",
+	"license": "",
+	"objInfo": [	
+    "DXChart/_metainfo_/DXChart.info",
+    "DXChart/_metainfo_/DXChartEventInfo.info"
+	],
+	"scripts": [
+    "DXChart/DXChart.license.js",
+    "DXChart/DXChartBase.js",
+    "DXChart/DXChart.js",
+    "DXChart/DXChartEventInfo.js"
+	],
+	"scriptsfilter": [
+
+	],
+	"designscripts": [
+    "DXChart/DesignDXChartBase.js"
+	],
+	"help": "",	
+	"xcss": "DXChart/_xcss_/DXChart.xcss",
+	"images": "",	
+	"licensefiles": "",
+	"icons": "",
+	"userfolder": [
+
+	],
+	"installinfo": {
+
+	},
+	"contentseditor": [
+
+	]
+}

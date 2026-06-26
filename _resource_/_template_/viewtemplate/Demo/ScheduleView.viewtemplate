@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewTemplateInfo version="2.0">
+  <ViewTemplate id="ScheduleView" viewtype="Others" description_en="description of the view template"/>
+  <Script version="1.0" type="xscript5.1"><![CDATA[/************************************************************************************************
+*  @FileName 	ScheduleView
+*  @Creator 	Tobesoft
+*  @CreateDate 	2026.01.02
+*  @Desction    Generates a view for managing calendar events or schedules
+*  @Version		1.0.0.0
+*************************************************************************************************
+*  Revision History
+*************************************************************************************************
+*  Date          		Modifier                Description
+*************************************************************************************************
+*  2026.01.02     		Tobesoft       	        Initial creation
+************************************************************************************************/
+/************************************************************************************************
+ * Include Declarations
+ ************************************************************************************************/
+	include "../_lib_/util.xjs";
+	include "../_lib_/common.xjs";
+/************************************************************************************************
+ * Variable Definitions
+ ************************************************************************************************/
+	//-------------------------------------------------------------------------------------------
+	// View-related constants
+	//-------------------------------------------------------------------------------------------
+	this.VIEW_PADDING = "10";		// Default padding for the view
+	
+	//--------------------------------------------------------------------------------------------------------
+	// 타이틀 객체 관련 상수
+	//--------------------------------------------------------------------------------------------------------	
+	//타이틀 영역 전체건수 표시여부
+	this.USE_TOT_COUNT			= "false";
+	//타이틀 영역 접기/펼치기 버튼 표시여부(Grid에서는 사용안함)
+	this.USE_EXPAND_BUTTON		= "none";
+
+	//--------------------------------------------------------------------------------------------------------
+	// 그리드 객체 관련 상수
+	//--------------------------------------------------------------------------------------------------------
+	// Grid class 속성 기본값
+	this.GRID_CSSCLASS			= "grd_DashBoard";
+
+	this.HEAD_BAND_SIZE			= 0;
+	this.BODY_BAND_SIZE			= 32;
+	this.SUMM_BAND_SIZE			= 0;
+	this.COL_SIZE				= 80;
+
+	this.DISPLAY_TYPE			= "auto";
+	this.EDIT_TYPE				= "none";
+
+	// head row displaytype 설정 기본값 
+	this.SAME_WITH_BODY			= "false";
+
+	this.CELL_CSSCLASS			= "";
+	this.USE_COMP				= "true";
+
+	//Required Label Default CSS Class
+	this.HEAD_REQUIRED_CSSCLASS	= "essential";
+
+	// Grid autofittype 속성 기본값
+	this.AUTOFIT_TYPE			= "col";
+
+	// Grid autosizerow 속성 기본값
+	this.AUTOSIZEROW			= "none";
+	this.bAutoSizeRow			= false;
+
+	//--------------------------------------------------------------------------------------------------------
+	// 칼렌더 객체 관련 상수
+	//--------------------------------------------------------------------------------------------------------
+	// 칼렌더와 그리드 위치
+	this.CALENDAR_POSITON		= "left";				// left, top, only
+
+	//Gap Between Components (Left and Right)
+	this.COMP_SPACE				= 10;
+
+	//Gap Between Components (Top and Bottom)
+	this.LINE_SPACE				= 10;
+
+	// 칼렌더 ID
+	this.CALENDAR_ID			= "calSchedule";
+
+	// 칼렌더 class 속성 기본값
+	this.CALENDAR_CSSCLASS		= "cal_MF_Cal";
+
+	// 칼렌더 InnerDataset ID
+	this.CALENDAR_DS_ID			= "innerdataset_Schedule";
+
+	// 칼렌더 InnerDataset 컬럼정보 배열
+	this.ARR_INNER_FIELD = [{"id" : "CAL_DT", "datatype" : "DATE", "datasize" : "8"}, {"id" : "CAL_IMAGE", "datatype" : "STRING", "datasize" : "256"}];
+
+	// 칼렌더 일정 표시 스타일
+	this.CALENDAR_IMAGE = "url('imagerc::asset\/img_WF_Schedule.png') no-repeat 15% 15%";
+
+	// 칼렌더 기준 컬럼 변수
+	this.fvDateColId = "";
+	
+	//-------------------------------------------------------------------------------------------
+	// View-related variables
+	//-------------------------------------------------------------------------------------------
+
+/************************************************************************************************
+ * Required Function Area for NexaLAP Studio
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     	: set_viewProperties
+	* Return        : View generation attribute list (JSON format)
+					ex) {
+							"attributecount": "2",
+							"attributes": [
+							{
+									"id": "use_triggerbutton",
+									"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "true",
+									"description": "Specifies whether trigger button is auto-created or not"
+								},
+								{
+									"id": "triggerbuttontext",
+									"edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "Search",
+									"description": "Enter text for trigger button"
+								}
+							]
+						}
+	* Description : Obtain a list of custom attributes required for view generation
+	*---------------------------------------------------------------------------------------------*/
+	this.set_viewProperties = function()
+	{
+		var sViewAttr = "";
+		var oViewAttr = {
+							"attributes": [
+								this.oAttrTitleText,					// Title Text
+								// this.oAttrTitleUseTotolCount,			// 전체건수 표시여부
+								{
+									"id": "calendarposition",
+									"displaytext": "Calendar position",
+									"edittype": "Enum",
+									"defaultvalue": this.CALENDAR_POSITON,
+									"enumlist" : ["left", "top", "only"],
+									"description": "Set the position of calendar and schedule"
+												+ "\n" + " - left : Calendar left, schedule right"
+												+ "\n" + " - top : Calendar top, schedule bottom"
+												+ "\n" + " - only : Create calendar only"
+
+								},
+								{
+									"id": "headbandsize",
+									"displaytext": "Head height(px)",
+									"edittype": "Number",
+									"defaultvalue": this.HEAD_BAND_SIZE,
+									"description": "Set the head band height"
+
+								},
+								{
+									"id": "bodybandsize",
+									"displaytext": "Body height(px)",
+									"edittype": "Number",
+									"defaultvalue": this.BODY_BAND_SIZE,
+									"description": "Set the body band height"
+
+								},
+								{
+									"id": "summbandsize",
+									"displaytext": "Summary height(px)",
+									"edittype": "Number",
+									"defaultvalue": this.SUMM_BAND_SIZE,
+									"description": "Set the summary band height"
+
+								},
+								/*{
+									"id": "headformat",
+									"displaytext": "Head layout",
+									"edittype": "Layout",
+									"defaultvalue": "",
+									"userproperties" : {
+										"propertycount" : "2",
+										"properties" :
+										[
+											{
+												"id" : "text", "edittype" : "String", "defaultvalue" : ""
+												, "description" : "Enter the text to be expressed in this cell."
+											},
+											{
+												"id" : "cssclass", "edittype" : "String", "defaultvalue" : ""
+												, "description" : "Express the cell style as the class defined in XCSS."
+											}
+										]
+									},
+									"description": "Set the schedule head layout"
+
+								},*/
+								{
+									"id": "bodyformat",
+									"displaytext": "Body layout",
+									"edittype": "Layout",
+									"defaultvalue": "",
+									"userproperties" : {
+										"propertycount" : "2",
+										"properties" :
+										[
+											{
+												"id" : "text", "edittype" : "String", "defaultvalue" : ""
+												, "description" : "Enter the text to be expressed in this cell."
+											},
+											{
+												"id" : "cssclass", "edittype" : "String", "defaultvalue" : ""
+												, "description" : "Express the cell style as the class defined in XCSS."
+											}
+										]
+									},
+									"description": "Set the schedule body layout"
+
+								},
+								/*{
+									"id": "summformat",
+									"displaytext": "Summary layout",
+									"edittype": "Layout",
+									"defaultvalue": "",
+									"userproperties" : {
+										"propertycount" : "2",
+										"properties" :
+										[
+											{
+												"id" : "text", "edittype" : "String", "defaultvalue" : ""
+												, "description" : "Enter the text to be expressed in this cell."
+											},
+											{
+												"id" : "cssclass", "edittype" : "String", "defaultvalue" : ""
+												, "description" : "Express the cell style as the class defined in XCSS."
+											}
+										]
+									},
+									"description": "Set the schedule summary layout"
+
+								},*/
+								{
+									"id": "autofittype",
+									"displaytext": "Autofit",
+									"edittype": "Enum",
+									"defaultvalue": this.AUTOFIT_TYPE,
+									"enumlist" : ["none", "col"],
+									"description": "Set auto columns width"
+													+ "\n" + " - none : No auto adjustment"
+													+ "\n" + " - col : Automatically adjust width based on the total number of columns"
+
+								}
+								//, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							]
+					};
+
+		oViewAttr["attributecount"] = oViewAttr["attributes"].length;
+
+		sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+		return sViewAttr;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : set_fieldProperties
+	* Return       : user attribute list from model field(JSON format)
+					ex) {
+							"attributecount": "2",
+							"attributes": [
+							{
+									"id": "use_triggerbutton",
+									"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "true",
+									"description": "Specifies whether trigger button is auto-created or not"
+								},
+								{
+									"id": "triggerbuttontext",
+									"edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "Search",
+									"description": "Enter text for trigger button"
+								}
+							]
+						}
+	* Description  : Obtain a list of user attributes to register in model field
+	*---------------------------------------------------------------------------------------------*/
+	this.set_fieldProperties = function ()
+	{
+		var sFieldAttr = "";
+		var oFieldAttr = {
+							"attributes": [
+								{
+									"id": "displaytype",
+									"edittype": "Enum",
+									"enumlist" : ["auto", "normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
+									"defaultvalue": this.DISPLAY_TYPE,
+									"description": "Set the Field Expression"
+								},
+								{
+									"id": "edittype",
+									"edittype" : "Enum",
+									"enumlist" : ["auto", "normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
+									"defaultvalue" : this.EDIT_TYPE,
+									"description" : "Set the Field Editing Format"
+								},
+								{		// TODO : 스케쥴에 사용할 컬럼값 어떻게 처리할지 고민필요(displaytype로 할지...)
+									"id": "scheduleyn",
+									"edittype": "Boolean",
+									"defaultvalue": "false",
+									"description": "일정에 기준이 되는 데이터 여부(1개만 선택필요)"
+								},
+								{
+									"id": "samewithbody",
+									"edittype": "Boolean",
+									"defaultvalue": this.SAME_WITH_BODY,
+									"description": "Set the Field Head SExpression follow body displaytype or set default displaytype"
+								},
+								{
+									"id": "fieldwidth",
+									"edittype": "Number",
+									"defaultvalue": this.COL_SIZE,
+									"description": "Field Width(px)"
+								},
+								{
+									"id": "cssclass",
+									"edittype": "String",
+									"defaultvalue": this.CELL_CSSCLASS,
+									"description": "Component CSS Class"
+								},
+								{
+									"id": "summprop",
+									"edittype": "Enum",
+									"enumlist": ["none", "avg", "count", "max", "min", "sum", "rowcount"],
+									"defaultvalue": "none",
+									"description": "Types of Values when expressing Summaries"
+								},
+								{
+									"id": "suppress",
+									"edittype": "Number",
+									"defaultvalue": "0",
+									"description": "값이 동일한 셀을 하나의 셀로 표시"
+													+ "\n" + "(1이상 입력해야 동작하며, 숫자값이 클수록 우선순위가 낮아집니다.)"
+								},
+								{
+									"id" : "autosizerow",
+									"edittype" : "Enum",
+									"enumlist" : ["none", "autosize", "autosize-wordwrap"],
+									"defaultvalue" : this.AUTOSIZEROW,
+									"description" : "데이터에 따라 행 높이를 다르게 표시할지 여부"
+										+ "\n" + " - none : 행 높이를 설정된 높이로 동일하게 표시"
+										+ "\n" + " - autosize : 데이터에 따라 행 높이를 다르게 표시"
+										+ "\n" + " - autosize-wordwrap : 데이터가 줄바꿈이 되며 행 높이가 다르게 표시"
+								},
+								{
+									"id": "usecomp",
+									"edittype": "Boolean",
+									"defaultvalue": this.USE_COMP,
+									"description": "Use Component"
+								}
+							]
+					};
+
+		oFieldAttr["attributecount"] = oFieldAttr["attributes"].length;
+
+		sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
+		return sFieldAttr;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function    : main
+	* Parameter   :
+	*               - fieldarray     : model field list
+	*               - contents       : old contents (include <View>)
+	*               - viewproperties : attributes for view generation
+	* Return      : View contents (source + script) (JSON format)
+	* Description : Generate the view based on the model field and return the results.
+	*---------------------------------------------------------------------------------------------*
+	*                        !!! This function is required by NexaLAP Studio. !!!                 *
+	*                        !!! Do not remove or rename this function. !!!                       *
+	*---------------------------------------------------------------------------------------------*/
+	this.main = function(fieldarray, contents, viewproperties) {
+		var vResult = "";
+
+		this.lfn_MakeGenerationInfo(fieldarray, contents, viewproperties, true);
+			
+		// View Padding 설정
+		this.lfn_SetViewPadding();
+		
+		//Load Model Information Production Function
+		this.fn_GetModel();
+
+		// When binding is required for the selected field list, the viewdataset should be set.
+		this.oContents.View.attribute.viewdataset = "${VIEW_DATASET}";
+
+		//Load InitValue Information Production Function
+		this.oContents.View.InitValue = this.fn_GetInitValue();
+
+		//Load Object Information Production Function
+		this.oContents.View.Objects = this.fn_GetObjects();
+
+		//Load Script Information Production Function
+		this.oContents.View.Script = this.fn_GetScript();
+
+		//Convert View Component Information to String
+		vResult = JSON.stringify(this.oContents, null, "\t");
+
+		return vResult;
+	};
+
+/************************************************************************************************
+ * Functions Related to the main() Execution Flow
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetModel
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : model contents (JSON format)
+	* Description  : Function to generate a component source based on field information of the model entered by the user
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetModel = function()
+	{
+		var sCalendarPosition = this.oViewProperties.attributes.calendarposition;
+		var oModel = this.oContents.View.Model;
+		
+		//Field ID
+		var sFieldId;
+		
+		// 일정관련 필드 찾기
+		var oScheduleField = this.oFieldArray.fields.find(oField => oField["scheduleyn"] == "true");
+		if (oScheduleField) {
+			if (this.lfn_IsNull(this.fvDateColId)) {
+				this.fvDateColId = oScheduleField.id;
+			} else {
+				this.lfn_Log("scheduleyn은 1개만 선택해주세요.","warn");
+			}
+		} else {
+			this.lfn_Log("scheduleyn가 선택되지 않았습니다.","info");
+		}
+
+		//Import Model Field Quantity
+		var nFieldCount = this.oUseFieldArray.fieldcount;
+		
+		//Create Model Field ID List to use in Grid
+		for(i=0;i<nFieldCount;i++)
+		{
+			oField = this.oUseFieldArray.fields[i];
+			if (sFieldId == undefined)sFieldId = oField.id;
+			else sFieldId += "," + oField.id;
+		}
+
+		// 일정 칼렌더 생성
+		var oCalendar = this.fn_MakeScheduleCalendar(sCalendarPosition, sFieldId);
+
+		//Background & Title 생성
+		if (sCalendarPosition != "only") {
+			this.fn_makeBackground(sCalendarPosition);
+		}	
+/*
+		// Title 영역
+		var sTitleText			= this.oViewProperties.attributes.titletext;			// 타이틀 Text
+		var sUseTotalCount		= this.oViewProperties.attributes.usetotalcount;		// 전체건수 Static 생성
+		var sUseExpandButton	= "none";												// expand 토글버튼 생성
+		
+		this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+*/		
+		// 칼렌더만 생성하는 경우 칼렌더 타이틀 아래에 생성되도록 수정
+		if (sCalendarPosition == "only")
+		{
+			oCalendar["attribute"]["top"] = this.VIEW_PADDING_TOP;
+		}
+
+		// 스케줄 그리드 생성
+		this.fn_MakeScheduleGrid(sCalendarPosition, sFieldId);
+		
+		//Return Information of Model to be Created
+		return oModel;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetObjects
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : objects contents (JSON format)
+	* Description  : Function to generate <Objects> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetObjects = function()
+	{
+		//Initialize Object
+		var oObjects = [];
+		var oInner = [];
+		
+		// 칼렌더 InnerDataset
+		var arrInnerField = {"fieldcount" : this.ARR_INNER_FIELD.length, "fields" : this.ARR_INNER_FIELD};
+		var oScheduleDataset = this.lfn_GetDataset(this.CALENDAR_DS_ID, arrInnerField, 0);
+		oObjects.push(oScheduleDataset);
+
+		// InnerDataset 정보
+		oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+		oObjects = oObjects.concat(oInner);
+
+		//Return Object Information
+		return oObjects;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetScript
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : script contents (JSON format)
+	* Description  : Function to generate <Script> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetScript = function()
+	{
+
+		//Initialize Script Information
+	var oScript = {};
+		var sValue = "this._fnViewOnLoad = "
+					+ nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._fnViewOnLoad.toString(),"\r",""),"\n",""),"\t","")
+					+ ";";
+
+			sValue = sValue + "this.fn_calTodo_ondayclick = "
+					+ nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.fn_calTodo_ondayclick.toString(),"\r",""),"\n",""),"\t","")
+					+ ";";
+
+			sValue = sValue + "this.fn_selectDate = "
+					+ nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.fn_selectDate.toString(),"\r",""),"\n",""),"\t","")
+					+ ";";
+
+			sValue = sValue + "this.fn_onload = "
+					+ nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.fn_onload.toString(),"\r",""),"\n",""),"\t","")
+					+ ";";
+
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sValue
+		}
+
+		return oScript;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetInitValue
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : initvalue contents (JSON format)
+	* Description  : Function to generate <InitValue> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetInitValue = function()
+	{
+		var oInitValue = [];
+		/*
+		oInitValue =
+		[
+			{
+				"tag" : "initValue",
+				"initValue" :
+				[
+					{
+						"tag" : "Button",
+						"attribute" :
+						{
+							"id" : "btnSearch", "text" : "Search11"
+						}
+					}
+				]
+			}
+		];
+		*/
+		return oInitValue;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetColumns
+	* Parameter    :
+	*                - oBaseLayout : base layout data
+	* Return       : column(s) data of grid format
+	* Description  : Function to generate <Column> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetColumns = function(oBaseLayout)
+	{
+		var oColumns = [];
+
+		//일정 구분
+		oColumns[oColumns.length] =
+		{
+			"tag": "Column",
+			"attribute": {"size": "60", "band": "body"}
+		};
+
+		//일정 제목
+		oColumns[oColumns.length] =
+		{
+			"tag": "Column",
+			"attribute": {"size": "200", "band": "body"}
+		};	
+
+
+		//Return Column Information
+		return oColumns;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetRows
+	* Parameter    :
+	*                - oBaseLayout : base layout data
+					- oHeadLayout : head layout data
+					- oBodyLayout : body layout data
+					- oSummLayout : summ layout data
+	* Return       : row(s) data of grid format
+	* Description  : Function to generate <Row> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetRows = function(oBaseLayout, oHeadLayout, oBodyLayout, oSummLayout)
+	{
+		var nCount;
+		var oRows = [];
+
+		oRows[oRows.length] = {
+							"tag": "Row",
+							"attribute": {"size": "30", "band": "body"}
+						};					
+
+		//Return Raw Information
+		return oRows;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetHeads
+	* Parameter    :
+	*                - oBaseLayout : base layout data
+					- oHeadLayout : head layout data
+	* Return       : head band data of grid format
+	* Description  : Function to generate <Band id="head"> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetHeads = function(oBaseLayout, oHeadLayout)
+	{
+		var nCount;
+		var nFieldCount;
+		
+		var oHeads = [];
+		return oHeads;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetBodys
+	* Parameter    :
+	*                - oBaseLayout : base layout data
+					- oBodyLayout : body layout data
+	* Return       : body band data of grid format
+	* Description  : Function to generate <Band id="body"> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetBodys = function(oBaseLayout, oBodyLayout)
+	{
+		var oColumn = ["SCHEDULE_TYPE_NAME", "SCHEDULE_TITLE"];
+		var oBodys = [];
+		var sCssClass = "expr:SCHEDULE_TYPE == 'E' ? 'cell_MF_Label04' : SCHEDULE_TYPE == 'V' ? 'cell_MF_Label02' : SCHEDULE_TYPE == 'M' ? 'cell_MF_Label01' : SCHEDULE_TYPE == 'H' ? 'cell_MF_Label03' : 'cell_MF_Label05'";
+		oBodys[oBodys.length] =
+			{
+				"tag": "Cell",
+				"attribute":
+				{
+					"id": oColumn[0], "col": 0, "text": "bind:"+oColumn[0], "displaytype" : "normal", "edittype" : "none", "cssclass": sCssClass
+				}
+			};		
+
+		oBodys[oBodys.length] =
+			{
+				"tag": "Cell",
+				"attribute":
+				{
+					"id": oColumn[1], "col": 1, "text": "bind:"+oColumn[1], "displaytype" : "normal", "edittype" : "none", "cssclass":"cell_WF_Left"
+				}
+			};		
+			
+
+		return oBodys;			
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetSums
+	* Parameter    :
+	*                - oBaseLayout : base layout data
+					- oSummLayout : Summ layout data
+	* Return       : summ band data of grid format
+	* Description  : Function to generate <Band id="summ"> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetSumms = function(oBaseLayout, oSummLayout)
+	{
+		var nCount;
+		var nFieldCount;
+
+		var oSumms = [];
+		return oSumms;
+	}
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_onload
+	* Description  : 
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_onload = function(obj, e){
+		if(e.reason == 0){
+			this.fn_selectDate(this.calSchedule, this.calSchedule.value);
+		}
+	};
+	
+	
+	
+/*===============================================================================================*/
+/* Model Generation Related Functions                                                            */	
+/*===============================================================================================*/	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_MakeScheduleCalendar
+	* Parameter    :
+	* Return       :
+	* Description  : 일정표시용 칼렌더 생성
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_MakeScheduleCalendar = function(sCalendarPosition, sFieldId)
+	{
+		var oModel = this.oContents.View.Model;
+		
+		var nViewCompWidth	= this.oContents.View.referenceinfo.realwidth;
+		var nViewCompHeight	= this.oContents.View.referenceinfo.realheight;
+		var sViewNm			= this.oContents.View.attribute.id;
+		
+		var nCompTop;
+		var nCompLeft;
+		var nCompWidth;
+		var nCompHeight;
+		var nCompRight;
+		var nCompBottom;
+		
+		var oAttr = {
+			"id"			    : this.CALENDAR_ID,
+			"type"			    : "monthonly",
+			"usetrailingday"	: "false",
+			"innerdataset"		: "${VIEW_DATASET}",
+			"datecolumn"		: "CAL_DATE",
+			"backgroundcolumn"	: "CAL_IMAGE",
+			"cssclass"			: this.CALENDAR_CSSCLASS,
+			"uGridId"         	: "grdList",
+			"uYYYYMM"         	: ""
+		};
+		
+		
+		if (sCalendarPosition == "left")
+		{
+			nCompHeight	= nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
+			nCompWidth = nexacro.round(nCompHeight * 1,0);
+			
+			oAttr["top"]	= this.VIEW_PADDING_TOP;
+			oAttr["left"]	= this.VIEW_PADDING_LEFT;
+			oAttr["bottom"]	= this.VIEW_PADDING_BOTTOM;
+			oAttr["width"]	= nCompWidth;
+			
+			this.VIEW_PADDING_LEFT = this.VIEW_PADDING_LEFT + nCompWidth + this.COMP_SPACE;
+		}
+		else if (sCalendarPosition == "top")
+		{
+			nCompWidth	= nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+			nCompHeight	= nCompWidth;
+			
+			oAttr["top"]	= this.VIEW_PADDING_TOP;
+			oAttr["left"]	= this.VIEW_PADDING_LEFT;
+			oAttr["right"]	= this.VIEW_PADDING_RIGHT;
+			oAttr["height"]	= nCompHeight;
+			
+			this.VIEW_PADDING_TOP = this.VIEW_PADDING_TOP + nCompHeight + this.LINE_SPACE;
+		}
+		else
+		{
+			oAttr["top"]	= this.VIEW_PADDING_TOP;
+			oAttr["left"]	= this.VIEW_PADDING_LEFT;
+			oAttr["right"]	= this.VIEW_PADDING_RIGHT;
+			oAttr["bottom"] = this.VIEW_PADDING_BOTTOM;
+		}
+		
+		//Add Schedule Calendar Component Tag
+		var oCalendar = {"tag" : "Calendar","attribute" : oAttr};
+		
+		oModel[oModel.length] = {
+			"fieldid" : this.VIEW_COMP_FIELD_ID + ", " + sFieldId,
+			"Components" :
+			[oCalendar]
+		};;
+		
+		return oCalendar;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_MakeScheduleGrid
+	* Parameter    :
+	* Return       :
+	* Description  : Left schedule background 생성
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_makeBackground = function(sCalendarPosition){
+		var oModel = this.oContents.View.Model;
+/*
+		var nCompTop	= "5";	
+		var nCompLeft	= "5";
+		var nCompRight	= "5";	
+		var nCompBottom = "5";			
+		var nCompWidth	= "200";
+		var nCompHeight	= "32";
+
+		// if(sCalendarPosition == "left"){
+		// 	nCompTop = "5";
+
+		// } else {
+
+
+		// }
+	*/
+		var	nCompTop = this.VIEW_PADDING_TOP;
+		var nCompLeft = this.VIEW_PADDING_LEFT;
+		var nCompRight	= this.VIEW_PADDING_RIGHT;	
+		var nCompBottom = this.VIEW_PADDING_BOTTOM;	
+
+		//background
+		var oBackground = {
+				"tag" : "Static"
+				,"attribute" : {
+					"id"		: "sta_background"
+					,"left"		:  nCompLeft, "top" : nCompTop, "right" : nCompRight, "bottom" : nCompBottom
+					,"text"  	: ""
+					,"cssclass" : "sta_MF_BoxColor"
+				}
+		};
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oBackground]};
+		
+		//title 
+		var sText		= this.oViewProperties.attributes.titletext;
+		var sCssClass	= "sta_MF_title";
+		var oTitle = {
+			"tag" : "Static",
+			"attribute" :
+			{
+				"id" : "sta_title"
+			, "left" : nCompLeft+5, "top" : nCompTop, "height" : "32", "width" : "200"
+			, "text" : sText
+			,	"cssclass" : sCssClass
+			}
+		};		
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oTitle]};		
+
+		this.VIEW_PADDING_TOP = this.VIEW_PADDING_TOP + 32;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_MakeScheduleGrid
+	* Parameter    :
+	* Return       :
+	* Description  : 일정표시용 그리드 생성
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_MakeScheduleGrid = function(sCalendarPosition, sFieldId)
+	{
+		if (sCalendarPosition == "only")		return;			// 칼렌더만 생성
+		
+		var sViewNm	= this.oContents.View.attribute.id;
+		var oModel = this.oContents.View.Model;
+
+		//Default Layout
+		var oBaseLayout;
+
+		//Layout to use when creating Head
+		var oHeadLayout;
+
+		//Layout to use when creating Body
+		var oBodyLayout;
+
+		//Layout to use when creating Summ
+		var oSummLayout;
+		
+		//Grid Autofittype 설정
+		var sAutofittype = this.oViewProperties.attributes.autofittype;
+		
+		// Grid 위치
+		var nTop = this.VIEW_PADDING_TOP;
+		var nBottom	= this.VIEW_PADDING_BOTTOM;
+		var nLeft	= this.VIEW_PADDING_LEFT;
+		var nRight	= this.VIEW_PADDING_RIGHT;
+		
+		//If the Head Area Layout is Set Up
+		if(this.oViewProperties.attributes.headformat)
+		{
+			//Set Default Layout
+			oBaseLayout = this.lfn_StringToJson(this.oViewProperties.attributes.headformat);
+
+			//Set Head Layout
+			oHeadLayout = this.lfn_StringToJson(this.oViewProperties.attributes.headformat);
+		}
+
+		//If the Body Area Layout is Set Up
+		if(this.oViewProperties.attributes.bodyformat)
+		{
+			//If the Default Layout is not Set Up
+			//Set the Body Layout as the Default Layout
+			if(!oBaseLayout)oBaseLayout = this.lfn_StringToJson(this.oViewProperties.attributes.bodyformat);
+
+			//Set Body Layout
+			oBodyLayout = this.lfn_StringToJson(this.oViewProperties.attributes.bodyformat);
+		}
+		//If the Body Layout is not Set Up
+		//Set the Default Layout as the Body Layout
+		else if(!this.oViewProperties.attributes.bodyformat&&oBaseLayout)
+		{
+			oBodyLayout = oBaseLayout;
+		}
+
+		else if(!this.oViewProperties.attributes.oHeadLayout&&oBaseLayout)
+		{
+			oHeadLayout = oBaseLayout;
+		}
+
+		//If the Summ Area Layout is Set Up
+		if(this.oViewProperties.attributes.summformat)
+		{
+			//If the Default Layout is not Set Up
+			//Set the Summ Layout as the Default Layout
+			if(!oBaseLayout)oBaseLayout = this.lfn_StringToJson(this.oViewProperties.attributes.summformat);
+
+			//Set the Summ Layout
+			oSummLayout = this.lfn_StringToJson(this.oViewProperties.attributes.summformat);
+		}
+
+		//GrdList Source에 이벤트 걸기 onclick="Grid.form.lfn_Grid_onheadclick"
+		//Add Grip Component
+		
+		
+		var oGrid = {
+						"tag" : "Grid",
+						"attribute" :
+						{
+							"id" : "grdList", "left" : nLeft, "top" : nTop, "right" : nRight, "bottom" : nBottom, "binddataset" : this.CALENDAR_DS_ID
+							, "cssclass" : "grd_MF_Todo"
+							, "autofittype"	: sAutofittype
+						},
+						"Grid" :
+						[
+							{
+								"tag": "Formats",
+								"attribute": {},
+								"Formats":
+								[
+									{
+										"tag": "Format",
+										"attribute": { "id": "default" },
+										"Format":
+										[
+											{
+												"tag": "Columns",
+												"attribute": {},
+												//Load Grid Column Information Creation Function
+												"Columns": this.fn_GetColumns(oBaseLayout)
+											},
+											{
+												"tag": "Rows",
+												"attribute": {},
+												//Load Grid Row Information Creation Function
+												"Rows": this.fn_GetRows(oBaseLayout, oHeadLayout, oBodyLayout, oSummLayout)
+											},
+											{
+												"tag": "Band",
+												"attribute": { "id" : "head"},
+												//Load Grid Head Information Creation Function
+												"Band": this.fn_GetHeads(oBaseLayout, oHeadLayout)
+											},
+											{
+												"tag": "Band",
+												"attribute": { "id" : "body"},
+												//Load Grid Body Information Creation Function
+												"Band": this.fn_GetBodys(oBaseLayout, oBodyLayout)
+											},
+											{
+												"tag": "Band",
+												"attribute": { "id" : "summary"},
+												//Load Grid Summary Information Creation Function
+												"Band": this.fn_GetSumms(oBaseLayout, oSummLayout)
+											}
+										]
+									}
+								]
+							}
+						]
+		};
+		
+		// AutoSizeRow 설정
+		if (this.bAutoSizeRow) {
+			oGrid["attribute"]["autosizingtype"] = "row";
+			oGrid["attribute"]["extendsizetype"] = "row";
+			}
+		else
+		{
+			oGrid["attribute"]["autosizingtype"] = "col";
+		}
+		
+		//Add Grid Component
+		oModel[oModel.length] = { "fieldid" : sFieldId, "Components" : [oGrid]};
+	}
+
+/*===============================================================================================*/
+/* List of functions defined inside the script generated by fn_GetScript
+/*-----------------------------------------------------------------------------------------------*/
+/* Notes: 1. Do not include comments inside these functions.                                      */
+/*        2. Escape characters such as '\r, \n, \t' must not be used.                          */
+/*===============================================================================================*/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _fnViewOnLoad
+	* Description  : Handles the onload event processing for the view component
+	*---------------------------------------------------------------------------------------------*/
+	this._fnViewOnLoad = function(objForm){
+		/*view에 선언된 함수에서 view form을 사용 하기 위한 설정*/
+		this._ownerForm = objForm;
+
+		/*calendar ondayclick 이벤트 추가 설정*/
+		this.calSchedule.addEventHandler("ondayclick", this.fn_calTodo_ondayclick, this);
+
+		/*날짜 초기화 및 gds_dashboard에 value 설정*/
+		var sToDay = objForm._gfn_getDate("date");
+		var oGds_userInfo = nexacro.getApplication().gds_userInfo;
+		var oGds_dashboard = nexacro.getApplication().gds_dashboard;
+		oGds_dashboard.setColumn(0,"YYYY_MM",sToDay.substr(0,6));
+		oGds_dashboard.setColumn(0,"START_DATE",sToDay);
+		oGds_dashboard.setColumn(0,"END_DATE",sToDay);
+		oGds_dashboard.setColumn(0,"USER_ID",oGds_userInfo.getColumn(0,"USER_ID"));
+
+		this.calSchedule.set_value(sToDay);
+
+		var oScheduleDs = this._ownerForm[this.calSchedule.innerdataset];
+		oScheduleDs.addEventHandler("onload",this.fn_onload, this);
+	};
+
+	//calendar ondayclick 함수
+	this.fn_calTodo_ondayclick = function(obj,e){
+		this.fn_selectDate(obj, e.date);
+	};
+
+	//선택일자에 대한 처리 함수
+	this.fn_selectDate = function(oCalendar, sDate){
+		var oScheduleDs = this._ownerForm[oCalendar.innerdataset];
+
+		/*Grid component를 찾는다.(※ calendar component에 userProperty를 추가 되어 있어야 한다.)*/
+		oScheduleDs.filter("CAL_DATE=='"+ sDate + "'"); 
+		var oGrid = this[oCalendar.uGridId];
+		var oGridBindDs = this[oGrid.binddataset];
+		oGridBindDs.copyData(oScheduleDs,true);    
+		oScheduleDs.filter(""); 
+
+		var sTitle = sDate.substr(0,4) + "년 " + sDate.substr(4,2) + "월 " + sDate.substr(6,2) + "일";
+		this.sta_title.set_text(sTitle);  
+	};]]>
+  </Script>
+  <TestData>
+    <TestFields><![CDATA[{
+    "fields": [
+        {
+            "id": "field1",
+            "label": "Field1",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Boolean",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "truevalue": "Y",
+                "falsevalue": "N"
+            }
+        },
+        {
+            "id": "field2",
+            "label": "Field2",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Date",
+            "datatype": "DATE",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "dataformat": "yyyy-MM-dd"
+            }
+        },
+        {
+            "id": "field3",
+            "label": "Field3",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Time",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field4",
+            "label": "Field4",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "DateTime",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field5",
+            "label": "Field5",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "FromToDate",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field6",
+            "label": "Field6",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Email",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field7",
+            "label": "Field7",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Image",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field8",
+            "label": "Field8",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Label",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field9",
+            "label": "Field9",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Text",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field10",
+            "label": "Field10",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "LongText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field11",
+            "label": "Field11",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiLineText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field12",
+            "label": "Field12",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Password",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field13",
+            "label": "Field13",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Number",
+            "datatype": "INT",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field14",
+            "label": "Field14",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Phone",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field15",
+            "label": "Field15",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Price",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field16",
+            "label": "Field16",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Select",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "innerdataset_list": [
+                    {
+                        "label": "TOBESOFT",
+                        "value": "01"
+                    },
+                    {
+                        "label": "A Company",
+                        "value": "02"
+                    },
+                    {
+                        "label": "B Company",
+                        "value": "03"
+                    },
+                    {
+                        "label": "C Company",
+                        "value": "04"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "field17",
+            "label": "Field17",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiSelect",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field18",
+            "label": "Field18",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "ProgressBar",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        }
+    ]
+}]]>
+    </TestFields>
+    <TestViewProperties><![CDATA[{
+    "attributes": {
+        "titletext": "This is title",
+        "fieldwidth": 250,
+        "labelwidth": 100
+    }
+}]]>
+    </TestViewProperties>
+  </TestData>
+</ViewTemplateInfo>

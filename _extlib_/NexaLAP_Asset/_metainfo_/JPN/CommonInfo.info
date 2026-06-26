@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <EnumInfo id="MessageType">
+    <Enum name="alert"/>
+    <Enum name="confirm"/>
+  </EnumInfo>
+  <EnumInfo id="PopupStyle">
+    <Enum name="modal"/>
+    <Enum name="modeless"/>
+  </EnumInfo>
+  <EnumInfo id="PopupDataType" description="Popup data processing type">
+    <Enum name="none" description="No data processing."/>
+    <Enum name="copyrow" description="Copies the first returned data to the current data."/>
+    <Enum name="adddata" description="Adds the returned data to the current data."/>
+    <Enum name="replace" description="Replaces the current data with the returned data."/>
+  </EnumInfo>
+  <EnumInfo id="PopupReturnType" description="Action popup closing type">
+    <Enum name="none" description="Does not return data."/>
+    <Enum name="currow" description="Returns the currently selected row."/>
+    <Enum name="changedata" description="Returns the modified data."/>
+    <Enum name="alldata" description="Returns all data in the dataset."/>
+  </EnumInfo>
+  <EnumInfo id="ValidationRuleType" description="Data validation rule types">
+    <Enum name="length" displaytext="length" description="Checks the length of the value." />
+    <Enum name="rangelength" displaytext="rangelength" description="Checks whether the length of the value is within the specified range. (Example: specify length range like 2,8 in targetValue.)" />
+    <Enum name="maxlength" displaytext="maxlength" description="Checks whether the value exceeds the specified maximum length. (Specify the maximum length in targetValue.)" />
+    <Enum name="minlength" displaytext="minlength" description="Checks whether the value is shorter than the specified minimum length. (Specify the minimum length in targetValue.)" />
+    <Enum name="digits" displaytext="digits" description="Checks whether the value is numeric." />
+    <Enum name="min" displaytext="min" description="Checks whether the value is smaller than the specified minimum numeric value. (Specify the minimum value in targetValue.)" />
+    <Enum name="max" displaytext="max" description="Checks whether the value is greater than the specified maximum numeric value. (Specify the maximum value in targetValue.)" />
+    <Enum name="declimit" displaytext="declimit" description="Checks whether the number of decimal places differs from the specified limit. (Specify the allowed decimal places in targetValue.)" />
+    <Enum name="date" displaytext="date" description="Checks whether the value is in a valid date format." />
+    <Enum name="dateym" displaytext="dateym" description="Checks whether the value is in a valid year-month format (e.g., YYYYMM, YYYY-MM)." />
+    <Enum name="range" displaytext="range" description="Checks whether the value is within the specified numeric range. (Specify the range like 10,50 in targetValue.)" />
+    <Enum name="fromDate" displaytext="fromDate" description="Checks whether the From date is later than the target date based on the current value. (Specify the comparison target columnId in targetColumn.)" />
+    <Enum name="toDate" displaytext="toDate" description="Checks whether the To date is earlier than the target date based on the current value. (Specify the comparison target columnId in targetColumn.)" />
+    <Enum name="isssn" displaytext="isssn" description="Checks whether the value is a valid Korean resident registration number." />
+    <Enum name="isfrn" displaytext="isfrn" description="Checks whether the value is a valid foreigner registration number." />
+    <Enum name="isbzid" displaytext="isbzid" description="Checks whether the value is a valid business registration number." />
+    <Enum name="isfirmid" displaytext="isfirmid" description="Checks whether the value is a valid corporate registration number." />
+    <Enum name="iscardno" displaytext="iscardno" description="Checks whether the value is a valid credit card number." />
+    <Enum name="ismail" displaytext="ismail" description="Checks whether the value is in a valid email format." />
+  </EnumInfo>
+  <RefreshInfo id="targetview">
+    <Property name="targetcomp"/>
+    <Property name="targetdataset"/>
+  </RefreshInfo>
+  <RefreshInfo id="servicemodel">
+    <Property name="serviceurl"/>
+    <Property name="inputdatasets"/>
+    <Property name="outputdatasets"/>
+  </RefreshInfo>
+  <RefreshInfo id="targetds">
+    <Property name="targetrules"/>
+  </RefreshInfo>
+</MetaInfo>

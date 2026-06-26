@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmTop" width="1280" height="50" titletext="frmTop" onload="form_onload">
+    <Layouts>
+      <Layout width="1280" height="50">
+        <Static id="staBg" left="0" top="0" right="0" bottom="0" cssclass="sta_TF_Bg"/>
+        <Static id="staLogo" taborder="0" text="TOBESOFT" left="0" top="0" cssclass="sta_TF_Logo" onclick="staLogo_onclick" width="200" height="50" cursor="pointer" textAlign="center"/>
+        <Div id="divTopMenu" taborder="1" text="TopMenu" left="200" top="0" right="0" formscrollbartype="none" height="50" background="#3e4f6a">
+          <Layouts>
+            <Layout type="horizontal"/>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.objApp = nexacro.getApplication();
+this.fvMenuBtnPrefix = 'MENU_';
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo) {
+	// 메뉴 데이터셋으로 부터 메뉴 버튼 생성.
+	this.fnBuildMenus();
+};
+
+this.fnBuildMenus = function () {    	
+    var dataset = this.objApp.gdsMenu;
+
+    for (var i = 0; i < dataset.getRowCount(); i++) {
+        var sMenuGroup = dataset.getColumn(i, 'MENU_GROUP_ID');
+        if (sMenuGroup) {
+            continue;
+        }
+
+		var sMenuId = dataset.getColumn(i, 'MENU_ID');
+		var sMenuName = dataset.getColumn(i, 'MENU_NM');
+        var sMenuUrl = dataset.getColumn(i, 'MENU_URL');
+        var sMenuLevel = dataset.getColumn(i, 'MENU_LV');
+        if (sMenuLevel && sMenuLevel !== "0") {
+            continue; 
+        }
+		
+		this.fnCreateMenuButton(sMenuId, sMenuName, sMenuUrl);
+	}    
+};
+
+this.fnCreateMenuButton = function (sMenuId, sName, sMenuUrl) {	
+	var objBtn = new Button();
+	objBtn.init(this.fvMenuBtnPrefix + sMenuId, 0, 0, 130, '100%', null, null);
+	this.divTopMenu.form.addChild(objBtn.name, objBtn);
+
+	objBtn.set_text(sName);
+	objBtn.set_cssclass("btn_TF_Menu");
+	objBtn.menuid = sMenuId;
+	objBtn.show();
+	
+	// 버튼 width 셋팅
+	objBtn.set_fittocontents("width");
+	var nWidth = objBtn.getOffsetWidth();
+	objBtn.set_fittocontents("none");
+	objBtn.set_width(nWidth + 20);
+	
+	objBtn.setEventHandler("onclick", this.btnMenu_onclick, this);	
+    return objBtn;
+};
+
+this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnSelectMenu(obj.menuid);
+};
+
+this.fnSelectMenu = function(sMenuId) {        
+    var dataset = this.objApp.gdsMenu;
+    
+    for (var i = 0; i < dataset.getRowCount(); i++) {
+        var sMenuGroup = dataset.getColumn(i, 'MENU_GROUP_ID');
+        if (sMenuGroup) {
+            continue;
+        }
+
+        var _sMenuId = dataset.getColumn(i, 'MENU_ID');
+        var objMenu = this.fnFindMenuBtn(this.fvMenuBtnPrefix + _sMenuId);
+        objMenu.set_cssclass(sMenuId === _sMenuId ? 'btn_TF_MenuS' : 'btn_TF_Menu');
+
+        if (sMenuId === _sMenuId) {
+            var objEnv = nexacro.getEnvironment();
+            // left Frame의 Menu 설정
+            objEnv.fnSetLeftMenu(sMenuId);
+
+            // MENU_URL로 설정된 form 오픈
+            var sMenuUrl = dataset.getColumn(i, 'MENU_URL');
+            if (sMenuUrl) {
+                objEnv.fnOpenForm(sMenuId, false);
+            }
+        }
+    }
+};
+
+this.fnFindMenuBtn = function (sId)
+{
+	return this.divTopMenu.form.components[sId];
+};]]>
+    </Script>
+  </Form>
+</FDL>

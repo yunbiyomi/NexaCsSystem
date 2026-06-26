@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="BulkExcelExport">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.BulkExcelExport" shorttypename="BulkExcelExport" csstypename="BulkExcelExport" csscontrolname="BulkExcelExportControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="targetview" displaytext="View" readonly="false" edittype="String" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="This property defines the View object where the Action will be performed." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="servicemodel" displaytext="Service" readonly="false" edittype="ModelServiceID" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="true" refreshinfo="servicemodel" description="This property defines the Service that will be called by the transaction."/>
+      <Property name="serviceurl" displaytext="Service URL" readonly="false" edittype="ModelServiceURL" initonly="false" hidden="true" control="false" expr="false" bind="false" unused="false" mandatory="false" normalpropertyname="serviceurl" displayinfo="" description="This property defines the URL of the Service to be called."/>
+      <Property name="parameters" displayext="Parameters" readonly="false" edittype="Contents" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" description="This property defines the parameter information sent with the transaction call."/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo/>
+  </Object>
+</MetaInfo>

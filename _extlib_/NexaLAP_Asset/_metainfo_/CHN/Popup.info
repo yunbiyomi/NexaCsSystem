@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="Popup">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.Popup" shorttypename="Popup" csstypename="Popup" csscontrolname="PopupControl" group="Action" subgroup="Popup" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="팝업화면을 오픈해주는 Action" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="name" displaytext="Alias" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" description="별칭을 설정합니다."/>
+      <Property name="title" displaytext="Title" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="true" edittype="MultilineString" defaultvalue="Title" group="Action" description="팝업 타이틀로 표시할 텍스트를 설정합니다." stringrc="true"/>
+      <Property name="formurl" displaytext="Form URL" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="true" edittype="URL" group="Action" description="팝업으로 호출할 Form Url을 설정합니다."/>
+      <Property name="popupstyle" displaytext="Popup style" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" unused="true" mandatory="false" edittype="Enum" enuminfo="PopupStyle" group="Action" defaultvalue="modal" description="팝업을 호출할 형태(Modal, Modeless)를 설정합니다.&#13;&#10;&#13;&#10; - modal : 다른 창과의 상호 작용이 차단되는 형태의 팝업 창&#13;&#10; - modeless : 백그라운드 상호 작용이 가능한 형태의 팝업 창&#13;&#10;"/>
+      <Property name="targetview" displaytext="Target view" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false"  group="Action" subgroup="" refreshinfo="" edittype="ViewObjList" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="팝업 대상 View 객체를 설정합니다.&#13;&#10;(팝업에서 반환된 데이터를 처리할 View 설정)" csspropertyname="" normalpropertyname="targetview"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="" description="">
+        <Syntax text="canrun(obj:nexacro.Popup, e:nexacro.ActionRunEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Popup" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo" in="" out="" option="" variable="" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onerror(obj:nexacro.Popup, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Popup" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onsuccess(obj:nexacro.Popup, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Popup" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="CopyData">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.CopyData" shorttypename="CopyData" csstypename="CopyData" csscontrolname="CopyDataControl" group="Action" subgroup="Dataset" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="현재 DataSet 에 지정한 DataSet 의 데이터를 복사하는 Action " finalclass="true"/>
+    <PropertyInfo>
+      <Property name="fromdataset" displaytext="From dataset" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" description="복사 할 데이터가 있는 Dataset 오브젝트를 설정합니다." edittype="DatasetID"/>      
+      <Property name="targetdataset" displaytext="Target dataset" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" description="복사 될 Dataset 오브젝트를 설정합니다." edittype="DatasetID"/>
+      <Property name="fromview" displaytext="From view" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="ViewObjList" description="복사 할 데이터가 있는 Dataset이 있는 View 오브젝트를 설정하는 속성입니다." refreshinfo="fromview"/>
+      <Property name="targetview" displaytext="Target view" group="" subgroup="" refreshinfo="" displayinfo="" edittype="ViewObjList" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="복사 될 Dataset이 있는 View 오브젝트를 설정하는 속성입니다." csspropertyname="" normalpropertyname="targetview"/>      
+      <Property name="copytype" displaytext="Copy type" readonly="false" initonly="false" hidden="true" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="CopyType" defaultvalue="replace" description="데이터 복사유형을 설정합니다.&#13;&#10;&#13;&#10; - replace : 데이터를 전환&#13;&#10; - append : 기존 데이터에 추가"/>
+      <Property name="filter" displaytext="Filter" readonly="false" initonly="false" hidden="true" control="false" expr="true" bind="false" unused="false" mandatory="false" edittype="String" defaultvalue="" description="복사 할 데이터에서 filter에 해당하는 데이터만 복사됩니다."/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" description="Action이 실행되기 전 발생하는 이벤트 입니다.">
+        <Syntax text="canrun(obj:nexacro.CopyData, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 Action이 실행됩니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 Action이 실행되지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.CopyData"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

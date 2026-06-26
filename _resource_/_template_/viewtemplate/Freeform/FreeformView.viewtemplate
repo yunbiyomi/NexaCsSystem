@@ -1,0 +1,2485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewTemplateInfo version="2.0">
+  <ViewTemplate id="FreeformView" viewtype="FreeForm" description_en="description of the view template"/>
+  <Script version="1.0" type="xscript5.1"><![CDATA[/************************************************************************************************
+*  @FileName 	FreeformView
+*  @Creator 	Tobesoft
+*  @CreateDate 	2026.01.02
+*  @Desction    Displays a single record in a vertical format using a fluid layout
+*  @Version		1.0.0.0
+*************************************************************************************************
+*  Revision History
+*************************************************************************************************
+*  Date          		Modifier                Description
+*************************************************************************************************
+*  2026.01.02     		Tobesoft       	        Initial creation
+************************************************************************************************/
+/************************************************************************************************
+ * Include Declarations
+ ************************************************************************************************/
+ 	include "../_lib_/util.xjs";
+	include "../_lib_/common.xjs";
+/************************************************************************************************
+ * Variable Definitions
+ ************************************************************************************************/
+	//-------------------------------------------------------------------------------------------
+	// View-related constants
+	//-------------------------------------------------------------------------------------------
+
+	// Default layout configuration
+	this.VIEW_PADDING = "";		// Default padding for the view
+	// 컴포넌트 생성 방향
+	this.DIRECTION				= "horizontal";
+	// 컴포넌트 생성 수평 정렬방식
+	this.HALIGN					= "left";
+	// 컴포넌트 생성 수직 정렬방식
+	this.VALIGN					= "top";
+	
+	//--------------------------------------------------------------------------------------------------------
+	// 타이틀 객체 관련 상수
+	//--------------------------------------------------------------------------------------------------------
+	//타이틀 영역 전체건수 표시여부(Freeform에서는 사용안함)
+	this.USE_TOT_COUNT			= "false";
+	//타이틀 영역 접기/펼치기 버튼 표시여부("none", "open","close")(Freeform에서는 사용안함)
+	this.USE_EXPAND_BUTTON		= "none";
+	//--------------------------------------------------------------------------------------------------------
+
+	//////////////////////////////상수 설정부 START ////////////////////////////////////////////////////
+	this.DEVICE_TYPE = "D";
+
+	//Label과 Comp영역 배치방식("horizontal", "vertical")
+	this.FIELD_POSITION				= "horizontal";
+
+	//Component Default Width
+	this.COMP_WIDTH				= "100%";
+	this.COMP_BASIC_WIDTH		= "120";
+
+	//Component Default Height
+	this.COMP_HEIGHT			= "40px";
+
+	//Label Default Size
+	this.LABEL_SIZE				= 100;
+
+	//Component Default Type
+	this.COMP_TYPE				= "auto";
+
+	//Label Default Type
+	this.LABEL_TYPE				= "static";
+
+	//Background Default Type
+	this.COMP_BG_TYPE			= "static";
+
+	//fieldposition이 "horizontal"일때(라벨과 컴포넌트가 좌우배치) Component Padding
+	this.H_COMP_PADDING_LEFT	= 5;
+	this.H_COMP_PADDING_TOP		= 5;
+	this.H_COMP_PADDING_RIGHT	= 5;
+	this.H_COMP_PADDING_BOTTOM	= 5;
+
+	//fieldposition이 "vertical"일때(라벨과 컴포넌트가 상하배치) Component Padding
+	this.V_COMP_PADDING_LEFT	= 5;
+	this.V_COMP_PADDING_TOP		= 5;
+	this.V_COMP_PADDING_RIGHT	= 5;
+	this.V_COMP_PADDING_BOTTOM	= 5;
+
+	//Gap Between Components (Left and Right)
+	this.COMP_SPACE				= 5;
+
+	//Gap Between Components (Top and Bottom)
+	this.LINE_SPACE				= 0;
+
+	// Layout에서 mergelabel옵션 기본값
+	this.MERGE_LABEL			= "false";
+
+	//mergelabeldl "true"일때 (라벨1개 고정일때) Gap Between Components (Left and Right)
+	this.MERGE_LABEL_COMP_SPACE	= 5;
+
+	//mergelabeldl "true"일때 (라벨1개 고정일때) Gap Between Components (Top and Bottom)
+	this.MERGE_LABEL_LINE_SPACE	= 5;
+
+	// Border 겹치게 표시할지 여부
+	this.BORDER_OVERLAP			= true;
+
+	//Component Default CSS Class
+	this.COMP_CSSCLASS			= "";
+
+	//Required Component Default CSS Class
+	this.COMP_REQUIRED_CSSCLASS	= "";
+
+	//Background Component Default CSS Class
+	this.COMP_BG_CSSCLASS		= "sta_WF_LabelBg";
+
+	//Label Default CSS Class
+	this.LABEL_CSSCLASS			= "sta_WF_Label";
+
+	//Required Label Default CSS Class
+	this.LABEL_REQUIRED_CSSCLASS	= "";
+
+	//Background Component Use Type
+	this.USE_COMP_BG			= "true";
+
+	//Component Use Type
+	this.USE_COMP				= "true";
+
+	//Component Readonly
+	this.COMP_READONLY			= "false";
+
+	//Component Readonly시 Static형식으로 표시(border없고, 투명배경, 추가버튼안보이게)
+	this.COMP_READONLY_LABEL_STYLE	= "true";
+
+	//Component Readonly시 Static형식 CSS Class
+	this.COMP_READONLY_CSSCLASS		= "";
+
+	//Background Component를 첫줄만 생성할지 여부
+	this.MERGE_COMP_BG			= "false";
+	//////////////////////////////Constant Setting END ////////////////////////////////////////////////////
+
+	//-------------------------------------------------------------------------------------------
+	// View-related variables
+	//-------------------------------------------------------------------------------------------
+
+
+/*============================================================================================*
+* Parameter Structure Example
+
+1. 'fieldarray' structure example
+{
+    "modelinfo":
+    {
+        "serviceid":"model_sample",                                // model service id
+        "serviceurl":"http://127.0.0.1:8983/app/addSearchApi.do?"  // model service url
+    },
+    "fieldcount" : "2",                                            // number of fields in model
+    "fields" :
+    [
+        {                                                          // About the first field
+            "id": "company",
+            "label": "Company Name",
+            "fieldtype": "SelectOne",
+            "datatype": "STRING",
+            "datasize": "80",
+            "editable": "true",
+            "uselabel": "true"
+        },
+        {                                                          // About the second field
+            "id": "department",
+            "label": "Department Name",
+            "fieldtype": "SelectOne",
+            "datatype": "STRING",
+            "datasize": "80",
+            "editable": "true",
+            "uselabel": "true"
+        }
+    ]
+}
+
+2. 'viewproperties' structure example
+{                                                                  // user-entered attributes for 'view' generation
+  "attributes": {
+    "use_triggerbutton": "true"
+    "triggerbuttontext": "Search"
+  }
+}
+
+3. 'contents' structure example
+// --- design source of xfdl --- //
+//   <View id="View00" viewtype="FreeForm" taborder="2" ... >
+//     <Layouts>
+//       <Layout>
+//         <Static id="Static00" text="Company Name" left="0" .../>
+//         <Combo id="Combo00" left="85" top="0" .../>
+//         <Button id="btn_Trigger" left="617" top="5" .../>
+//         ...
+//       </Layout>
+//     </Layouts>
+//     <InitValue>
+//       <Combo id="Combo00" enable="true"/>
+//     </InitValue>
+//     <Objects>
+//       <Dataset id="${VIEW_DATASET}">
+//         <ColumnInfo>
+//           <Column id="company" type="BLOB" size="80"/>
+//           <Column id="department" type="BLOB" size="80"/>
+//         </ColumnInfo>
+//         <Rows>
+//           <Row/>
+//         </Rows>
+//       </Dataset>
+//     </Objects>
+//     <Bind>
+//       <BindItem id="item0" compid="Combo00" propid="value" datasetid="${VIEW_DATASET}" columnid="company"/>
+//     </Bind>
+//     <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
+//   </View>
+
+// --- design source converted to json format --- //
+{
+    "View": {                                                     // <View id="View00" viewtype="FreeForm" taborder="2" ... />
+        "tag": "View",
+        "referenceinfo": {
+            "realwidth": "500",                                   // Real width of view component
+            "realheight": "250"                                   // Real height of view component
+        },
+        "attribute": {
+            "id": "View00",                                       // 'ID' of view component
+            "viewtype": "FreeForm",                               // 'viewtype' property value of view component
+            "taborder": "2",                                      // 'taborder' property value of view component
+            "text": "search view",                                // 'text' property value of view component
+            "left": "0",                                          // 'left' property value of view component
+            "top": "0",                                           // 'top' property value of view component
+            "width": "100%",                                      // 'width' property value of view component
+            "height": "50%"                                       // 'height' property value of view component
+        },
+        "Model": [                                                // Information of components generated by each model field information.
+            {                                                     // "fieldid" : "value" => The component generated by the field of Model
+                "fieldid": "company",                             // "fieldid" : ""      => The component generated without the field of Model
+                "Components": [                                   // The component information generated by the 'company' field.
+                    {                                             //   <Static id="Static00" text="Company Name" left="0" .../>
+                        "tag": "Static",
+                        "attribute": {
+                            "id": "Static00",
+                            "text": "Company Name",
+                            "left": "0",
+                            "top": "0",
+                            "width": "80",
+                            "height": "20",
+                        }
+                    },
+                    {                                             //   <Combo id="Combo00" left="85" top="0" .../>
+                        "tag": "Combo",
+                        "attribute": {
+                            "id": "Combo00",
+                            "left": "85",
+                            "top": "0",
+                            "width": "100",
+                            "height": "24",
+                        }
+                    }
+                ]
+            },
+            {   // with field
+                "fieldid": "department",                          // "fieldid" : "value" => The component generated by the field of Model
+                "Components": [
+                ...
+                ]
+            },
+            {
+                "fieldid": "",                                    // "fieldid" : ""      => The component generated without the field of Model
+                "Components": [
+                    {                                             //   <Button id="btn_Trigger" left="617" top="5" .../>
+                        "tag": "Button",
+                        "attribute": {
+                          "id": "btn_Trigger",
+                          "left": "617",
+                          "top": "5",
+                          "width": "70",
+                          "height": "50",
+                          "text": "Search"
+                        }
+                    }
+                ]
+            }
+        ],
+        "InitValue": [
+          {                                                       //   <InitValue>
+            "tag": "InitValue",                                   //     <Combo id="Combo00" enable="true"/>
+            "InitValue": [                                        //   </InitValue>
+              {
+                "tag": "Combo",
+                "attribute": {
+                  "id": "Combo00",
+                  "enable": "true"
+                }
+              }
+            ]
+          }
+        ],
+        "Objects": [
+          {                                                       //   <Objects>
+            "tag": "Objects",                                     //     <Dataset id="${VIEW_DATASET}">
+            "Objects": [                                          //       <ColumnInfo>
+              {                                                   //         <Column id="company" type="BLOB" size="80"/>
+                "tag": "Dataset",                                 //         <Column id="department" type="BLOB" size="80"/>
+                "attribute": {                                    //       </ColumnInfo>
+                  "id": "${VIEW_DATASET}"                             //       <Rows>
+                },                                                //         <Row/>
+                "Dataset": [                                      //       </Rows>
+                  {                                               //     </Dataset>
+                    "tag": "ColumnInfo",                          //   </Objects>
+                    "ColumnInfo": [
+                      {
+                        "tag": "Column",
+                        "attribute": {
+                          "id": "company",
+                          "type": "BLOB",
+                          "size": "80"
+                        }
+                      },
+                      {
+                        "tag": "Column",
+                        "attribute": {
+                          "id": "department",
+                          "type": "BLOB",
+                          "size": "80"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "Rows",
+                    "Rows": [
+                      {
+                        "tag": "Row"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Bind": [
+        {                                                         //   <Bind>
+          "tag": "Bind",                                          //     <BindItem id="item0" compid="Combo00" propid="value" datasetid="${VIEW_DATASET}" columnid="company"/>
+          "Bind": [                                               //   </Bind>
+              {
+                "tag": "BindItem",
+                "attribute": {
+                  "id": "item0",
+                  "compid": "Combo00",
+                  "propid": "value",
+                  "datasetid": "${VIEW_DATASET}",
+                  "columnid": "company"
+                }
+              }
+            ]
+          }
+        ],
+        "Script": {                                               // <Script type="xscript5.1"><![CDATA[this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}; ] ]></Script>
+            "tag": "Script",
+            "attribute": {
+                "type": "xscript5.1"
+            },
+            "value": "this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {}"
+        }
+    }
+}
+*============================================================================================*/
+
+/************************************************************************************************
+ * Required Function Area for NexaLAP Studio
+ ************************************************************************************************/	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : set_viewProperties
+	* Return       : View generation attribute list (JSON format)
+				ex) {
+						"attributecount": "2",
+						"attributes": [
+						   {
+								"id": "use_triggerbutton",
+								"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+								"defaultvalue": "true",
+								"description": "Specifies whether trigger button is auto-created or not"
+							},
+							{
+								"id": "triggerbuttontext",
+								"edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+								"defaultvalue": "Search",
+								"description": "Enter text for trigger button"
+							}
+						]
+					}
+	* Description : Obtain a list of custom attributes required for view generation
+	*---------------------------------------------------------------------------------------------*/
+	this.set_viewProperties = function()
+	{
+		var sViewAttr = "";
+		var oViewAttr = {
+							"attributes": [
+								{
+									"id": "direction",
+									"displaytext": "Direction",
+									"edittype": "Enum",
+									"defaultvalue": this.DIRECTION,
+									"enumlist" : ["horizontal", "vertical"],
+									"description": "Set the direction for fields"
+													+ "\n" + " - horizontal : Set field horizontal alignment"
+													+ "\n" + " - vertical : Set field vertical alignment"
+								},
+								{
+									"id": "halign",
+									"displaytext": "Horizontal align",
+									"edittype": "Enum",
+									"defaultvalue": this.HALIGN,
+									"enumlist" : ["left", "center", "right"],
+									"description": "Set the horizontal alignment for field"
+													+ "\n" + " - left : Set field alignment based on left when direction is horizontal and top when direction is vertical"
+													+ "\n" + " - center : Set field alignment around center"
+													+ "\n" + " - right : Set field alignment based on right when direction is horizontal and bottom when direction is vertical"
+								},
+								{
+									"id": "valign",
+									"displaytext": "Vertical align",
+									"edittype": "Enum",
+									"defaultvalue": this.VALIGN,
+									"enumlist" : ["top", "middle", "bottom"],
+									"description": "Set the vertical alignment for field"
+													+ "\n" + " - top : Set field alignment based on top when direction is horizontal and left when direction is vertical"
+													+ "\n" + " - middle : Set field alignment around center"
+													+ "\n" + " - bottom : Set field alignment based on bottom when direction is horizontal and right when direction is vertical"
+								},
+								this.oAttrTitleText,					// Title Text
+								this.oAttrTitleExpandButton,			// 접기/펼치기 버튼 표시여부
+								{
+									"id": "columncount",
+									"displaytext": "Column count",
+									"edittype": "Enum",
+									"defaultvalue": "1",
+									"enumlist" : ["0", "1", "2", "3", "4", "5"],
+									"description": "Set the column count"
+								},
+								{
+									"id": "labelwidth",
+									"displaytext": "Label width(px)",
+									"edittype": "Number",
+									"defaultvalue": this.LABEL_SIZE,
+									"description": "Width of Label"
+													+ "\n" + " - Depending on the field direction value, it is applied in width(horizontal) and height(vertical) sizes."
+								},
+								{
+									"id": "labelheight",
+									"displaytext": "Label height(px or %)",
+									"edittype": "String",
+									"defaultvalue": this.COMP_HEIGHT,
+									"description": "Height of Label"
+													+ "\n" + " - Depending on the field direction value, it is applied in height(horizontal) and width(vertical) sizes."
+								},
+								{
+									"id": "fielddirection",
+									"displaytext": "Label position",
+									"edittype":  "Enum",
+									"defaultvalue": this.FIELD_POSITION,
+									"enumlist" : ["horizontal", "vertical"],
+									"description": "Set alignment direction for Label and Field"
+													+ "\n" + " - horizontal : Horizontal alignment"
+													+ "\n" + " - vertical : Vertical alignment"
+								},
+								{
+									"id": "usefieldbox",
+									"displaytext": "Field background",
+									"edittype": "Boolean",
+									"defaultvalue": this.USE_COMP_BG,
+									"description": "Set whether to draw a background box in the field area"
+								},
+								{
+									"id": "format",
+									"displaytext": "Layout",
+									"edittype": "Layout",
+									"defaultvalue": "",
+									"userproperties" : {
+										"propertycount" : "1",
+										"properties" :
+										[
+											{
+												"id" : "mergelabel", "edittype" : "Boolean", "defaultvalue" : this.MERGE_LABEL
+												, "description" : "Whether to display a unified label when multiple fields are configured."
+																+ "\n" + " - The label is generated based on the first field."
+											}
+										]
+									},
+									"description": "Set the view layout"
+								}
+								, this.oAttrViewPadding					// View 여백(사용안하는 경우 주석)
+							]
+					  };
+
+		oViewAttr["attributecount"] = oViewAttr["attributes"].length;
+
+		sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+		return sViewAttr;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : set_fieldProperties
+	* Return       : user attribute list from model field(JSON format)
+				ex) {
+						"attributecount": "2",
+						"attributes": [
+						   {
+								"id": "use_triggerbutton",
+								"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+								"defaultvalue": "true",
+								"description": "Specifies whether trigger button is auto-created or not"
+							},
+							{
+								"id": "triggerbuttontext",
+								"edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+								"defaultvalue": "Search",
+								"description": "Enter text for trigger button"
+							}
+						]
+					}
+	* Description  : Obtain a list of user attributes to register in model field
+	*---------------------------------------------------------------------------------------------*/
+	this.set_fieldProperties = function ()
+	{
+		var sFieldAttr = "";
+		var oFieldAttr = {
+							"attributes": [
+								{
+									"id": "comptype",
+									"displaytext": "Component type",
+									"edittype": "Enum",
+									"enumlist" : this.ARR_COMP_TYPE,
+									"defaultvalue": this.COMP_TYPE,
+									"description": "Types of Components to be Expressed"
+								},
+								{
+									"id": "compwidth",
+									"displaytext": "Width",
+									"edittype": "String",
+									"defaultvalue": this.COMP_WIDTH,
+									"description": "Component Width(px or %)"
+								},
+								{
+									"id": "compheight",
+									"displaytext": "Height",
+									"edittype": "String",
+									"defaultvalue": this.COMP_HEIGHT,
+									"description": "Component Height(px or %)"
+								},
+								{
+									"id": "labelsize",
+									"displaytext": "Label width",
+									"edittype": "Number",
+									"defaultvalue": this.LABEL_SIZE,
+									"description": "Label Size(px)"
+													+ "\n" + " - fieldposition값에 따라 width(horizontal), height(vertical)사이즈로 동작됩니다."
+								},
+								{
+									"id": "fieldposition",
+									"displaytext": "Label position",
+									"edittype":  "Enum",
+									"defaultvalue": this.FIELD_POSITION,
+									"enumlist" : ["horizontal", "vertical"],
+									"description": "Labal과 Field영역 위치"
+													+ "\n" + " - horizontal : 좌우배치"
+													+ "\n" + " - vertical : 상하배치"
+								},
+								// {
+								//     "id": "cssclass",
+								// 	"displaytext": "",
+								//     "edittype": "String",
+								// 	"defaultvalue": this.COMP_CSSCLASS,
+								//     "description": "Component CSS Class"
+								// },
+								// {
+								//     "id": "labelcssclass",
+								// 	"displaytext": "",
+								//     "edittype": "String",
+								// 	"defaultvalue": this.LABEL_CSSCLASS,
+								//     "description": "Label CSS Class"
+								// },
+								{
+									"id": "compreadonly",
+									"displaytext": "Readonly",
+									"edittype": "Boolean",
+									"defaultvalue": this.COMP_READONLY,
+									"description": "Component Readonly"
+								}
+								// ,{
+								//     "id": "usecomp",
+								// 	"displaytext": "",
+								//     "edittype": "Boolean",
+								// 	"defaultvalue": this.USE_COMP,
+								//     "description": "Use Component"
+								// }
+							]
+					  };
+
+		oFieldAttr["attributecount"] = oFieldAttr["attributes"].length;
+
+		sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
+		return sFieldAttr;
+	}
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function    : main
+	* Parameter   :
+	*               - fieldarray     : model field list
+	*               - contents       : old contents (include <View>)
+	*               - viewproperties : attributes for view generation
+	* Return      : View contents (source + script) (JSON format)
+					ex) {
+							"View": {
+								"tag": "View",
+								"attribute": {
+									"id": "View00",
+									"viewtype": "FreeForm",
+									"taborder": "2",
+									"text": "search view",
+									"left": "0",
+									...
+								},
+								"Model": [
+									{   // with field
+										"fieldid": "department",
+										"Components": [
+										...
+										]
+									},
+									{   // without field
+										"fieldid": "",
+										"Components": [
+										...
+										]
+									}
+								],
+								"InitValue": [
+								],
+								"Objects": [
+								],
+								"Bind": [
+								],
+								"Script": {
+									"tag": "Script",
+									"attribute": {
+									},
+									"value": ""
+								}
+							}
+						}
+	* Description : Generate the view based on the model field and return the results.
+	*---------------------------------------------------------------------------------------------*
+	*                        !!! This function is required by NexaLAP Studio. !!!                 *
+	*                        !!! Do not remove or rename this function. !!!                       *
+	*---------------------------------------------------------------------------------------------*/
+	this.main = function(fieldarray, contents, viewproperties)
+	{
+		//Return Value
+		var vResult = "";
+
+		// nexacro.trace(">> fieldarray : " + fieldarray);
+		// nexacro.trace(">> contents : " + contents);
+		// nexacro.trace(">> viewproperties : " + viewproperties);
+		
+		if(fieldarray)
+		{
+			// user attribute 속성을 제거함에 따라 각 속성값을 기본값으로 셋팅
+			fieldarray = this.fn_InitFieldAttributes(fieldarray, viewproperties);
+		}
+		
+		//Make Generation Info
+		//this.oFieldArray : Model Information as JSON Object
+		//this.oContents : View Component Information as JSON Object
+		//this.oContents.View.Model : Model Information Initialization
+		//this.oViewProperties : Setting Information as JSON Object
+		//this.oUseFieldArray : Use Model Information as JSON Object
+		this.lfn_MakeGenerationInfo(fieldarray, contents, viewproperties, true);
+
+		// View Padding 설정
+		this.lfn_SetViewPadding();
+
+		//Load Model Information Generation Function
+		this.fn_GetModel();
+
+		// When binding is required for the selected field list, the viewdataset should be set.
+		this.oContents.View.attribute.viewdataset = "${VIEW_DATASET}";
+
+		//Load InitValue Information Generation Function
+		this.oContents.View.InitValue = this.fn_GetInitValue();
+
+		//Load Object Information Generation Function
+		this.oContents.View.Objects = this.fn_GetObjects();
+
+		//Load BindInfo Information Generation Function
+		this.oContents.View.Bind = this.fn_GetBind();
+
+		//Load Script Information Generation Function
+		this.oContents.View.Script = this.fn_GetScript();
+
+		//Convert View Component Information into String
+		vResult = JSON.stringify(this.oContents, null, "\t");
+
+		//nexacro.trace(">> vResult : " + vResult);
+		//Return View Component Information
+		return vResult;
+	};
+
+/************************************************************************************************
+ * Functions Related to the main() Execution Flow
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetModel
+	* Parameter    :
+	* Return       : 
+	* Description  : Model Information Production Function
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetModel = function()
+	{
+		//Import View Component Width Value
+		var nViewCompWidth = this.oContents.View.referenceinfo.realwidth;
+
+		//Import View Component Height Value
+		var nViewCompHeight = this.oContents.View.referenceinfo.realheight;
+		
+		// Title 영역
+		var sTitleText			= this.oViewProperties.attributes.titletext;			// 타이틀 Text
+		var sUseTotalCount		= this.USE_TOT_COUNT;									// 전체건수 Static 생성
+		var sUseExpandButton	= this.oViewProperties.attributes.useexpandbutton;		// expand 토글버튼 생성
+		
+		this.VIEW_PADDING_TOP = this.lfn_MakeTitleArea(sTitleText, sUseTotalCount, sUseExpandButton);
+		
+		// View 사이즈에서 View 여백 설정
+		nViewCompWidth = nViewCompWidth - this.VIEW_PADDING_LEFT - this.VIEW_PADDING_RIGHT;
+		nViewCompHeight = nViewCompHeight - this.VIEW_PADDING_TOP - this.VIEW_PADDING_BOTTOM;
+
+		//If format properties are set up, create components based on layout rules
+		if(this.oViewProperties.attributes.format)
+		{
+			//Import Layout Information
+			var oLayout = this.lfn_StringToJson(this.oViewProperties.attributes.format);
+
+			//Load Layout Calculation Function
+			this.fn_CalcLayout(oLayout, nViewCompWidth, nViewCompHeight);
+
+			//Load Layout-based Component Production Function
+			this.fn_MakeCompByLayout(oLayout);
+
+		}
+		//If the format properties are not set, create components based on default rules
+		else
+		{
+			//Import Field Information
+			var arrFieldList = this.oUseFieldArray.fields;
+
+			//Import Component Production Direction Information
+			var sDirection = this.oViewProperties.attributes.direction;
+
+			//Import Component Horizontal Alignment Information
+			var sHAlign = this.oViewProperties.attributes.halign;
+
+			//Import Component Vertical Alignment Information
+			var sVAlign = this.oViewProperties.attributes.valign;
+			
+			//Load Component Location Calculation Information
+			var arrFieldPosition = this.fn_CalcField(sDirection, sVAlign, sHAlign, nViewCompWidth, nViewCompHeight);
+			
+			//Load Component Production Function
+			this.fn_MakeComp(this.VIEW_PADDING_LEFT, this.VIEW_PADDING_TOP, nViewCompWidth, nViewCompHeight, sDirection, arrFieldPosition, "false");
+		}
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_GetObjects
+	 * Return       : objects contents (JSON format)
+	 * Description  : Function to generate <Objects> source
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_GetObjects = function()
+	{
+		//Initialize Object
+		var oObjects = [];
+
+		// InnerDataset 정보
+		var oInner = this.lfn_GetInnerDataset(this.oUseFieldArray);
+
+		oObjects = oObjects.concat(oInner);
+
+		//Return Object Information
+		return oObjects;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_GetScript
+	 * Return       : script contents (JSON format)
+	 * Description  : Function to generate <Script> source
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_GetScript = function()
+	{
+		var oScript = {};
+		var sScript = "";
+		
+		var sViewNm 			= this.oContents.View.attribute.id;
+		var sTitleText			= this.oViewProperties.attributes.titletext;			// 타이틀 Text
+		var sUseExpandButton	= this.oViewProperties.attributes.useexpandbutton;		// expand 토글버튼 사용여부 및 초기값
+		
+		// 컴포넌트 공통 ViewScript 반환
+		sScript = this.lfn_GetCompCommonScript(sViewNm);
+		
+		// 타이틀 Expand버튼 동작 스크립트
+		if (this.lfn_IsNotNull(sTitleText))
+		{
+			sScript += this.lfn_GetTitleScript(sViewNm, sUseExpandButton);
+		}
+		
+		if (this.lfn_IsNotNull(sScript))
+		{
+			sScript = nexacro.replaceAll(sScript,"\t","");
+			
+			oScript =
+			{
+				"tag": "Script",
+				"attribute": { "type" : "xscript5.1" },
+				"value": sScript
+			}
+		};
+
+		return oScript;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_GetInitValue
+	 * Return       : initvalue contents (JSON format)
+	 * Description  : Function to generate <InitValue> source
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_GetInitValue = function()
+	{
+
+		var oInitValue = [];
+
+		return oInitValue;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_GetBind
+	 * Return       : bind contents (JSON format)
+	 * Description  : Function to generate <Bind> source
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_GetBind = function()
+	{
+		var oBind = this.lfn_GetBindItem("${VIEW_DATASET}", this.arrBindItems);
+
+		return oBind;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_CalcLayout
+	 * Parameter    : obj
+	 * Return       :
+					- oLayout : Layout Setting Information
+					- nViewCompWidth : View Component Real Width
+					- nViewCompHeight : View Component Real Height
+	 * Description  : Layout Calculation Function
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_CalcLayout = function(oLayout, nViewCompWidth, nViewCompHeight)
+	{
+		//CellList Information set on Layout
+		var arrCellList = oLayout.celllist;
+
+		//ColumnSize Information set on Layout
+		var arrColSize = oLayout.columnsize;
+
+		//RowSize Information set on Layout
+		var arrRowSize = oLayout.rowsize;
+
+		//CellList Quantity
+		var nCellCnt = arrCellList.length;
+
+		//The Sum of Column/Row Sizes that were not set as -1
+		var nAllColSize = 0;
+		var nAllRowSize = 0;
+
+		//Quantity of Column/Row Size set as -1
+		var nNoColSizeCnt = 0;
+		var nNoRowSizeCnt = 0;
+
+		//Replacement Size if Column/Row Size is -1
+		var nColSizeDef = 0;
+		var nRowSizeDef = 0 ;
+
+		var oCell;
+		var sDirection, sVAlign, sHAlign;
+		var nCol, nRow, nColSpan, nRowSpan;
+		var nColSize, nRowSize;
+		var bMergeLabel;
+
+		//Evaluate Sum of Column Sizes that are not set as -1
+		nAllColSize = arrColSize.reduce(function (pre, value){
+			if(value==-1)return pre;
+			else return pre + value;
+		});
+
+		//Evaluate Sum of Row Sizes that are not set as -1
+		nAllRowSize = arrRowSize.reduce(function (pre, value){
+			if(value==-1)return pre;
+			else return pre + value;
+		});
+
+		if(nAllColSize==-1)nAllColSize = 0;
+
+		if(nAllRowSize==-1)nAllRowSize = 0;
+
+		//Evaluate Quantity of Column/Rows set as -1
+		nNoColSizeCnt = arrColSize.filter(arrColSize=>arrColSize==-1).length;
+		nNoRowSizeCnt = arrRowSize.filter(arrRowSize=>arrRowSize==-1).length;
+
+		//If there are Column/Rows set as -1
+		//(View Component Size -(The Sum of Column/Row Sizes not set as -1))/Number of Column/Rows set as -1
+		if(nNoColSizeCnt>0)nColSizeDef = (nViewCompWidth - nAllColSize)/nNoColSizeCnt;
+		if(nNoRowSizeCnt>0)nRowSizeDef = (nViewCompHeight - nAllRowSize)/nNoRowSizeCnt;
+
+		//Save Default Column/Row Size on Layout
+		oLayout.colsizedef = nColSizeDef;
+		oLayout.rowsizedef = nRowSizeDef;
+
+		//Evaluate the Field Location Value of each Cell
+		for(var i=0;i<nCellCnt;i++)
+		{
+			//Import Information set on Cell
+			oCell = arrCellList[i];
+			sDirection = oCell.direction;
+			sVAlign = oCell.valign;
+			sHAlign = oCell.halign;
+			nCol = nexacro.toNumber(oCell.col);
+			nRow = nexacro.toNumber(oCell.row);
+			nColSpan = nexacro.toNumber(oCell.colspan);
+			nRowSpan = nexacro.toNumber(oCell.rowspan);
+			bMergeLabel = oCell.mergelabel;
+
+			//Initialize to 1 if there are no Col/RowSpan Values
+			if(!nColSpan)nColSpan = 1;
+			if(!nRowSpan)nRowSpan = 1;
+
+			//Evaluate the Width/Height of that Cell
+			nColSize = this.lfn_GetCellSize(oLayout.columnsize, nCol, nColSpan, nColSizeDef);
+			nRowSize = this.lfn_GetCellSize(oLayout.rowsize, nRow, nRowSpan, nRowSizeDef);
+
+			//Save the Width/Height Value on that Cell
+			oCell.realcolsize = nColSize;
+			oCell.realrowsize = nRowSize;
+
+			//If there are fields connected to that Cell
+			if(oCell.fieldlist)
+			{
+				if (bMergeLabel == "true")
+				{
+					//Evaluate the Field Location Value to input on that Cell
+					oCell.fieldposition = this.fn_CalcFieldMergeLabel(sDirection, sVAlign, sHAlign, nColSize, nRowSize, oCell.fieldlist);
+				}
+				else
+				{
+					// sDirection, sVAlign, sHAlign에 따라 Cell 위치계산
+					oCell.fieldposition = this.fn_CalcField(sDirection, sVAlign, sHAlign, nColSize, nRowSize, oCell.fieldlist);
+				}
+			}
+		}
+	}
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_CalcFieldMergeLabel
+	 * Parameter    :
+					- sDirection : Component Production Direction
+					- sVAlign : Component Vertical Alignment Method(top|middle|bottom)
+					- sHAlign : Component Horizontal Alignment Method(left|center|right)
+					- nColSize : The Width of The Cell to be Expressed
+					- nRowSize : The Height of The Cell to be Expressed
+					- arrFieldInCellList : Field List added on the Cell
+	 * Return       : arrFieldPosition : Object Array with Field Location Information
+	 * Description  : Function to Evaluate the Field Location Value to be Expressed
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_CalcFieldMergeLabel = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
+	{
+		var nLeft = 0;
+		var nTop = 0;
+		var nRowIdx = 0;
+		var nColIdx = 0;
+		var nFiledWidthMax = 0;
+		var nFiledHeightMax = 0;
+
+		var nStartX, nStartY;
+		var nEndX, nEndX;
+		var nTemp;
+
+		//Import Field List Registered to the Model
+		var arrFieldList = this.oUseFieldArray.fields;
+
+		//Number of Fields connected to the Cell
+		var nFieldInCellCnt;
+
+		//Object Array to save the Field Location Information
+		var arrFieldPosition = [];
+
+		var sFieldPosition;
+		
+		//Label Width
+		var nLabelSize;
+		
+		//Size without the Label Area
+		var nRealColSize, nRealRowSize;
+		
+		// fieldposition="horizontal" 컴포넌트간 Padding
+		var nPaddingHH = this.H_COMP_PADDING_RIGHT + this.H_COMP_PADDING_LEFT;			// 라벨없이 컴포넌트끼리 가로 간격
+		var nPaddingHV = this.H_COMP_PADDING_BOTTOM + this.H_COMP_PADDING_TOP;			// 라벨없이 컴포넌트끼리 세로 간격 
+		
+		// fieldposition="vertical" 컴포넌트간 Padding
+		var nPaddingVH = this.V_COMP_PADDING_RIGHT + this.V_COMP_PADDING_LEFT;			// 라벨없이 컴포넌트끼리 가로 간격
+		var nPaddingVV = this.V_COMP_PADDING_BOTTOM + this.V_COMP_PADDING_TOP;			// 라벨없이 컴포넌트끼리 세로 간격 
+		
+		var nPaddingH, nPaddingV;
+
+		//Check Quantity with Field List connected to Cell
+		var nFieldInCellCnt = arrFieldInCellList.length;
+
+		//If the Component Production Direction is Horizontal
+		//Choose Array, as the x-coordinate for each row is different
+		//Choose Number, as the y-coordinate for each column is identical
+		if(sDirection=="horizontal")
+		{
+			var arrAlignX = [];
+			var nAlignY;
+		}
+		//If the Component Production Direction is Vertical
+		//Choose Number, as the x-coordinate for each row is identical
+		//Choose Array, as the y-coordinate for each column is different
+		else
+		{
+			var nAlignX;
+			var arrAlignY = [];
+		}
+
+		for(var j=0;j<nFieldInCellCnt;j++)
+		{
+			//Import Field Information registered on the Model based on the Fields connected to the Cell
+			sFieldId =  arrFieldInCellList[j];
+			oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
+			
+			// oField가 없거나 usecomp == "false"인 경우 포지션 정보 없음
+			if (this.lfn_IsNull(oField) || oField.usecomp == "false") {
+				arrFieldPosition[j] = { "fieldid" : sFieldId};
+				continue;
+			}
+			
+			sFieldPosition = oField.fieldposition;
+
+			//Import Label Width Information set on the first Field
+			//라벨을 첫번째 Field 기준으로 표시(라벨은 고정하고, align 기준을 Cell에서 라벨 제외한 영역에서 Field값으로 계산)
+			nLabelSize = j==0 ? nexacro.toNumber(oField.labelsize) : 0;			// 첫번째 Field만 라벨있고 나머지는 없음.
+			
+			if (sFieldPosition=="horizontal")
+			{
+				// 라벨 좌측고정
+				nRealColSize = nColSize - nexacro.toNumber(oField.labelsize);		// align기준사이즈 = nColSize - 라벨사이즈
+				nRealRowSize = nRowSize;											// align기준사이즈 = nRowSize
+				
+				//Evaluate Width/Height that this field will be expressed on
+				nCompWidth = this.lfn_GetRealSize(oField.compwidth, 0, nRealColSize, this.COMP_WIDTH, 0, 0);
+				nCompHeight = this.lfn_GetRealSize(oField.compheight, 0, nRealRowSize, this.COMP_HEIGHT, 0, 0);
+				
+				nPaddingH = nPaddingHH;
+				nPaddingV = nPaddingHV;
+			}
+			else
+			{
+				// 라벨 상단고정
+				nRealColSize = nColSize;											// align기준사이즈 = nColSize
+				nRealRowSize = nRowSize - nexacro.toNumber(oField.labelsize);		// align기준사이즈 = nRowSize - 라벨사이즈
+				
+				//Evaluate Width/Height that this field will be expressed on
+				nCompWidth = this.lfn_GetRealSize(oField.compwidth, 0, nRealColSize, this.COMP_WIDTH, 0, 0);
+				nCompHeight = this.lfn_GetRealSize(oField.compheight, 0, nRealRowSize, this.COMP_HEIGHT, 0, 0);
+				
+				nPaddingH = nPaddingVH;
+				nPaddingV = nPaddingVV;
+			}
+			
+			//If the Component Production Direction is Horizontal
+			if(sDirection=="horizontal")
+			{
+				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingH, this.MERGE_LABEL_COMP_SPACE, true);
+				else nTemp = 0;
+				
+				//Start a new line if the Field exceeds the Cell Height
+				if(nLeft+nCompWidth-nTemp>nRealColSize)
+				{
+					//The Right value of the last Field of this Row
+					nEndX = nLeft;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, nPaddingH, this.MERGE_LABEL_COMP_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value of this Row
+					arrAlignX[nRowIdx] = this.lfn_CalcAlignPos(sHAlign, nRealColSize, (nEndX - nStartX - nTemp));
+
+					//Create the starting Left/Top Coordinates of the next Row
+					//Set the Bottom value of the Field with the largest Height of this Row as the Top value of the next Row
+					nTop += nFiledHeightMax;
+
+					//Initialize the Left Coordinate
+					nLeft = 0;
+
+					//Initialize the largest Height Value
+					nFiledHeightMax = 0;
+
+					//Initialize the Col Index
+					nColIdx = 0;
+
+					//Increase Row Index
+					nRowIdx++;
+				}
+
+				//Evaluate the largest Height Value
+				if(nCompHeight>nFiledHeightMax)nFiledHeightMax = nCompHeight;
+			}
+			//If the Component Production Direction is Vertical
+			else
+			{
+				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingV, this.MERGE_LABEL_LINE_SPACE, true);
+				else nTemp = 0;
+				
+				//this.lfn_Log("nTop : " + nTop + " / nCompHeight : " + nCompHeight + " / nTemp : " + nTemp + " / nRealRowSize : " + nRealRowSize);
+				//Start a new line if the Field exceeds the Cell Height
+				if(nTop+nCompHeight-nTemp>nRealRowSize)
+				{
+					//The Bottom Value of the last Field of this Row
+					nEndY = nTop;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, nPaddingV, this.MERGE_LABEL_LINE_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the VAlign Starting Location Value of this Row
+					arrAlignY[nRowIdx] = this.lfn_CalcAlignPos(sVAlign, nRealRowSize, ( nEndY - nStartY - nTemp));
+
+					//Create the starting Left/Top Coordinates of the next Row
+					//Set the right value of the field with the largest width of this row as the left value of the next Row
+					nLeft += nFiledWidthMax;
+
+					//Initialize Top Coordinate
+					nTop  = 0;
+
+					//Initialize the largest Width Value
+					nFiledWidthMax = 0;
+
+					//Initialize the Col Index
+					nColIdx = 0;
+
+					//Increase Row Index
+					nRowIdx++;
+				}
+
+				//Evaluate the largest Width Value
+				if(nCompWidth>nFiledWidthMax)nFiledWidthMax = nCompWidth;
+			}
+
+			//Starting Left/Top Location Value of the Field
+			if(j==0)
+			{
+				nStartX = nLeft;
+				nStartY = nTop;
+			}
+
+			//If is it the last Field
+			if(j==nFieldInCellCnt-1)
+			{
+				//If the Component Production Direction is Horizontal
+				if(sDirection=="horizontal")
+				{
+					//The Right value of the last Field of this Row
+					nEndX = nLeft + nCompWidth;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingH, this.MERGE_LABEL_COMP_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value of this Row
+					arrAlignX[nRowIdx] = this.lfn_CalcAlignPos(sHAlign, nRealColSize, (nEndX - nStartX - nTemp));
+					
+					//The Bottom Value of the Field with the largest Height until the last Field
+					nEndY = nTop + nFiledHeightMax;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx+1, nPaddingV, this.MERGE_LABEL_LINE_SPACE, true);
+					else nTemp = 0;
+					
+					//Evaluate the VAlign Starting Location Value
+					nAlignY = this.lfn_CalcAlignPos(sVAlign, nRealRowSize, (nEndY - nStartY - nTemp));
+				}
+				//If the Component Production Direction is Vertical
+				else
+				{
+					//The Bottom Value of the last Field of this Row
+					nEndY = nTop + nCompHeight;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingV, this.MERGE_LABEL_LINE_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value of this Row
+					arrAlignY[nRowIdx] = this.lfn_CalcAlignPos(sVAlign, nRealRowSize, (nEndY - nStartY - nTemp));
+
+					//The Right Value of the Field with the largest Height until the last Field
+					nEndX = nLeft + nCompWidth;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx+1, nPaddingH, this.MERGE_LABEL_COMP_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value
+					nAlignX = this.lfn_CalcAlignPos(sHAlign, nRealColSize, (nEndX - nStartX - nTemp));
+
+				}
+			}
+
+			//Save the Field Location Information
+			arrFieldPosition[j] =
+			{
+				"fieldid" : sFieldId,
+				"left" : nLeft,
+				"top" : nTop,
+				"width" : nCompWidth,
+				"height" : nCompHeight,
+				"rowidx" : nRowIdx,
+				"colidx" : nColIdx,
+				"alignx" : 0,
+				"aligny" : 0,
+				"colsize" : nColSize,
+				"rowsize" : nRowSize
+			};
+			
+			//Set the Left/Top Location Value of the next Field
+			if(sDirection=="horizontal")nLeft += nCompWidth;
+			else nTop += nCompHeight;
+
+			//Increase Col Index
+			nColIdx++;
+		}
+
+		//Save Align X/Y Value on the Field Location Information
+		if(sDirection=="horizontal")
+		{
+			for(var i=0;i<arrFieldPosition.length;i++)
+			{
+				nRowIdx = arrFieldPosition[i].rowidx;
+				arrFieldPosition[i].alignx = arrAlignX[nRowIdx];
+				arrFieldPosition[i].aligny = nAlignY;
+			}
+		}else
+		{
+			for(var i=0;i<arrFieldPosition.length;i++)
+			{
+				nRowIdx = arrFieldPosition[i].rowidx;
+				arrFieldPosition[i].alignx = nAlignX;
+				arrFieldPosition[i].aligny = arrAlignY[nRowIdx];
+			}
+		}
+		
+		//Return Field Location Information
+		return arrFieldPosition;
+	}
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_CalcField
+	 * Parameter    :
+					- sDirection : Component Production Direction
+					- sVAlign : Component Vertical Alignment Method(top|middle|bottom)
+					- sHAlign : Component Horizontal Alignment Method(left|center|right)
+					- nColSize : The Width of The Cell to be Expressed
+					- nRowSize : The Height of The Cell to be Expressed
+					- arrFieldInCellList : Field List added on the Cell
+	 * Return       : arrFieldPosition : Object Array with Field Location Information
+	 * Description  : Function to Evaluate the Field Location Value to be Expressed
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_CalcField = function(sDirection, sVAlign, sHAlign, nColSize, nRowSize, arrFieldInCellList)
+	{
+		var nLeft = 0;
+		var nTop  = 0;
+		var nRowIdx = 0;
+		var nColIdx = 0;
+		var nFiledWidthMax = 0;
+		var nFiledHeightMax = 0;
+
+		var nStartX, nStartY;
+		var nEndX, nEndX;
+		var nTemp;
+		
+		//Import Field List Registered to the Model
+		var arrFieldList = this.oUseFieldArray.fields;
+		
+		//Number of Fields connected to the Cell
+		var nFieldInCellCnt;
+
+		//Object Array to save the Field Location Information
+		var arrFieldPosition = [];
+
+		var sFieldPosition;
+		var nFieldAreaWidth, nFieldAreaHeight;
+		
+		//Label Width
+		var nLabelSize;
+		
+		var nPaddingH, nPaddingV;													// 필드끼리 가로 간격, 세로간격
+		
+		//Check Quantity with Field List connected to Cell
+		var nFieldInCellCnt = this.lfn_IsNull(arrFieldInCellList) ? arrFieldList.length : arrFieldInCellList.length;
+
+		//If the Component Production Direction is Horizontal
+		//Choose Array, as the x-coordinate for each row is different
+		//Choose Number, as the y-coordinate for each column is identical
+		if(sDirection=="horizontal")
+		{
+			var arrAlignX = [];
+			var nAlignY;
+		}
+		//If the Component Production Direction is Vertical
+		//Choose Number, as the x-coordinate for each row is identical
+		//Choose Array, as the y-coordinate for each column is different
+		else
+		{
+			var nAlignX;
+			var arrAlignY = [];
+		}
+
+		for(var j=0;j<nFieldInCellCnt;j++)
+		{
+			//If Layout was used
+			//Import Field Information registered on the Model based on the Fields connected to the Cell
+			if (!this.lfn_IsNull(arrFieldInCellList))			// layout
+			{
+				sFieldId =  arrFieldInCellList[j];
+				oField = arrFieldList.filter(arrFieldList=>arrFieldList.id==sFieldId)[0];
+			}
+			//If Layout was not used
+			//Import Field Information registered on the Model
+			else												
+			{
+				oField = arrFieldList[j];
+				sFieldId = oField.id;
+			}
+			
+			// oField가 없거나 usecomp == "false"인 경우 포지션 정보 없음
+			if (this.lfn_IsNull(oField) || oField.usecomp == "false") {
+				arrFieldPosition[j] = { "fieldid" : sFieldId};
+				continue;
+			}
+			
+			// label위치
+			sFieldPosition = oField.fieldposition;
+
+			//Import Label Width Information set on the current Field
+			nLabelSize = nexacro.toNumber(oField.labelsize);
+			
+			if (sFieldPosition=="horizontal")
+			{
+				//Evaluate Width/Height that this field will be expressed on
+				nCompWidth = this.lfn_GetRealSize(oField.compwidth, nLabelSize, nColSize, this.COMP_WIDTH, 0, 0);
+				nCompHeight = this.lfn_GetRealSize(oField.compheight, 0, nRowSize, this.COMP_HEIGHT, 0, 0);
+				
+				nFieldAreaWidth = nCompWidth + nLabelSize;
+				nFieldAreaHeight = nCompHeight;
+				
+				nPaddingH = this.H_COMP_PADDING_RIGHT;
+				nPaddingV = this.H_COMP_PADDING_BOTTOM;
+			}
+			else
+			{
+				//Evaluate Width/Height that this field will be expressed on
+				nCompWidth = this.lfn_GetRealSize(oField.compwidth, 0, nColSize, this.COMP_WIDTH, 0, 0);
+				nCompHeight = this.lfn_GetRealSize(oField.compheight, nLabelSize, nRowSize, this.COMP_HEIGHT, 0, 0);
+				
+				nFieldAreaWidth = nCompWidth;
+				nFieldAreaHeight = nCompHeight + nLabelSize;
+				
+				nPaddingH = this.V_COMP_PADDING_RIGHT;
+				nPaddingV = this.V_COMP_PADDING_BOTTOM;
+			}
+			
+			//If the Component Production Direction is Horizontal
+			if(sDirection=="horizontal")
+			{
+				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingH, this.COMP_SPACE, true);
+				else nTemp = 0;
+				
+				//Start a new line if the Field exceeds the Cell Height
+				if(nLeft+nFieldAreaWidth-nTemp>nColSize)
+				{
+					//The Right value of the last Field of this Row
+					nEndX = nLeft;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, nPaddingH, this.COMP_SPACE, true);
+					else nTemp = 0;
+					
+					//this.lfn_Log("nEndX : " + nEndX + " / nStartX : " + nStartX + " / nTemp : " + nTemp);
+
+					//Evaluate the HAlign Starting Value of this Row
+					arrAlignX[nRowIdx] = this.lfn_CalcAlignPos(sHAlign, nColSize, (nEndX - nStartX - nTemp));
+
+					//Create the starting Left/Top Coordinates of the next Row
+					//Set the Bottom value of the Field with the largest Height of this Row as the Top value of the next Row
+					nTop += nFiledHeightMax;
+
+					//Initialize the Left Coordinate
+					nLeft = 0;
+
+					//Initialize the largest Height Value
+					nFiledHeightMax = 0;
+
+					//Initialize the Col Index
+					nColIdx = 0;
+
+					//Increase Row Index
+					nRowIdx++;
+				}
+
+				//Evaluate the largest Height Value
+				if(nFieldAreaHeight>nFiledHeightMax)nFiledHeightMax = nFieldAreaHeight;
+			}
+			//If the Component Production Direction is Vertical
+			else
+			{
+				//Calculate the difference arising from the conversion process from Padding to Comp/Line Space								
+				if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingH, this.COMP_SPACE, true);								
+				else nTemp = 0;
+				
+				//Start a new line if the Field exceeds the Cell Height
+				if(nTop+nFieldAreaHeight-nTemp>nRowSize)
+				{
+					//The Bottom Value of the last Field of this Row
+					nEndY = nTop;
+					
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx, nPaddingH, this.COMP_SPACE, true);
+					else nTemp = 0;
+					
+					//this.lfn_Log("nRowSize : " + nRowSize + " / nEndY : " + nEndY+ " / nStartY : " + nStartY+ " / nTemp : " + nTemp);
+
+					//Evaluate the VAlign Starting Location Value of this Row
+					arrAlignY[nRowIdx] = this.lfn_CalcAlignPos(sVAlign, nRowSize, (nEndY - nStartY - nTemp));
+
+					//Create the starting Left/Top Coordinates of the next Row
+					//Set the right value of the field with the largest width of this row as the left value of the next Row
+					nLeft += nFiledWidthMax;
+
+					//Initialize Top Coordinate
+					nTop  = 0;
+
+					//Initialize the largest Width Value
+					nFiledWidthMax = 0;
+
+					//Initialize the Col Index
+					nColIdx = 0;
+
+					//Increase Row Index
+					nRowIdx++;
+				}
+
+				//Evaluate the largest Width Value
+				if(nFieldAreaWidth>nFiledWidthMax)nFiledWidthMax = nFieldAreaWidth;
+			}
+
+			//Starting Left/Top Location Value of the Field
+			if(j==0)
+			{
+				nStartX = nLeft;
+				nStartY = nTop;
+			}
+
+			//If is it the last Field
+			if(j==nFieldInCellCnt-1)
+			{
+				//If the Component Production Direction is Horizontal
+				if(sDirection=="horizontal")
+				{
+					//The Right value of the last Field of this Row
+					nEndX = nLeft + nFieldAreaWidth;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingH, this.COMP_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value of this Row
+					arrAlignX[nRowIdx] = this.lfn_CalcAlignPos(sHAlign, nColSize, (nEndX - nStartX - nTemp));
+
+					//The Bottom Value of the Field with the largest Height until the last Field
+					nEndY = nTop + nFiledHeightMax;
+					
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx, nPaddingV, this.LINE_SPACE, false);
+					else nTemp = 0;
+
+					//Evaluate the VAlign Starting Location Value
+					nAlignY = this.lfn_CalcAlignPos(sVAlign, nRowSize, (nEndY - nStartY - nTemp));
+				}
+				//If the Component Production Direction is Vertical
+				else
+				{
+					//The Bottom Value of the last Field of this Row
+					nEndY = nTop + nFieldAreaHeight;
+					
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nColIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nColIdx+1, nPaddingH, this.COMP_SPACE, true);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value of this Row
+					arrAlignY[nRowIdx] = this.lfn_CalcAlignPos(sVAlign, nRowSize, (nEndY - nStartY - nTemp));
+
+					//The Right Value of the Field with the largest Height until the last Field
+					nEndX = nLeft + nFieldAreaWidth;
+
+					//Calculate the difference arising from the conversion process from Padding to Comp/Line Space
+					if(nRowIdx!=0)nTemp = this.lfn_CalcPaddingToSpace(nRowIdx, nPaddingV, this.LINE_SPACE, false);
+					else nTemp = 0;
+
+					//Evaluate the HAlign Starting Value
+					nAlignX = this.lfn_CalcAlignPos(sHAlign, nColSize, (nEndX - nStartX - nTemp));
+				}
+			}
+
+			//Save the Field Location Information
+			arrFieldPosition[j] =
+			{
+				"fieldid" : sFieldId,
+				"left" : nLeft,
+				"top" : nTop,
+				"width" : nCompWidth,
+				"height" : nCompHeight,
+				"rowidx" : nRowIdx,
+				"colidx" : nColIdx,
+				"alignx" : 0,
+				"aligny" : 0,
+				"colsize": nColSize,
+				"rowsize" : nRowSize
+			};
+			
+			//Set the Left/Top Location Value of the next Field
+			if(sDirection=="horizontal")nLeft += nFieldAreaWidth;
+			else nTop += nFieldAreaHeight;
+
+			//Increase Col Index
+			nColIdx++;
+		}
+
+		//Save Align X/Y Value on the Field Location Information
+		if(sDirection=="horizontal")
+		{
+			for(var i=0;i<arrFieldPosition.length;i++)
+			{
+				nRowIdx = arrFieldPosition[i].rowidx;
+				arrFieldPosition[i].alignx = arrAlignX[nRowIdx];
+				arrFieldPosition[i].aligny = nAlignY;
+			}
+		}else
+		{
+			for(var i=0;i<arrFieldPosition.length;i++)
+			{
+				nRowIdx = arrFieldPosition[i].rowidx;
+				arrFieldPosition[i].alignx = nAlignX;
+				arrFieldPosition[i].aligny = arrAlignY[nRowIdx];
+			}
+		}
+		
+		//Return Field Location Information
+		return arrFieldPosition;
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_InitFieldAttributes
+	 * Return       : 
+	 * Description  : LCAP Tool에서 user attribute 속성을 제거함에 따라 각 속성값을 기본값으로 셋팅해준다.
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_InitFieldAttributes = function(fieldarray, viewproperties)
+	{
+		// field attributes setting
+		var oTempFieldArray = JSON.parse(fieldarray);
+		var oTempGenAttrArray = JSON.parse(viewproperties);
+		
+		var nFieldCount;
+		var oTempField;
+		
+		// LCAP Tool용 옵션
+		var nColCount = Math.max(nexacro.toNumber(oTempGenAttrArray.attributes.columncount,0),0);
+		var nLabelWidth = nexacro.toNumber(oTempGenAttrArray.attributes.labelwidth,this.LABEL_SIZE);
+		var nLabelHeight = this.COMP_HEIGHT;//nexacro.toNumber(oTempGenAttrArray.attributes.labelheight,this.COMP_HEIGHT);
+		var sFieldDirection = oTempGenAttrArray.attributes.fielddirection;
+		
+		var sLabelHeight = oTempGenAttrArray.attributes.labelheight;
+		if (!sLabelHeight) {
+			sLabelHeight = this.COMP_HEIGHT;
+		}
+		sLabelHeightType = sLabelHeight.replace(/[0-9.]/g, "");
+
+		if(sLabelHeightType=="%")
+		{
+			nLabelHeight = nexacro.toNumber(sLabelHeight.replace(/[^0-9.]/g, "")) + "%";
+		}else
+		{
+			nLabelHeight = nexacro.toNumber(sLabelHeight.replace(/[^0-9]/g, ""));
+		}
+			
+		if (oTempFieldArray)
+		{
+			var nPersent = -1;
+			if (nColCount > 0)
+			{
+				nPersent = nexacro.round(100 / nColCount,2);
+			}
+		
+			nFieldCount = oTempFieldArray.fields.length;
+			for(i=0; i<nFieldCount; i++)
+			{
+				oTempField = oTempFieldArray.fields[i];
+				
+				// 사용자에게 입력받지 않으므로 default 값으로 셋팅
+				// oTempField.comptype = this.COMP_TYPE;
+				// oTempField.fieldposition = sFieldDirection/*this.FIELD_POSITION*/;
+				
+				oTempField.cssclass = this.COMP_CSSCLASS;
+				oTempField.labelcssclass = this.LABEL_CSSCLASS;
+				// oTempField.compreadonly = (oTempField.editable == "true") ? "false" : "true"/*this.COMP_READONLY*/;
+				oTempField.usecomp = this.USE_COMP;
+				// if (oTempField.uselabel == "false") 
+				// {
+				// 	oTempField.labelsize = -1;
+				// }
+				// else
+				// {
+				// 	oTempField.labelsize = (sFieldDirection == "horizontal") ? nLabelWidth : nLabelHeight;	
+				// }
+				// oTempField.compwidth = (nPersent > 0) ? nPersent + "%" : "100%";;
+				// oTempField.compheight = nLabelHeight;
+			}
+			
+			fieldarray = JSON.stringify(oTempFieldArray, null, "\t");
+			//trace(">> fieldarray : " + fieldarray);
+		}
+		
+		//var vResult = JSON.stringify(fieldarray, null, "\t");
+		//trace(">> fieldarray : " + vResult);
+			
+		return fieldarray;
+	};
+	
+/*===============================================================================================*/
+/* Model Generation Related Functions                                                            */	
+/*===============================================================================================*/		
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_MakeCompByLayout
+	 * Parameter    :
+					- oLayout : Layout Setting Information
+	 * Return       :
+	 * Description  : Layout-based Component Production Function
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_MakeCompByLayout = function(oLayout)
+	{
+		//CellList Information set on Layout
+		var arrCellList = oLayout.celllist;
+
+		//ColumnSize Information set on Layout
+		var arrColSize = oLayout.columnsize;
+
+		//RowSize Information set on Layout
+		var arrRowSize = oLayout.rowsize;
+
+		//Import Column/Row Default Size
+		var nColSizeDef = oLayout.colsizedef;
+		var nRowSizeDef = oLayout.rowsizedef;
+
+		var nCol, nRow, nColSpan, nRowSpan;
+		var sDirection, sVAlign, sHAlign;
+		var nWidth;
+		var nHeight;
+		var bMergeLabel;
+
+		var oCell;
+		var oStatic;
+
+		for(var i=0;i<arrCellList.length;i++)
+		{
+			oCell = arrCellList[i];
+			sDirection = oCell.direction
+			nCol = nexacro.toNumber(oCell.col);
+			nRow = nexacro.toNumber(oCell.row);
+			nColSpan = nexacro.toNumber(oCell.colspan);
+			nRowSpan = nexacro.toNumber(oCell.rowspan);
+			bMergeLabel = oCell.mergelabel;
+
+			//Initialize to 1 if there are no Col/RowSpan Values
+			if(!nColSpan)nColSpan = 1;
+			if(!nRowSpan)nRowSpan = 1;
+
+			//Continue if there are no Fields on the Cell
+			if(!oCell.fieldlist)continue;
+
+			//Import the Left/Top Location Value of the current Cell
+			nLeft = this.lfn_GetCellSize(arrColSize, 0, nCol, nColSizeDef) + this.VIEW_PADDING_LEFT;
+			nTop = this.lfn_GetCellSize(arrRowSize, 0, nRow, nColSizeDef) + this.VIEW_PADDING_TOP;
+
+			this.fn_MakeComp(nLeft, nTop, oCell.realcolsize, oCell.realrowsize, sDirection, oCell.fieldposition, bMergeLabel, nCol, nRow);
+		}
+	}
+	
+	/*---------------------------------------------------------------------------------------------*
+	 * Function     : fn_MakeComp
+	 * Parameter    :
+					- nBaseLeft : Reference Coordinate (Left) to create Component
+					- nBaseTop : Reference Coordinate (Top) to create Component
+					- nBaseWidth : Reference Coordinate (Width) to create Component
+					- nBaseHeight : Reference Coordinate (Height) to create Component
+					- sDirection : Component Production Direction
+					- arrFieldPosition: Object Array with Field Location Information
+					- bMergeLabel : 레이아웃에서 mergelabel 사용 여부
+					- nLayoutCol : 레이아웃 기준 현재 Col Index
+					- nLayoutRow : 레이아웃 기준 현재 Row Index
+	 * Return       :
+	 * Description  : Component Tag Production Function
+	 *---------------------------------------------------------------------------------------------*/
+	this.fn_MakeComp = function(nBaseLeft, nBaseTop, nBaseWidth, nBaseHeight, sDirection, arrFields, bMergeLabel, nLayoutCol, nLayoutRow)
+	{
+		var nLabelLeft, nLabelTop, nLabelWidth, nLabelHeight;
+		var nCompLeft, nCompTop, nCompWidth, nCompHeight, nCompBgWidth;
+		var nPosLeft, nPosTop, nPosWidth, nPosHeight;
+		var nColSize, nRowSize;
+		var nFieldAreaWidth, nFieldAreaHeight;
+		var nPaddingLeft, nPaddingTop, nPaddingRight, nPaddingBottom;
+		
+		var oAlignPos;
+		var sFieldId;
+		var oField;
+		var oFieldPosition;
+		var nRowIdx, nColIdx;
+		var nAlignX, nAlignY;
+		var nCompAlignX, nCompAlignY;
+		var nCheckIdx;
+
+		var oModel = this.oContents.View.Model;
+		var sCompId;
+		var sCompClassId;
+		var oCompClass;
+		var oLabelClass			= this.lfn_GetCompClass(this.LABEL_TYPE);
+		var oCompBgClass		= this.lfn_GetCompClass(this.COMP_BG_TYPE);
+		var sCompCssClass;
+		var sLabelCssClass;
+		var sFieldBgCssClass = this.COMP_BG_CSSCLASS;
+		var sFieldPosition;
+		
+		// FieldBox 사용여부
+		var sUseFieldBox = this.oViewProperties.attributes.usefieldbox;
+
+		if(this.lfn_IsNull(bMergeLabel))	bMergeLabel = "false";
+		if(this.lfn_IsNull(nLayoutCol))		nLayoutCol = 0;
+		if(this.lfn_IsNull(nLayoutRow))		nLayoutRow = 0;
+		
+		for(var i=0;i<arrFields.length;i++)
+		{
+			//Import Field Object
+			oFieldPosition = arrFields[i];
+			sFieldId = oFieldPosition.fieldid;
+			oField = this.oUseFieldArray.fields.filter(fields=>fields.id==sFieldId)[0];
+			
+			if (this.lfn_IsNull(oField))		continue;
+
+			//Import Component Naming Rules
+			oCompClass = this.lfn_GetCompClass(oField.comptype, oField);
+
+			//Import Component Css Class Id Value
+			sCompCssClass = this.lfn_GetCssClass(oField, "cssclass", this.COMP_CSSCLASS, this.COMP_REQUIRED_CSSCLASS);
+			
+			//Import Label Css Class Id Value
+			sLabelCssClass = this.lfn_GetCssClass(oField, "labelcssclass", this.LABEL_CSSCLASS, this.LABEL_REQUIRED_CSSCLASS);
+			
+			sFieldPosition = oField.fieldposition;
+			
+			//Import Row/Col Index where the Field will be located
+			nRowIdx = oFieldPosition.rowidx;
+			nColIdx = oFieldPosition.colidx;
+
+			nRowSize = oFieldPosition.rowsize;
+			nColSize = oFieldPosition.colsize;
+
+			//Import Align Location Information of the Field
+			nAlignX = oFieldPosition.alignx;
+			nAlignY = oFieldPosition.aligny;
+
+			//Import Field Location Information
+			nPosLeft = nexacro.toNumber(oFieldPosition.left);
+			nPosTop = nexacro.toNumber(oFieldPosition.top);
+			nPosWidth = nexacro.toNumber(oFieldPosition.width);
+			nPosHeight = nexacro.toNumber(oFieldPosition.height);
+			
+			// fieldposition에 따라 Padding값 설정
+			if (sFieldPosition=="vertical")
+			{
+				nPaddingLeft	= this.V_COMP_PADDING_LEFT;
+				nPaddingTop		= this.V_COMP_PADDING_TOP;
+				nPaddingRight	= this.V_COMP_PADDING_RIGHT;
+				nPaddingBottom	= this.V_COMP_PADDING_BOTTOM;
+			}
+			else
+			{
+				nPaddingLeft	= this.H_COMP_PADDING_LEFT;
+				nPaddingTop		= this.H_COMP_PADDING_TOP;
+				nPaddingRight	= this.H_COMP_PADDING_RIGHT;
+				nPaddingBottom	= this.H_COMP_PADDING_BOTTOM
+			}
+			
+			//다중 field 설정 시 label 통합
+			//format 에 mergeable 속성이 true일때
+			if (bMergeLabel=="true")
+			{
+				//Label과 Comp를 상하배치
+				if (sFieldPosition=="vertical")
+				{
+					if(i==0)
+					{
+						nLabelLeft = nBaseLeft + nPosLeft;
+						nLabelTop = nBaseTop + nPosTop;
+						nLabelWidth = nexacro.toNumber(nBaseWidth);
+						nLabelHeight = nexacro.toNumber(oField.labelsize);
+					}
+
+					//Component Left Coordinate = Cell Left + Field Left + Label Area Width + HAlign Starting Coordinate
+					nCompLeft = nBaseLeft + nPosLeft + nAlignX;
+
+					//Component Top Coordinate = Cell Top + Field Top + VAlign Starting Coordinate
+					nCompTop = nBaseTop + nPosTop + nAlignY + nLabelHeight;
+					
+					//Component Width = Field Width - Left/Right Padding
+					nCompWidth = nPosWidth - nPaddingLeft - nPaddingRight;
+
+					//Component Height = Field Height - Top/Bottom Padding
+					nCompHeight = nPosHeight - nPaddingTop - nPaddingBottom;
+				}
+				//Label과 Comp를 좌우배치
+				else
+				{
+					if(i==0)
+					{
+						nLabelLeft = nBaseLeft + nPosLeft;
+						nLabelTop = nBaseTop + nPosTop;
+						nLabelWidth = nexacro.toNumber(oField.labelsize);
+						nLabelHeight = nexacro.toNumber(nBaseHeight);
+					}
+
+					//Component Left Coordinate = Cell Left + Field Left + Label Area Width + HAlign Starting Coordinate
+					nCompLeft = nBaseLeft + nPosLeft + nLabelWidth + nAlignX;
+
+					//Component Top Coordinate = Cell Top + Field Top + VAlign Starting Coordinate
+					nCompTop = nBaseTop + nPosTop + nAlignY;
+
+					//Component Width = Field Width - Left/Right Padding
+					nCompWidth = nPosWidth - nPaddingLeft - nPaddingRight;
+
+					//Component Height = Field Height - Top/Bottom Padding
+					nCompHeight = nPosHeight - nPaddingTop - nPaddingBottom;
+				}
+				
+				if(sDirection=="horizontal")
+				{
+					if(nColIdx!=0)
+					{
+						//Component Left Coordinate = Component Left Coordinate - (Padding Value excluding the Left Padding of the first Component) + (Comp Space*Number of Components)
+						nCompLeft = nCompLeft - (nPaddingLeft*(nColIdx-1)) - (nPaddingRight*nColIdx) + (this.MERGE_LABEL_COMP_SPACE *nColIdx);
+					}else
+					{
+						//Component Left Coordinate = Component Left Coordinate + Component Left Padding
+						nCompLeft = nCompLeft + nPaddingLeft;
+					}
+
+					if(nRowIdx!=0)
+					{
+						//Component Top Coordinate = Component Top Coordinate - (Padding Value excluding the Top Padding of the first Component) + (Line Space*Number of Components)
+						nCompTop = nCompTop - (nPaddingTop*(nRowIdx-1)) - (nPaddingBottom*nRowIdx) + (this.MERGE_LABEL_LINE_SPACE *nRowIdx);
+					}else
+					{
+						//Component Top Coordinate = Component Top Coordinate + Component Top Padding
+						nCompTop = nCompTop + nPaddingTop;
+					}
+				}
+				else
+				{
+					if(nRowIdx!=0)
+					{
+						//Component Left Coordinate = Component Left Coordinate - (Padding Value excluding the Left Padding of the first Component) + (Comp Space*Number of Components)
+						nCompLeft = nCompLeft - (nPaddingLeft*(nRowIdx-1)) - (nPaddingRight*nRowIdx) + (this.MERGE_LABEL_COMP_SPACE *nRowIdx);
+
+					}else
+					{
+						//Component Left Coordinate = Component Left Coordinate + Component Left Padding
+						nCompLeft = nCompLeft + nPaddingLeft;
+					}
+
+					if(nColIdx!=0)
+					{
+						//Component Top Coordinate = Component Top Coordinate - (Padding Value excluding the Top Padding of the first Component) + (Line Space*Number of Components)
+						nCompTop = nCompTop - (nPaddingTop*(nColIdx-1)) - (nPaddingBottom*nColIdx) + (this.MERGE_LABEL_LINE_SPACE *nColIdx);
+					}else
+					{
+						//Component Top Coordinate = Component Top Coordinate + Component Top Padding
+						nCompTop = nCompTop + nPaddingTop;
+					}
+				}
+
+				nFieldAreaWidth = nBaseWidth;
+				nFieldAreaHeight = nBaseHeight;
+				
+				
+				// border를 겹쳐서 표시할지 여부
+				if (this.BORDER_OVERLAP)
+				{
+					if(sDirection=="horizontal")
+					{
+						nLabelTop = nLabelTop - (nRowIdx * 1) - (nLayoutRow * 1);
+						nCompTop = nCompTop - (nRowIdx * 1) - (nLayoutRow * 1);
+						nLabelLeft = nLabelLeft - (nColIdx * 1) - (nLayoutCol * 1);
+						nCompLeft = nCompLeft - (nColIdx * 1) - (nLayoutCol * 1);
+						
+					}
+					else
+					{
+						nLabelTop = nLabelTop - (nColIdx * 1) - (nLayoutCol * 1);
+						nCompTop = nCompTop - (nColIdx * 1) - (nLayoutCol * 1);
+						nLabelLeft = nLabelLeft - (nRowIdx * 1) - (nLayoutRow * 1);
+						nCompLeft = nCompLeft - (nRowIdx * 1) - (nLayoutRow * 1);
+						
+					}
+				}
+				
+			}
+			// Label + Comp 배치
+			//format 에 mergeable 속성이 false일때
+			else
+			{
+				//Label과 Comp를 상하배치
+				if (sFieldPosition=="vertical")
+				{
+					nLabelLeft = nBaseLeft + nPosLeft + nAlignX;
+					nLabelTop = nBaseTop + nPosTop + nAlignY;
+					nLabelWidth = nPosWidth;
+					nLabelHeight = nexacro.toNumber(oField.labelsize);
+					
+					if(sDirection=="horizontal")
+					{
+						if(nColIdx!=0)
+						{
+							nLabelLeft = nLabelLeft - (nPaddingRight*(nColIdx)) + (this.COMP_SPACE *nColIdx);
+						}
+						
+						if(nRowIdx!=0)
+						{
+							//Label Top Coordinate = Label Top Coordinate + (Line Space*Number of Components)
+							nLabelTop = nLabelTop + (this.LINE_SPACE *nRowIdx);
+						}
+					}else
+					{
+						if(nRowIdx!=0)
+						{
+							nLabelLeft = nLabelLeft - (nPaddingRight*(nRowIdx)) + (this.COMP_SPACE *nRowIdx);
+						}
+						
+						if(nColIdx!=0)
+						{
+							//Label Top Coordinate = Label Top Coordinate + (Line Space*Number of Components)
+							nLabelTop = nLabelTop + (this.LINE_SPACE *nColIdx);
+						}
+					}
+					
+					nCompLeft = nLabelLeft + nPaddingLeft;
+					nCompTop = nLabelTop + nLabelHeight + nPaddingTop;
+					nCompWidth = nPosWidth - nPaddingLeft - nPaddingRight;
+					nCompHeight = nPosHeight - nPaddingTop - nPaddingBottom;
+					
+					nFieldAreaWidth = nPosWidth;
+					nFieldAreaHeight = nLabelHeight + nPosHeight;
+				}
+				//Label과 Comp를 좌우배치
+				else
+				{
+					//Calculate the Left/Top Coordinate where the Component will be located
+					//Evaluate actual Component Location Information reflecting Align, Padding, Comp/Line Space, etc.
+					//Label Left Coordinate = Cell Left + Field Left + HAlign Starting Coordinate
+					nLabelLeft = nBaseLeft + nPosLeft + nAlignX;
+
+					//Label Top Coordinate = Cell Top + Field Top + VAlign Starting Coordinate
+					nLabelTop = nBaseTop + nPosTop + nAlignY;
+
+					//Label Width = Label Area Width
+					nLabelWidth = nexacro.toNumber(oField.labelsize);
+
+					//Label Height = Field Height
+					nLabelHeight =  nPosHeight;
+
+					if(sDirection=="horizontal")
+					{
+						if(nColIdx!=0)
+						{
+							nLabelLeft = nLabelLeft - (nPaddingRight*(nColIdx)) + (this.COMP_SPACE *nColIdx);
+						}
+						
+						if(nRowIdx!=0)
+						{
+							//Label Top Coordinate = Label Top Coordinate + (Line Space*Number of Components)
+							nLabelTop = nLabelTop + (this.LINE_SPACE *nRowIdx);
+						}
+					}else
+					{
+						if(nRowIdx!=0)
+						{
+							nLabelLeft = nLabelLeft - (nPaddingRight*(nRowIdx)) + (this.COMP_SPACE *nRowIdx);
+						}
+						
+						if(nColIdx!=0)
+						{
+							//Label Top Coordinate = Label Top Coordinate + (Line Space*Number of Components)
+							nLabelTop = nLabelTop + (this.LINE_SPACE *nColIdx);
+						}
+					}
+
+					nCompLeft = nLabelLeft + nLabelWidth + nPaddingLeft;
+					nCompTop = nLabelTop + nPaddingTop;
+					nCompWidth = nPosWidth - nPaddingLeft - nPaddingRight;
+					nCompHeight = nPosHeight - nPaddingTop - nPaddingBottom;
+					
+					nFieldAreaWidth = nLabelWidth + nPosWidth;
+					nFieldAreaHeight = nPosHeight;
+				}
+				
+				// border를 겹쳐서 표시할지 여부
+				if (this.BORDER_OVERLAP)
+				{
+					if(sDirection=="horizontal")
+					{
+						nLabelTop = nLabelTop - (nRowIdx * 1) - (nLayoutRow * 1);
+						nCompTop = nCompTop - (nRowIdx * 1) - (nLayoutRow * 1);
+						nLabelLeft = nLabelLeft - (nColIdx * 1) - (nLayoutCol * 1);
+						nCompLeft = nCompLeft - (nColIdx * 1) - (nLayoutCol * 1);
+					}
+					else
+					{
+						nLabelTop = nLabelTop - (nColIdx * 1) - (nLayoutCol * 1);
+						nCompTop = nCompTop - (nColIdx * 1) - (nLayoutCol * 1);
+						nLabelLeft = nLabelLeft - (nRowIdx * 1) - (nLayoutRow * 1);
+						nCompLeft = nCompLeft - (nRowIdx * 1) - (nLayoutRow * 1);
+					}
+				}
+			}
+			
+			// Model값 초기화
+			oModel[oModel.length] = {"fieldid" : sFieldId,"Components" : []};
+			
+			//bMergeLabel이 false인 경우 Fieldbox, label 생성, bMergeLabel이 true인 경우 첫번째 Field 경우에만 생성
+			if (bMergeLabel=="false" || i==0)
+			{
+				// Field배경 Box 생성
+				if(sUseFieldBox == "true")
+				{
+					if (this.MERGE_COMP_BG == "true")
+					{
+						if (nLayoutCol == 0 && nColIdx == 0)
+						{
+							//필드 배경 Static 추가
+							sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+							oComp = {
+										"tag" : oCompBgClass.classId,
+										"attribute" :
+										{
+											"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "right" : this.VIEW_PADDING_RIGHT, "height" : nLabelHeight
+											,"cssclass" : sFieldBgCssClass
+										}
+									};
+							oModel[oModel.length-1].Components.push(oComp);
+						}
+					}
+					// Field마다 생성
+					else
+					{
+						//필드 배경 Static 추가
+						sCompId = this.lfn_GetCompId(oCompBgClass.prefix + "_" + sFieldId + "_" + "Bg");
+						oComp = {
+									"tag" : oCompBgClass.classId,
+									"attribute" :
+									{
+										"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nFieldAreaWidth, "height" : nFieldAreaHeight
+										,"cssclass" : sFieldBgCssClass
+									}
+								};
+						oModel[oModel.length-1].Components.push(oComp);
+					}
+				}
+				
+				//라벨 Static 추가
+				if(nLabelWidth>0)
+				{
+					sCompId = this.lfn_GetCompId(oLabelClass.prefix + "_" + sFieldId + "_" + "Label");
+					oComp = {
+								"tag" : oLabelClass.classId,
+								"attribute" :
+								{
+									"id" : sCompId, "left" : nLabelLeft, "top" : nLabelTop, "width" : nLabelWidth, "height" : nLabelHeight
+									, "text" : oField.label, "cssclass" : sLabelCssClass
+								}
+							};
+					oModel[oModel.length-1].Components.push(oComp);
+				}
+			}
+
+			//Add Component Tag
+			sCompId = this.lfn_GetCompId(oCompClass.prefix + "_" + sFieldId);
+			sCompClassId = oCompClass.classId;
+			oComp = {
+						"tag" : sCompClassId,
+						"attribute" :
+						{
+							"id" : sCompId, "left" : nCompLeft, "top" : nCompTop, "width" : nCompWidth, "height" : nCompHeight
+							, "cssclass" : sCompCssClass
+						}
+					};
+			
+			// 컴포넌트별 기본 속성 설정
+			if (!this.lfn_IsNull(oCompClass.attribute))		Object.assign(oComp.attribute, oCompClass.attribute);
+			
+			//If the Component Type is Button,Checkbox,Static, add label text to the text properties
+			if(sCompClassId=="Button" || sCompClassId=="CheckBox" || sCompClassId=="Static")
+			{
+				oComp.attribute.text = oField.label;
+			}
+			
+			// Readonly 처리
+			if(oField.compreadonly == "true")
+			{
+				// 조회모드(readonly처리, 스핀버튼,드롭다운버튼 안보이게 처리)
+				if(sCompClassId=="Calendar" || sCompClassId=="CheckBox" || sCompClassId=="Combo" || sCompClassId=="Edit"
+					|| sCompClassId=="MaskEdit" || sCompClassId=="Radio" || sCompClassId=="Spin" || sCompClassId=="TextArea"
+					|| sCompClassId=="TextField" || sCompClassId=="MultiLineTextField")
+				{
+					oComp.attribute.readonly = "true";
+					
+					// reaonly시 라벨처럼 보이게 처리 여부
+					if (this.COMP_READONLY_LABEL_STYLE == "true")
+					{
+						if (this.lfn_IsNull(sCompCssClass) || sCompCssClass == this.COMP_REQUIRED_CSSCLASS) {
+							oComp.attribute.cssclass = this.COMP_READONLY_CSSCLASS;
+						}
+						
+						// 스핀버튼, 드롭다운버튼 안보이게 처리
+						if (sCompClassId=="Spin" || sCompClassId=="Combo" || sCompClassId=="Calendar")
+						{
+							oComp.attribute.buttonsize = "0";
+						}
+					}
+				}
+			}
+			
+			if(sCompClassId!="Button")
+			{
+				//In order to process the Bind, add Id, Field Id to BindItems Array
+				this.arrBindItems[this.arrBindItems.length] = {"compid" : sCompId, "fieldid" : sFieldId, "comptype" : oField.comptype, "compclassid" : sCompClassId};
+			}
+
+			oModel[oModel.length-1].Components.push(oComp);
+		}
+	};
+	
+/*===============================================================================================*/
+/* List of functions defined inside the script generated by fn_GetScript
+/*-----------------------------------------------------------------------------------------------*/
+/* Notes: 1. Do not include comments inside these functions.                                      */
+/*        2. Escape characters such as '\r, \n, \t' must not be used.                          */
+/*===============================================================================================*/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _fnViewOnLoad
+	* Description  : Handles the onload event processing for the view component
+	*---------------------------------------------------------------------------------------------*/
+	this._fnViewOnLoad = function(objForm){
+		/* Sets the view form reference so that functions declared in the view can access it */
+		this._ownerForm = objForm;
+	/*	
+		var oWeatherDs = this._ownerForm[this.parent.viewdataset];
+		oWeatherDs.addEventHandler("onload",this.fn_dataset_onload, this);
+	*/
+	};]]>
+  </Script>
+  <TestData>
+    <TestFields><![CDATA[{
+    "fields": [
+        {
+            "id": "field1",
+            "label": "Field1",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Boolean",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "truevalue": "Y",
+                "falsevalue": "N"
+            }
+        },
+        {
+            "id": "field2",
+            "label": "Field2",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Date",
+            "datatype": "DATE",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "dataformat": "yyyy-MM-dd"
+            }
+        },
+        {
+            "id": "field3",
+            "label": "Field3",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Time",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field4",
+            "label": "Field4",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "DateTime",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field5",
+            "label": "Field5",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "FromToDate",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field6",
+            "label": "Field6",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Email",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field7",
+            "label": "Field7",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Image",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field8",
+            "label": "Field8",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Label",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field9",
+            "label": "Field9",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Text",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field10",
+            "label": "Field10",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "LongText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field11",
+            "label": "Field11",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiLineText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field12",
+            "label": "Field12",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Password",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field13",
+            "label": "Field13",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Number",
+            "datatype": "INT",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field14",
+            "label": "Field14",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Phone",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field15",
+            "label": "Field15",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Price",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field16",
+            "label": "Field16",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Select",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "innerdataset_list": [
+                    {
+                        "label": "TOBESOFT",
+                        "value": "01"
+                    },
+                    {
+                        "label": "A Company",
+                        "value": "02"
+                    },
+                    {
+                        "label": "B Company",
+                        "value": "03"
+                    },
+                    {
+                        "label": "C Company",
+                        "value": "04"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "field17",
+            "label": "Field17",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiSelect",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field18",
+            "label": "Field18",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "ProgressBar",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        }
+    ]
+}]]>
+    </TestFields>
+    <TestViewProperties><![CDATA[{
+    "attributes": {
+        "titletext": "This is title",
+        "fieldwidth": 250,
+        "labelwidth": 100
+    }
+}]]>
+    </TestViewProperties>
+  </TestData>
+</ViewTemplateInfo>

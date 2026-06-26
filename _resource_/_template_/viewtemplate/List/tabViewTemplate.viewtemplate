@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewTemplateInfo version="2.0">
+  <ViewTemplate id="tabViewTemplate" viewtype="Others" description_en="description of the view template"/>
+  <Script version="1.0" type="xscript5.1"><![CDATA[/************************************************************************************************
+*  @FileName 	tabViewTemplate
+*  @Creator 	Author
+*  @CreateDate 	YYYY.MM.DD
+*  @Desction    Generates view
+*  @Version		1.0.0.0
+*************************************************************************************************
+*  Revision History
+*************************************************************************************************
+*  Date          		Modifier                Description
+*************************************************************************************************
+*  YYYY.MM.DD     		Author       	        Initial creation
+************************************************************************************************/
+/************************************************************************************************
+ * Include Declarations
+ ************************************************************************************************/
+/************************************************************************************************
+ * Variable Definitions
+ ************************************************************************************************/
+	//-------------------------------------------------------------------------------------------
+	// View-related constants
+	//-------------------------------------------------------------------------------------------
+
+	// Default layout configuration
+	this.VIEW_PADDING = 10;		// Default padding for the view
+
+	this.COMPONENT_TOP = 5;		// Default top position for components
+	this.COMPONENT_LEFT = 5;	// Default left position for components
+	this.COMPONENT_RIGHT = 5;	// Default right position for components
+	this.COMPONENT_WIDTH = 100;	// Default width of components
+	this.COMPONENT_HEIGHT = 32;	// Default height of components
+
+	this.TOP_POSITION = this.VIEW_PADDING;
+	this.LEFT_POSITION = 15;
+	this.RIGHT_POSITION = this.VIEW_PADDING;
+	this.BOTTOM_POSITION = this.VIEW_PADDING;
+
+	// Template-specific layout configuration
+	this.TITLE_TOP = this.TOP_POSITION;
+	this.TITLE_LEFT = this.LEFT_POSITION;
+	this.TITLE_RIGHT = this.RIGHT_POSITION;
+	this.TITLE_HEIGHT = 42;
+
+	this.COMPONENT_HGAP = 5;
+	this.COMPONENT_VGAP = 5;
+
+	//-------------------------------------------------------------------------------------------
+	// View-related variables
+	//-------------------------------------------------------------------------------------------
+	// List of model fields
+	this.oFieldArray;
+
+	// Existing contents (including <View> element)
+	this.oContents;
+		
+	// Properties for view
+	this.oViewProperties;
+
+/************************************************************************************************
+ * Required Function Area for NexaLAP Studio
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     	: set_viewProperties
+	* Return       	: List of view generation attributes (JSON format)
+	* Description 	: Defines the attributes applied to the overall view during view generation.
+	*---------------------------------------------------------------------------------------------*/
+	this.set_viewProperties = function() {
+		var sViewAttr = "";
+
+		var oViewAttr = {
+							"attributes": [
+								{
+									"id": "titletext",
+									"displaytext": "Title text",
+									"edittype": "String",
+									"defaultvalue": "TITLE",
+									"description": "Set the title text (Other fields will not be created if title text is not entered)"
+								},
+								{
+									"id": "fieldwidth",
+									"displaytext": "Field width",
+									"edittype": "Number",
+									"defaultvalue": "250",
+									"description": "Field Width(px)"
+								},
+								{
+									"id": "labelwidth",
+									"displaytext": "Label width",
+									"edittype": "Number",
+									"defaultvalue": "100",
+									"description": "Label Size(px)"
+								}
+							]
+						};
+
+		sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+		// nexacro.trace(">> sViewAttr : " + sViewAttr);
+
+		return sViewAttr;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : set_fieldProperties
+	* Return       : List of field-level attributes for view generation (JSON format)
+	* Description  : Defines the attributes applied to each model field during view generation.
+	*---------------------------------------------------------------------------------------------*/
+	this.set_fieldProperties = function() {
+		var sFieldAttr = "";
+
+		var oFieldAttr = {
+							"attributes": [
+							]
+						};
+
+		sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
+		// nexacro.trace(">> sFieldAttr : " + sFieldAttr);
+
+		return sFieldAttr;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	 * Function    	: main
+	 * Parameters  	:
+	 * 				 - fieldarray     : List of model fields
+	 *  			 - contents       : Existing contents (including <View> element)
+	 *  			 - viewproperties : Attributes for view generation
+	 * Return      	: View definition (source + script) in JSON format
+	 * Description	: Generates the view based on the model fields and returns the result.
+	 *---------------------------------------------------------------------------------------------*
+	 *                        !!! This function is required by NexaLAP Studio. !!!                 *
+	 *                        !!! Do not remove or rename this function. !!!                       *
+	 *---------------------------------------------------------------------------------------------*/
+	this.main = function(fieldarray, contents, viewproperties) {		
+		var sResult = "";
+
+		// Convert the data into a JSON object
+		if(fieldarray) {
+			this.oFieldArray = JSON.parse(fieldarray);
+		}
+
+		// Set View Component Information as JSON Object
+		if(contents) {
+			this.oContents = JSON.parse(contents);
+
+			// Initialize Model Information
+			this.oContents.View.Model = [];
+			
+			// Initialize View layout
+			this.oContents.View.View[0].tag = "Layouts";
+			this.oContents.View.View[0].Layouts = [];
+		}
+		
+		// Set Option Setting Information as JSON Object
+		if(viewproperties) {
+			this.oViewProperties = JSON.parse(viewproperties);
+		}
+		
+		// Generate model information
+		this.oContents.View.Model = this.fn_GetModel();
+
+		// When binding is required for the selected field list, the viewdataset must be set.
+		this.oContents.View.attribute.viewdataset = "${VIEW_DATASET}";
+
+		// Generate object information
+		this.oContents.View.Objects = this.fn_GetObjects();
+
+		// Generate script information
+		this.oContents.View.Script = this.fn_GetScript();
+
+		// Convert the view definition to a JSON string
+		sResult = JSON.stringify(this.oContents, null, "\t");
+		// nexacro.trace(">> sResult : " + sResult);
+
+		return sResult;
+	};
+
+/************************************************************************************************
+ * Functions Related to the main() Execution Flow
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetModel
+	* Return       : model contents (JSON format)
+	* Description  : Function to generate a component source based on field information of the model entered by the user
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetModel = function() {
+	
+		var oModel = [];	
+
+		// Generate the title
+		//this.fn_MakeTitle(oModel);
+
+		// Generate the title area
+		//this.fn_MakeContents(oModel);
+		this.fn_MakeTab(oModel);
+		// Return the model information to be generated
+		return oModel;
+	};
+
+	this.fn_MakeTab = function(model){
+		var oModel = model;
+		var oTab = {
+				"tag" : "Tab"
+				,"attribute" : {
+					"id"		: "tabMdi"
+				   ,"left"		: "10"
+				   ,"top" 		: "10"
+				   ,"right" 	: "10"
+				   ,"bottom" 	: "10"
+				   ,"textAlign"	: "right"
+				   ,"text"  	: ""
+				   ,"cssclass" 	: ""
+				}
+				,"Tab" : [
+							{
+								"tag" : "Tabpages"
+							   ,"Tabpages" : [
+												{
+													"tag" : "Tabpage"
+												   ,"attribute" : {
+														"id" 	: "Tabpage1"
+													   ,"text" 	: "Tabpage1"
+												   }
+												}
+											   ,{
+													"tag" : "Tabpage"
+												   ,"attribute" : {
+														"id" 	: "Tabpage2"
+													   ,"text" 	: "Tabpage2"
+													   ,"url"  	: "System::UserManagement.xfdl"
+												   }
+												}
+											   ,{
+													"tag" : "Tabpage"
+												   ,"attribute" : {
+														"id" 	: "Tabpage3"
+													   ,"text" 	: "Tabpage3"
+													   ,"url"  	: "System::ProgramManagement.xfdl"
+												   }
+												}
+
+							   ]
+							}
+				]
+		};
+
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oTab]};
+
+	}
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetObjects
+	* Return       : objects contents (JSON format)
+	* Description  : Function to generate <Objects> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetObjects = function() {
+		
+		//Initialize Object
+		var oObjects = [];
+
+		return oObjects;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetScript
+	* Return       : script contents (JSON format)
+	* Description  : Function to generate <Script> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetScript = function() {
+
+		//Initialize Script Information
+		var oScript = {};
+		var sValue = "this._fnViewOnLoad = "
+					+ nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this._fnViewOnLoad.toString(),"\r",""),"\n",""),"\t","")
+					+ ";";
+
+		oScript =
+		{
+			"tag": "Script",
+			"attribute": { "type" : "xscript5.1" },
+			"value": sValue
+		}
+
+		return oScript;
+	};
+
+/*===============================================================================================*/
+/* Model Generation Related Functions                                                            */	
+/*===============================================================================================*/	
+	this.fn_MakeTitle = function(model){
+		var oModel = model;
+
+		var arrComponents	= new Array();
+
+		// Create the 'title' static component
+		var sCompId		= "sta_title";
+		var sText		= this.oViewProperties.attributes.titletext;
+		var sCssClass	= "sta_MF_title";
+
+		var nCompTop	= this.COMPONENT_TOP;	
+		var nCompLeft   = this.COMPONENT_LEFT;
+		var nCompWidth	= 150;
+		var nCompHeight	= this.COMPONENT_HEIGHT;
+			
+		arrComponents.push({
+			"tag" : "Static",
+			"attribute" :
+			{
+				  "id" : sCompId
+				, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth
+				, "text" : sText
+				, "cssclass" : sCssClass
+			}
+		});
+
+		// Create div component
+		var nDivTop			= this.TITLE_TOP;
+		var nDivLeft		= this.TITLE_LEFT;
+		var nDivHeight		= this.TITLE_HEIGHT;
+		var nDivRight       = this.TITLE_RIGHT;
+		
+		var oLayout = 	{
+							  "tag" : "Layout"
+							, "Layout" : arrComponents
+						};
+
+		// Appends a component to oModel
+		oModel[oModel.length] = {
+			"fieldid" : "",
+			"Components" : [{
+								"tag" : "Div",
+								"attribute" : { 
+									"id" : "div_title"
+								  , "left" : nDivLeft, "top" : nDivTop, "height" : nDivHeight, "right" : nDivRight
+								},
+								"Div" : [{
+										"tag" : "Layouts",
+										"Layouts" : [oLayout]
+								}]
+							}]
+		};
+
+		this.TOP_POSITION =  nexacro.toNumber(this.TOP_POSITION) + nexacro.toNumber(this.TITLE_HEIGHT);
+	};
+
+	this.fn_MakeContents = function(model) {
+		var oModel = model;
+
+		// viewProperties
+		var nFieldWidth = Number(this.oViewProperties.attributes.fieldwidth);
+		var nLabelWidth = Number(this.oViewProperties.attributes.labelwidth);
+
+		//Import Field List Registered to the Model
+		var arrFieldList = this.oFieldArray.fields;
+		var nFieldCount = arrFieldList.length;
+
+		var sCompId;
+		var nCompLeft = this.LEFT_POSITION, nCompTop = this.TOP_POSITION, nCompWidth = this.COMPONENT_WIDTH, nCompHeight = this.COMPONENT_HEIGHT;
+		nCompWidth = nFieldWidth - nLabelWidth - this.COMPONENT_HGAP;
+
+		for (var i=0; i<nFieldCount; i++) {
+			var oField = arrFieldList[i];
+			var sFieldId = oField.id;
+			var sFieldLabel = oField.label ?? oField.id;
+
+			// Create label(static) component
+			var oCompClass = "Static";
+			sCompId = "sta_" + sFieldId + "_" + "Label";
+			var oLabel = {
+				"tag" : oCompClass,
+				"attribute" :
+				{
+					"id" : sCompId
+					, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nLabelWidth
+					, "text" : sFieldLabel
+				}
+			}
+			oModel[oModel.length-1].Components.push(oLabel);
+
+			nCompLeft += (nLabelWidth + this.COMPONENT_HGAP);
+
+			// Create label(static) component
+			oCompClass = "Edit";
+			sCompId = "edt_" + sFieldId;
+			var oComp = {
+				"tag" : oCompClass,
+				"attribute" :
+				{
+					"id" : sCompId
+					, "left" : nCompLeft, "top" : nCompTop, "height" : nCompHeight, "width" : nCompWidth
+				}
+			}
+			oModel[oModel.length-1].Components.push(oComp);
+
+			nCompLeft = this.LEFT_POSITION;
+			nCompTop += (nCompHeight + this.COMPONENT_VGAP);
+		}
+	};
+
+/*===============================================================================================*/
+/* List of functions defined inside the script generated by fn_GetScript
+/*-----------------------------------------------------------------------------------------------*/
+/* Notes: 1. Do not include comments inside these functions.                                      */
+/*        2. Escape characters such as '\r, \n, \t' must not be used.                          */
+/*===============================================================================================*/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _fnViewOnLoad
+	* Description  : Handles the onload event processing for the view component
+	*---------------------------------------------------------------------------------------------*/
+	this._fnViewOnLoad = function(objForm){
+		/* Sets the view form reference so that functions declared in the view can access it */
+		this._ownerForm = objForm;
+
+		//this.tabMdi.insertTabpage("tab1","system::CodeManagement.xfdl");
+	};
+]]>
+  </Script>
+  <TestData>
+    <TestFields><![CDATA[{
+    "fields": [
+        {
+            "id": "field1",
+            "label": "Field1",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Boolean",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "truevalue": "Y",
+                "falsevalue": "N"
+            }
+        },
+        {
+            "id": "field2",
+            "label": "Field2",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Date",
+            "datatype": "DATE",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "dataformat": "yyyy-MM-dd"
+            }
+        },
+        {
+            "id": "field3",
+            "label": "Field3",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Time",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field4",
+            "label": "Field4",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "DateTime",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field5",
+            "label": "Field5",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "FromToDate",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field6",
+            "label": "Field6",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Email",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field7",
+            "label": "Field7",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Image",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field8",
+            "label": "Field8",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Label",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field9",
+            "label": "Field9",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Text",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field10",
+            "label": "Field10",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "LongText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field11",
+            "label": "Field11",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiLineText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field12",
+            "label": "Field12",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Password",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field13",
+            "label": "Field13",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Number",
+            "datatype": "INT",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field14",
+            "label": "Field14",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Phone",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field15",
+            "label": "Field15",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Price",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field16",
+            "label": "Field16",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Select",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "innerdataset_list": [
+                    {
+                        "label": "TOBESOFT",
+                        "value": "01"
+                    },
+                    {
+                        "label": "A Company",
+                        "value": "02"
+                    },
+                    {
+                        "label": "B Company",
+                        "value": "03"
+                    },
+                    {
+                        "label": "C Company",
+                        "value": "04"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "field17",
+            "label": "Field17",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiSelect",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field18",
+            "label": "Field18",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "ProgressBar",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        }
+    ]
+}]]>
+    </TestFields>
+    <TestViewProperties><![CDATA[{
+    "attributes": {
+        "titletext": "This is title",
+        "fieldwidth": 250,
+        "labelwidth": 100
+    }
+}]]>
+    </TestViewProperties>
+  </TestData>
+</ViewTemplateInfo>

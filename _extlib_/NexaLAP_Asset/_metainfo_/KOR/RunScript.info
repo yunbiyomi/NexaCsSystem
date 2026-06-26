@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="RunScript">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.RunScript" shorttypename="RunScript" csstypename="RunScript" csscontrolname="RunScriptControl" group="Action" subgroup="Action" csspseudo="" container="false" tabstop="false" cssstyle="false" contents="true" formats="false" contentseditor="auto" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Script를 실행하는 Action" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="targetview" displaytext="View" readonly="false" edittype="String" initonly="false" hidden="true" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Action을 수행할 View 오브젝트를 설정하는 속성입니다." csspropertyname="" normalpropertyname="targetview"/>
+      <Property name="script" displaytext="Script" readonly="false" edittype="Contents" initonly="false" hidden="false" control="false" expr="false" enumerable="true" bind="false" unused="false" mandatory="true" configurable="true" description="실행할 스크립트를 설정하는 속성입니다."/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser">
+        <Syntax text="canrun(obj:nexacro.RunScript, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 체크 상태를 변경합니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 체크 상태를 변경하지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.RunScript"/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo"/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onerror(obj:nexacro.Action, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onsuccess(obj:nexacro.Action, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Action" in="false" out="false" option="false" variable="false" description="Event가 발생한 Object."/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+    <ContentsInfo contentsformat="script" contentseditor="auto" contentstype="contents" showpreview="false" showobjtree="false" showproperties="false" />
+  </Object>
+</MetaInfo>

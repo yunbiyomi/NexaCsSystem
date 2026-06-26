@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="Message">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.Message" shorttypename="Message" csstypename="Message" csscontrolname="MessageControl" group="Action" subgroup="Message" csspseudo="" container="false" tabstop="false" cssstyle="false" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="알림창, 확인창을 호출하는 Action" finalclass="false"/>
+    <PropertyInfo>
+      <Property name="name" displaytext="Alias" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="String" description="별칭을 설정합니다."/>
+      <Property name="message" displaytext="Message" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="true" edittype="MultilineString" description="메시지로 출력 할 문자열을 입력합니다." stringrc="true"/>
+      <Property name="messagetype" displaytext="Message Type" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" unused="false" mandatory="false" edittype="Enum" enuminfo="MessageType" defaultvalue="alert" description="메시지를 출력할 타입을 선택합니다.&#13;&#10;&#13;&#10; - alert : 알림메시지창&#13;&#10; - confirm : 선택메시지창&#13;&#10;"/>
+      <Property name="targetview" group="" subgroup="" refreshinfo="" displayinfo="" edittype="String" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="Action을 수행할 View 오브젝트를 설정하는 속성입니다." csspropertyname="" normalpropertyname="targetview" stringrc="false" defaultstringrc="false"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo>
+      <EventHandler name="canrun" group="Event" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE" description="Action이 실행될 때 발생하는 이벤트입니다.">
+        <Syntax text="canrun(obj:nexacro.Message, e:nexacro.ActionRunEventInfo)">
+          <Return type="Boolean" description="이벤트에서 리턴값을 &quot;true&quot;로 반환하면 체크 상태를 변경합니다.&#13;&#10;이벤트에서 리턴값을 &quot;false&quot;로 반환하면 체크 상태를 변경하지 않습니다.&#13;&#10;&#13;&#10;이벤트에서 리턴값을 생략하면 &quot;true&quot;로 적용됩니다."/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Message" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionRunEventInfo" in="" out="" option="" variable="" description=""/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onerror" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 실패했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onerror(obj:nexacro.Message, e:nexacro.ActionErrorEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Message" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionErrorEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <EventHandler name="onsuccess" group="" deprecated="false" unused="false" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="run 메소드 실행이 성공했을때 Trigger callback 처리를 위한 event 입니다.">
+        <Syntax text="onsuccess(obj:nexacro.Message, e:nexacro.ActionSuccessEventInfo)">
+          <Return type="" description=""/>
+          <Arguments>
+            <Argument name="obj" type="nexacro.Message" in="" out="" option="" variable="" description=""/>
+            <Argument name="e" type="nexacro.ActionSuccessEventInfo" in="false" out="false" option="false" variable="false" description="Event Object."/>
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+    </EventHandlerInfo>
+  </Object>
+</MetaInfo>

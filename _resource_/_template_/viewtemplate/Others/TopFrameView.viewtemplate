@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewTemplateInfo version="2.0">
+  <ViewTemplate id="TopFrameView" viewtype="Others" description_en="description of the view template"/>
+  <Script version="1.0" type="xscript5.1"><![CDATA[/************************************************************************************************
+*  @FileName 	TopFrameView
+*  @Creator 	Tobesoft
+*  @CreateDate 	2026.01.02
+*  @Desction    Displays a single record in table format using a fluid layout
+*  @Version		1.0.0.0
+*************************************************************************************************
+*  Revision History
+*************************************************************************************************
+*  Date          		Modifier                Description
+*************************************************************************************************
+*  2026.01.02     		Tobesoft       	        Initial creation
+************************************************************************************************/
+/************************************************************************************************
+ * Include Declarations
+ ************************************************************************************************/
+	include "../_lib_/util.xjs";
+	include "../_lib_/common.xjs";
+/************************************************************************************************
+ * Variable Definitions
+ ************************************************************************************************/
+	//-------------------------------------------------------------------------------------------
+	// View-related constants
+	//-------------------------------------------------------------------------------------------
+	this.TOP_POSITION = "10";
+	this.LEFT_POSITION = "15";
+	this.RIGHT_POSITION = "10";
+	this.BOTTOM_POSITION = "10";
+	
+	//-------------------------------------------------------------------------------------------
+	// View-related variables
+	//-------------------------------------------------------------------------------------------
+
+/************************************************************************************************
+ * Required Function Area for NexaLAP Studio
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     	: set_viewProperties
+	* Return       : View generation attribute list (JSON format)
+					ex)   {
+							"attributecount": "2",
+							"attributes": [
+							{
+									"id": "use_triggerbutton",
+									"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "true",
+									"description": "Specifies whether trigger button is auto-created or not"
+								},
+								{
+									"id": "triggerbuttontext",
+									"edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "Search",
+									"description": "Enter text for trigger button"
+								}
+							]
+						}
+	* Description : Obtain a list of custom attributes required for view generation
+	*---------------------------------------------------------------------------------------------*/
+	this.set_viewProperties = function() {
+		var sViewAttr = "";
+		var oViewAttr = {
+							"attributes": [
+								this.oAttrTitleText					// Title Text
+							]
+					};
+
+		oViewAttr["attributecount"] = oViewAttr["attributes"].length;
+
+		sViewAttr = JSON.stringify(oViewAttr, null, "\t");
+		return sViewAttr;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : set_fieldProperties
+	* Return       : user attribute list from model field(JSON format)
+					ex)   {
+							"attributecount": "2",
+							"attributes": [
+							{
+									"id": "use_triggerbutton",
+									"edittype": "Boolean",              // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "true",
+									"description": "Specifies whether trigger button is auto-created or not"
+								},
+								{
+									"id": "triggerbuttontext",
+									"edittype": "String",               // edittype : Boolean/String/Number/Enum/ViewObjList
+									"defaultvalue": "Search",
+									"description": "Enter text for trigger button"
+								}
+							]
+						}
+	* Description  : Obtain a list of user attributes to register in model field
+	*---------------------------------------------------------------------------------------------*/
+	this.set_fieldProperties = function () {
+		var sFieldAttr = "";
+		var oFieldAttr = {
+							"attributes": [
+								{
+									"id": "displaytype",
+									"edittype": "Enum",
+									"enumlist" : ["auto", "normal", "none", "buttoncontrol", "calendarcontrol", "date", "checkboxcontrol", "combocontrol", "combotext", "currency", "decoratetext", "editcontrol", "imagecontrol", "mask", "maskeditcontrol", "number",  "progressbarcontrol",  "text",  "textareacontrol",  "treeitemcontrol"],
+									"defaultvalue": this.DISPLAY_TYPE,
+									"description": "Set the Field Expression"
+								},
+								{
+									"id": "edittype",
+									"edittype" : "Enum",
+									"enumlist" : ["auto", "normal", "none", "button", "checkbox", "combo", "date", "mask", "readonly", "text", "textarea", "tree"],
+									"defaultvalue" : this.EDIT_TYPE,
+									"description" : "Set the Field Editing Format"
+								},
+								{		// TODO : 스케쥴에 사용할 컬럼값 어떻게 처리할지 고민필요(displaytype로 할지...)
+									"id": "scheduleyn",
+									"edittype": "Boolean",
+									"defaultvalue": "false",
+									"description": "일정에 기준이 되는 데이터 여부(1개만 선택필요)"
+								},
+								{
+									"id": "samewithbody",
+									"edittype": "Boolean",
+									"defaultvalue": this.SAME_WITH_BODY,
+									"description": "Set the Field Head SExpression follow body displaytype or set default displaytype"
+								},
+								{
+									"id": "fieldwidth",
+									"edittype": "Number",
+									"defaultvalue": this.COL_SIZE,
+									"description": "Field Width(px)"
+								},
+								{
+									"id": "cssclass",
+									"edittype": "String",
+									"defaultvalue": this.CELL_CSSCLASS,
+									"description": "Component CSS Class"
+								},
+								{
+									"id": "summprop",
+									"edittype": "Enum",
+									"enumlist": ["none", "avg", "count", "max", "min", "sum", "rowcount"],
+									"defaultvalue": "none",
+									"description": "Types of Values when expressing Summaries"
+								},
+								{
+									"id": "suppress",
+									"edittype": "Number",
+									"defaultvalue": "0",
+									"description": "값이 동일한 셀을 하나의 셀로 표시"
+													+ "\n" + "(1이상 입력해야 동작하며, 숫자값이 클수록 우선순위가 낮아집니다.)"
+								},
+								{
+									"id" : "autosizerow",
+									"edittype" : "Enum",
+									"enumlist" : ["none", "autosize", "autosize-wordwrap"],
+									"defaultvalue" : this.AUTOSIZEROW,
+									"description" : "데이터에 따라 행 높이를 다르게 표시할지 여부"
+										+ "\n" + " - none : 행 높이를 설정된 높이로 동일하게 표시"
+										+ "\n" + " - autosize : 데이터에 따라 행 높이를 다르게 표시"
+										+ "\n" + " - autosize-wordwrap : 데이터가 줄바꿈이 되며 행 높이가 다르게 표시"
+								},
+								{
+									"id": "usecomp",
+									"edittype": "Boolean",
+									"defaultvalue": this.USE_COMP,
+									"description": "Use Component"
+								}
+							]
+					};
+
+		oFieldAttr["attributecount"] = oFieldAttr["attributes"].length;
+
+		sFieldAttr = JSON.stringify(oFieldAttr, null, "\t");
+		return sFieldAttr;
+	}
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function    : main
+	* Parameter   :
+	*               - fieldarray     : model field list
+	*               - contents       : old contents (include <View>)
+	*               - viewproperties : attributes for view generation
+	* Return      : View contents (source + script) (JSON format)
+	* Description : Generate the view based on the model field and return the results.
+	*---------------------------------------------------------------------------------------------*
+	*                        !!! This function is required by NexaLAP Studio. !!!                 *
+	*                        !!! Do not remove or rename this function. !!!                       *
+	*---------------------------------------------------------------------------------------------*/
+	this.main = function(fieldarray, contents, viewproperties) {
+	//nexacro.__onNexacroStudioError("fn_GetViewGenerationResult====>fn_GetViewGenerationResult");
+		var vResult = "";
+		this.lfn_MakeGenerationInfo(fieldarray, contents, viewproperties, true);
+		
+		// View Padding 설정
+		this.lfn_SetViewPadding();
+
+		//Load Model Information Production Function
+		this.fn_GetModel();
+
+		// When binding is required for the selected field list, the viewdataset should be set.
+		this.oContents.View.attribute.viewdataset = "${VIEW_DATASET}";
+
+		//Load InitValue Information Production Function
+		this.oContents.View.InitValue = this.fn_GetInitValue();
+
+		//Load Object Information Production Function
+		this.oContents.View.Objects = this.fn_GetObjects();
+
+		//Load Script Information Production Function
+		this.oContents.View.Script = this.fn_GetScript();
+
+		//Convert View Component Information to String
+		vResult = JSON.stringify(this.oContents, null, "\t");
+
+		return vResult;
+	};
+
+/************************************************************************************************
+ * Functions Related to the main() Execution Flow
+ ************************************************************************************************/
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetModel
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : model contents (JSON format)
+	* Description  : Function to generate a component source based on field information of the model entered by the user
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetModel = function() {
+	//	nexacro.__onNexacroStudioError("fn_GetModel====>fn_GetModel");
+		// Model값 초기화
+		var oModel = this.oContents.View.Model;	
+
+        //기본 Top Frame 구성 요소 생성
+        this.fn_makeTopFrame();
+
+
+		//그리드 생성
+		//this.fn_makeGrid();
+
+		//Return Information of Model to be Created
+		return oModel;
+
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetObjects
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : objects contents (JSON format)
+	* Description  : Function to generate <Objects> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetObjects = function() {
+		//Initialize Object
+		var oObjects = [];
+		var oInner = [];
+
+		return oObjects;
+	};
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetScript
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : script contents (JSON format)
+	* Description  : Function to generate <Script> source
+	*---------------------------------------------------------------------------------------------*/
+	fn_GetScript = function(){		
+        var oScript = {};											
+        var sValue 	="";
+        //  외부 호출 함수	
+            var sValue = "this.cfn_menuCreate = " 
+                    + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.cfn_menuCreate.toString(),"\r",""),"\n",""),"\t","")
+                    + ";";
+
+        //      top Menu 생성 함수	
+                sValue = sValue + "this.cfn_TopMenuCreate = "
+                    + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.cfn_TopMenuCreate.toString(),"\r",""),"\n",""),"\t","")
+                    + ";"
+
+        //      top Menu click 이벤트 함수
+                sValue = sValue + "this.cfn_topMenu_onclick = "
+                    + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.cfn_topMenu_onclick.toString(),"\r",""),"\n",""),"\t","")
+                    + ";"		
+
+        //      sub menu 생성 함수
+                sValue = sValue + "this.cfn_createSubMenu = "
+                    + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.cfn_createSubMenu.toString(),"\r",""),"\n",""),"\t","")
+                    + ";"		
+
+                sValue = sValue + "this.cfn_createMenu = "
+                    + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.cfn_createMenu.toString(),"\r",""),"\n",""),"\t","")
+                    + ";"
+                    
+                sValue = sValue + "this.cfn_menu_onclick = "
+                    + nexacro.replaceAll(nexacro.replaceAll(nexacro.replaceAll(this.cfn_menu_onclick.toString(),"\r",""),"\n",""),"\t","")
+                    + ";"			   
+
+            oScript = 											
+            {											
+                "tag": "Script",											
+                "attribute": { "type" : "xscript5.1" },											
+                "value": sValue											
+            }											
+                                                        
+                                                        
+            return oScript;											
+        };
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_GetInitValue
+	* Parameter    :
+	*                - this.oFieldArray : model field data
+	*                - this.oContents : view contents
+	*                - this.oViewProperties : attributes for view generation
+	* Return       : initvalue contents (JSON format)
+	* Description  : Function to generate <InitValue> source
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_GetInitValue = function() {
+		var oInitValue = [];
+		/*
+		oInitValue =
+		[
+			{
+				"tag" : "initValue",
+				"initValue" :
+				[
+					{
+						"tag" : "Button",
+						"attribute" :
+						{
+							"id" : "btnSearch", "text" : "Search11"
+						}
+					}
+				]
+			}
+		];
+		*/
+		return oInitValue;
+	};
+	
+/*===============================================================================================*/
+/* Model Generation Related Functions                                                            */	
+/*===============================================================================================*/	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : fn_makeTopFrame
+	* Parameter    :
+	* Return       :
+	* Description  : 
+	*---------------------------------------------------------------------------------------------*/
+	this.fn_makeTopFrame = function() {
+		var oModel = this.oContents.View.Model;
+
+        //Top Background
+		var sCompId		= "sta_background";
+		var sCssClass	= "sta_TF_Bg";
+
+		var oBackground = {
+				"tag" : "Static"
+			   ,"attribute" : {
+					"id"		: sCompId
+				   ,"left"		: "0"
+                   ,"top"       : "0"
+                   ,"right"     : "0"
+                   ,"bottom"    : "0"
+				   ,"text"  	: ""
+				   ,"cssclass" 	: sCssClass
+			   }
+		};
+
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oBackground]};
+
+        //Top Logo
+		var sCompId		= "sta_logo";
+		var sCssClass	= "sta_TF_Logo";
+
+		var oLogo = {
+				"tag" : "Static"
+			   ,"attribute" : {
+					"id"		: sCompId
+				   ,"left"		: "0"
+                   ,"top"       : "0"
+                   ,"width"     : "132"
+                   ,"bottom"    : "0"
+				   ,"text"  	: "NexaLAP"
+				   ,"cssclass" 	: sCssClass
+			   }
+		};
+
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oLogo]}; 
+
+        //Top Logout
+		var sCompId		= "btn_logout";
+		var sCssClass	= "btn_TF_Logout";
+
+		var oLogout = {
+				"tag" : "Button"
+			   ,"attribute" : {
+					"id"		: sCompId
+                   ,"top"       : "11"
+                   ,"width"     : "32"
+                   ,"height"    : "32"                   
+				   ,"right"		: "20"
+				   ,"text"  	: ""
+				   ,"cssclass" 	: sCssClass
+			   }
+		};
+
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oLogout]}; 
+
+        //Top User Info
+		var sCompId		= "sta_userInfo";
+		var sCssClass	= "sta_TF_User";
+
+		var oUserInfo = {
+				"tag" : "Static"
+			   ,"attribute" : {
+					"id"		: sCompId
+                   ,"top"       : "0"
+                   ,"width"     : "83"
+                   ,"height"    : "54"                   
+				   ,"right"		: "67"                   
+				   ,"text"  	: ""
+				   ,"cssclass" 	: sCssClass
+			   }
+		};
+
+		oModel[oModel.length] = { "fieldid" : "", "Components" : [oUserInfo]};         
+    };
+
+/*===============================================================================================*/
+/* List of functions defined inside the script generated by fn_GetScript
+/*-----------------------------------------------------------------------------------------------*/
+/* Notes: 1. Do not include comments inside these functions.                                      */
+/*        2. Escape characters such as '\r, \n, \t' must not be used.                          */
+/*===============================================================================================*/
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : _fnViewOnLoad
+	* Description  : Handles the onload event processing for the view component
+	*---------------------------------------------------------------------------------------------*/
+	this._fnViewOnLoad = function(objForm){
+
+	};
+	
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : cfn_menuCreate
+	* Description  : 외부 호출 함수
+	*---------------------------------------------------------------------------------------------*/
+    this.cfn_menuCreate = function(){
+        var oTopMenuDs = this.parent.getViewDataset();
+        this.cfn_TopMenuCreate(oTopMenuDs);
+    };
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : cfn_TopMenuCreate
+	* Description  : top Menu 생성 함수
+	*---------------------------------------------------------------------------------------------*/
+    this.cfn_TopMenuCreate = function(oTopMenuDs){
+
+        var oMenuBtn = null;
+        var sMenuId = '';
+        var sMenuNm = '';
+        var nLeft = 238;
+        var nTop = 0;
+        
+        /*1 Level 메뉴 컴포넌트 삭제*/
+        var aComponents = this.components;
+        for(var i = aComponents.length -1 ; i >= 0 ; i--){
+            /*메뉴 체크*/
+            if(aComponents[i].cssclass == "btn_TF_Menu" || aComponents[i].cssclass == "btn_TF_MenuS"){
+                this.removeChild(aComponents[i].id);
+            }
+        };
+
+        /*1 Level 메뉴 생성*/
+        oTopMenuDs.filter('MENU_LVL==1');
+        for(var i = 0 ; i < oTopMenuDs.getRowCount() ; i++){
+            sMenuId = 'btn_' + oTopMenuDs.getColumn(i, 'MENU_ID');
+            sMenuNm = oTopMenuDs.getColumn(i, 'MENU_NM');
+            oMenuBtn = new Button();
+            oMenuBtn.init(sMenuId, nLeft, 0, 102, 54);
+            oMenuBtn.set_text(sMenuNm);
+            this.addChild(sMenuId,oMenuBtn);
+            oMenuBtn.set_cssclass("btn_TF_Menu");
+            oMenuBtn.show();
+
+            oMenuBtn.addEventHandler('onclick',this.cfn_topMenu_onclick, this);
+            nLeft = nLeft + 102;
+        };
+        oTopMenuDs.filter('');    
+    };
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : cfn_topMenu_onclick
+	* Description  : top Menu click 이벤트 함수
+	*---------------------------------------------------------------------------------------------*/
+    this.cfn_topMenu_onclick = function(obj, e){ 
+        var oTopMenuDs = this.parent.getViewDataset();
+        var sMenuId = nexacro.replaceAll(obj.name, 'btn_', '');
+        oTopMenuDs.filter('MENU_LVL==1');
+        for(var i = 0 ; i < oTopMenuDs.getRowCount() ; i++){
+            if(oTopMenuDs.getColumn(i,"MENU_ID") == sMenuId){
+                obj.set_cssclass("btn_TF_MenuS");
+            } else {
+                this["btn_"+oTopMenuDs.getColumn(i,"MENU_ID")].set_cssclass("btn_TF_Menu");
+            }
+        }
+        oTopMenuDs.filter('');
+        var nFindRow = oTopMenuDs.findRow('MENU_ID', sMenuId);
+        if(oTopMenuDs.getColumn(nFindRow,'MENU_TYPE')=='F'){
+            this.cfn_createSubMenu(sMenuId);
+        } else {
+            alert('페이지 오픈');
+        };
+    };
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : cfn_createSubMenu
+	* Description  : sub menu poupDiv/2레벨 dataset 생성 함수
+	*---------------------------------------------------------------------------------------------*/
+    this.cfn_createSubMenu = function(sMenuId){
+        var oForm = this.getOwnerFrame().form;
+        var oTopMenuDs = this.parent.getViewDataset();
+        var oPdvMenu = oForm['pdvMenu'];
+
+        if( oPdvMenu == null || oPdvMenu == undefined || oPdvMenu == ''){
+            oPdvMenu = new PopupDiv();
+            oPdvMenu.init('pdvMenu',0,0,0,0);
+            oForm.addChild('pdvMenu', oPdvMenu);
+            oPdvMenu.show();
+
+            oPdvMenu.set_cssclass("pdiv_TF_2DepthBg");
+        };
+        
+        var oSubMenuDs = oForm['ds_subMenu'];
+        if( oSubMenuDs == null || oSubMenuDs == undefined || oSubMenuDs == ''){
+            oSubMenuDs = new Dataset();	   
+            oSubMenuDs.name='ds_subMenu';
+            oForm.addChild('ds_subMenu', oSubMenuDs);
+        };
+        var sFilter = 'TOP_MENU_ID=="' + sMenuId + '"';
+        oTopMenuDs.filter(sFilter);
+        oSubMenuDs.copyData(oTopMenuDs, true);
+        oTopMenuDs.filter('');
+
+        var oMenuDiv = null;
+        var sMenuDivId = '';
+        var nLeft = this["btn_"+sMenuId].left;
+        var nTop = 5;
+        var nWidth = 160;
+        var nHeight = 10;
+        var nRowCnt = 0;
+        var nMaxRowCnt = 0;
+        var sFilter = '';
+
+        var aComponent = oPdvMenu.form.components;
+        for(var i = aComponent.length -1 ; i >= 0 ; i--){
+            oPdvMenu.removeChild(aComponent[i].id);
+        };
+
+        var oMiddleMenuDs = oForm['ds_middleMenu'];
+        if( oMiddleMenuDs == null || oMiddleMenuDs == undefined || oMiddleMenuDs == ''){
+            oMiddleMenuDs = new Dataset();	   
+            oMiddleMenuDs.name='ds_middleMenu';
+            oForm.addChild('ds_middleMenu', oMiddleMenuDs);
+        };
+
+        sFilter = 'MENU_LVL=="2"';
+        oSubMenuDs.filter(sFilter);
+        oMiddleMenuDs.copyData(oSubMenuDs, true);
+        oSubMenuDs.filter('');
+        for(var i = 0 ; i < oMiddleMenuDs.getRowCount() ; i++){
+            sMenuDivId = oMiddleMenuDs.getColumn(i, 'MENU_ID');
+            sFilter = 'MENU_ID=="' + sMenuDivId + '" || UP_MENU_ID=="' + sMenuDivId + '"';
+            oSubMenuDs.filter(sFilter);
+            nRowCnt = oSubMenuDs.getRowCount();
+            oSubMenuDs.filter('');
+            nHeight = nRowCnt * 30 + nRowCnt * 2 + 10;
+            oMenuDiv = new Div();
+            oMenuDiv.init('div_'+ sMenuDivId, nLeft, nTop, nWidth, nHeight);
+            oPdvMenu.addChild('div_'+ sMenuDivId, oMenuDiv);
+            oMenuDiv.show();
+
+            nLeft = nLeft + nWidth;
+            if(nRowCnt > nMaxRowCnt){
+                nMaxRowCnt = nRowCnt;
+            };
+            
+            this.cfn_createMenu(sMenuDivId, oMenuDiv);
+        };
+
+        nDivHeight = nMaxRowCnt * 30 + nMaxRowCnt * 2 + 20;
+        oPdvMenu.trackPopupByComponent(this, 0, this.height, this.width, nDivHeight, '', false);
+    };
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : cfn_createMenu
+	* Description  : 
+	*---------------------------------------------------------------------------------------------*/
+    this.cfn_createMenu = function(sMenuDivId, oMenuDiv){
+        var oForm = this.getOwnerFrame().form;
+        var sMenuType = '';
+        var oCompo = null;
+        var sCompoId = '';
+        var sCompoNm = '';
+        var sCssClass = '';
+        var nLeft = 5;
+        var nTop = 7;
+        var oMenuDs= oForm['ds_subMenu'];
+        var sFilter = 'MENU_ID=="' + sMenuDivId + '" || UP_MENU_ID=="' + sMenuDivId + '"';
+        oMenuDs.filter(sFilter);	
+        for(var i = 0 ; i < oMenuDs.getRowCount() ; i++){
+            sMenuType = oMenuDs.getColumn(i, 'MENU_TYPE');
+            sCompoId = 'menu_'+ oMenuDs.getColumn(i, 'MENU_ID');
+            sCompoNm = oMenuDs.getColumn(i, 'MENU_NM');
+
+            if(sMenuType == 'F'){
+                oCompo = new Static();
+                nLeft = 5;
+                sCssClass = "sta_TF_2Depth";
+            } else { 
+                oCompo = new Button();
+                nLeft = 8;
+                sCssClass = "btn_TF_3Depth";
+            };
+            oCompo.init(sCompoId, nLeft, nTop, 150, 30);
+            oMenuDiv.addChild(sCompoId, oCompo);
+            oCompo.set_text(sCompoNm);
+            oCompo.set_cssclass(sCssClass);
+            oCompo.show();
+            
+            if(sMenuType == 'P'){
+                oCompo.addEventHandler('onclick',this.cfn_menu_onclick, this);
+            };
+            
+            nTop = nTop + 31;
+        };
+        oMenuDs.filter('');	  
+    };
+
+	/*---------------------------------------------------------------------------------------------*
+	* Function     : cfn_menu_onclick
+	* Description  : 
+	*---------------------------------------------------------------------------------------------*/
+    this.cfn_menu_onclick = function(obj, e){
+        var sMenuId = nexacro.replaceAll(obj.name, 'menu_', '');
+        var oForm = this.getOwnerFrame().form;
+		var oNavi = oForm.sta_navigate;
+        var oMenuDs= oForm['ds_subMenu'];
+        var nRow = oMenuDs.findRow('MENU_ID', sMenuId);
+		var nlevel = oMenuDs.getColumn(nRow, 'MENU_LVL');
+		/* Navigate 표시 */
+		var sNavi = "";
+		var nFindRow = nRow;
+		for(var i = nlevel ; i > 1 ; i--){
+			sNavi = "> " + oMenuDs.getColumn(nFindRow, 'MENU_NM') + sNavi;
+			nFindRow = oMenuDs.findRow("MENU_ID",oMenuDs.getColumn(nFindRow,"UP_MENU_ID")); 
+		}
+		sNavi = sNavi.substring(1);
+		sNavi = "●"+ sNavi;
+		oNavi.set_text(sNavi);
+		oNavi.set_visible(true);
+		
+        var sUrl = oMenuDs.getColumn(nRow, 'PRIFIX') + '::' + oMenuDs.getColumn(nRow, 'PGM_URL');
+        if(sUrl != null && sUrl !=undefined && sUrl !=''){
+            oForm.div_work.set_url(sUrl);    
+        } else {
+            alert('연결 Url이 존재 하지 않습니다.');
+        };
+
+        oForm['pdvMenu'].closePopup();
+    };]]>
+  </Script>
+  <TestData>
+    <TestFields><![CDATA[{
+    "fields": [
+        {
+            "id": "field1",
+            "label": "Field1",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Boolean",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "truevalue": "Y",
+                "falsevalue": "N"
+            }
+        },
+        {
+            "id": "field2",
+            "label": "Field2",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Date",
+            "datatype": "DATE",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "dataformat": "yyyy-MM-dd"
+            }
+        },
+        {
+            "id": "field3",
+            "label": "Field3",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Time",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field4",
+            "label": "Field4",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "DateTime",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field5",
+            "label": "Field5",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "FromToDate",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field6",
+            "label": "Field6",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Email",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field7",
+            "label": "Field7",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Image",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field8",
+            "label": "Field8",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Label",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field9",
+            "label": "Field9",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Text",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field10",
+            "label": "Field10",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "LongText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field11",
+            "label": "Field11",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiLineText",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field12",
+            "label": "Field12",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Password",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field13",
+            "label": "Field13",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Number",
+            "datatype": "INT",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field14",
+            "label": "Field14",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Phone",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field15",
+            "label": "Field15",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Price",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field16",
+            "label": "Field16",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "Select",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": {
+                "innerdataset_list": [
+                    {
+                        "label": "TOBESOFT",
+                        "value": "01"
+                    },
+                    {
+                        "label": "A Company",
+                        "value": "02"
+                    },
+                    {
+                        "label": "B Company",
+                        "value": "03"
+                    },
+                    {
+                        "label": "C Company",
+                        "value": "04"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "field17",
+            "label": "Field17",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "MultiSelect",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        },
+        {
+            "id": "field18",
+            "label": "Field18",
+            "uselabel": "true",
+            "editable": "true",
+            "fieldtype": "ProgressBar",
+            "datatype": "STRING",
+            "datasize": "100",
+            "required": "false",
+            "description_ENG": "",
+            "description_KOR": "",
+            "description_JPN": "",
+            "options": ""
+        }
+    ]
+}]]>
+    </TestFields>
+    <TestViewProperties><![CDATA[{
+    "attributes": {
+        "titletext": "This is title",
+        "fieldwidth": 250,
+        "labelwidth": 100
+    }
+}]]>
+    </TestViewProperties>
+  </TestData>
+</ViewTemplateInfo>
